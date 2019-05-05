@@ -2,9 +2,12 @@
 ## Build Setup
 
 ``` bash
+
 # 初始化项目
 vue init mpvue/mpvue-quickstart myproject
 cd myproject
+
+#克隆这个项目，上面一步可直接忽略
 
 # 安装依赖
 npm install
