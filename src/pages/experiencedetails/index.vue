@@ -5,56 +5,19 @@
     <div>
       <div class="dja hei290">
         <img
-          src="http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
+          :src="content.picture"
           class="hei290"
         >
         <div class="ab bott65">
           <span></span>
-          <div>到实景案例看效果更真实</div>
+          <div>{{ content.title }}</div>
         </div>
       </div>
       <div class="re mar342"></div>
 
-      <div class="cenrt">
-        <wxParse :content="centent"/>
-      </div>
-      <div>
-        <ul>
-          <li class="dja hei120" v-for="(item,index) in listts" :key="index">
-            <img :src="item.pic" class="pics">
-            {{item.name}}
-          </li>
-        </ul>
-      </div>
-      <div class="cenrt">
-        <wxParse :content="centent2"/>
-      </div>
-      <div class="ty_bg">
-        <img :src="ty_bg" class="imsgg">
-        <div class="fls dja">
-          <div class="centers">
-            <img :src="imcon1" class="imcons">
-            <div class="font24 fontwei">预约体验</div>
-          </div>
-        </div>
-        <div class="fls dja">
-          <div class="centers">
-            <img :src="imcon2" class="imcons">
-            <div class="font24 fontwei">确认时间</div>
-          </div>
-        </div>
-        <div class="fls dja">
-          <div class="centers">
-            <img :src="imcon3" class="imcons">
-            <div class="font24 fontwei">实地参观</div>
-          </div>
-        </div>
-      </div>
-      <div class="cenrt">
-        <wxParse :content="centent3"/>
-      </div>
+      <wxParse :content="content.contents" />
       <div class="kuaiqu">
-        <div class="buttn dja">快去预约参观</div>
+        <div class="buttn dja" @click="back()">快去预约参观</div>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -70,12 +33,7 @@ export default {
   },
   data() {
     return {
-      // hujiao: "/static/images/tel.jpg",
-      // daohan: "/static/images/daohan.jpg",
-      // soupic: "/static/images/soupic.png",
-      // trw: 0,
-      // ddty: "到店体验",
-      // indicatorDots: true,
+
       imcon1: "/static/images/imcon1.jpg",
       imcon2: "/static/images/imcon2.jpg",
       imcon3: "/static/images/imcon3.jpg",
@@ -83,114 +41,28 @@ export default {
       shijian: "/static/images/shijian.jpg",
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
-      listts: [
-        {
-          name: "自由预约时间地点",
-          pic: "/static/images/icon1.jpg"
-        },
-        {
-          name: "沟通真实购买用户",
-          pic: "/static/images/icon2.jpg"
-        },
-        {
-          name: "瓷砖真实铺贴效果",
-          pic: "/static/images/icon3.jpg"
-        },
-        {
-          name: "瓷砖实际使用状况",
-          pic: "/static/images/icon4.jpg"
-        }
-      ],
-      // userInfo: {
-      //   nickName: "mpvue",
-      //   avatarUrl: "http://mpvue.com/assets/logo.png"
-      // },
-
-      imgUrls: [
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-      ],
-      lookpro: [
-        {
-          name: "看产品",
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-        },
-        {
-          name: "去体验",
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
-        }
-      ],
-      // shfs: "到家体验",
-      xinfengshan: "IMOLA · 新风尚",
-      fles:
-        "很多人都好奇，设计师装修过各种风格、各种样式的家，那他们自己的家会是什么样呢？今天我们就一起来欣赏一个从业14年的资深设计师的家，看他是如何设计的。",
-      yezhupic:
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d",
-
-      centent: `      <div>
-        <div class="titss">什么是到家体验？</div>
-        <div class="desc mar20" style="">
-          <p>还在纠结装修风格？</p>
-          <p>还在犹豫品牌选择？</p>
-          <p>还想听听更多用户心声？</p>
-          <p>为什么不跟我们一起去线下参观真实业主家！</p>
-        </div>
-        <div class="titss">一、实地参观瓷砖铺贴效果</div>
-        <img src="http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"/>
-      </div>`,
-      centent2: `
-       <div class="titss">二、线上预约，便捷高效</div>
-      <img src="http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"/>`,
-      centent3: `
-       <div class="titss">三、业主热情相邀，享受贵宾体验</div>
-      <img src="http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"/>`
+      content:{}
       //地图结束
     };
   },
 
-  // components: {
-  //   card
-  // },
-
   methods: {
-    onShareAppMessage: function(options) {
-      var that = this; // 设置菜单中的转发按钮触发转发事件时的转发内容
-      console.log(options);
-      var shareObj = {
-        title: "体验馆", // 默认是小程序的名称(可以写slogan等)
-        path: "/pages/experience/index", // 默认是当前页面，必须是以‘/’开头的完整路径
-        imgUrl: "", //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
-        success: function(res) {
-          // 转发成功之后的回调
-          if (res.errMsg == "shareAppMessage:ok") {
-          }
-        },
-        fail: function() {
-          // 转发失败之后的回调
-          if (res.errMsg == "shareAppMessage:fail cancel") {
-            // 用户取消转发
-          } else if (res.errMsg == "shareAppMessage:fail") {
-            // 转发失败，其中 detail message 为详细失败信息
-          }
-        }
-        // 　　　　complete:fucntion(){
-        // 　　　　　　// 转发结束之后的回调（转发成不成功都会执行）
-        //           console.log("gg");
-        // 　　　　},
-      }; // 来自页面内的按钮的转发
-      if (options.from == "button") {
-        var eData = options.target.dataset;
-        console.log(eData.name); // shareBtn // 此处可以修改 shareObj 中的内容
-        shareObj.path = "/pages/experience/index";
-      } // 返回shareObj
-      return shareObj;
-    }
+      back() {
+          mpvue.navigateBack({
+              delta: 1
+          })
+      },
   },
   created() {
     // let app = getApp()
+  },
+  onShow(options) {
+      let _this=this
+      let Query=_this.$http.getQuery()
+      let id=Query.id
+      _this.$http.get('index/getSingContentById/'+id,{},function (res) {
+          _this.content=res.data
+      });
   }
 };
 </script>
@@ -418,15 +290,7 @@ input::-webkit-input-placeholder {
   background-color: #ffdc76;
   border-radius: 20rpx;
   position: relative;
-  animation: myfirst 2s;
-}
-@keyframes myfirst {
-  from {
-    width: 0;
-  }
-  to {
-    width: 65rpx;
-  }
+
 }
 .fix {
   position: fixed;

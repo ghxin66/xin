@@ -1,3 +1,4 @@
+<script src="../../../../../vue/yajie/yajie移动/src/main.js"></script>
 <template>
   <div class="index_index">
     <div class="swiper-box">
@@ -10,25 +11,26 @@
       >
         <block v-for="(item, index) in imgUrls" :key="index">
           <swiper-item class="wid100">
-            <img :src="item" mode="scaleToFill">
+            <img :src="item.big_pic" mode="scaleToFill">
           </swiper-item>
         </block>
       </swiper>
     </div>
-    <swiper
-      class="swiper-box2"
-      display-multiple-items="2"
-      previous-margin="30rpx"
-      next-margin="30rpx"
-      v-if="lookpro.length > 0"
-    >
-      <block v-for="(item, index) in lookpro" :key="index">
-        <swiper-item class="wid100 paddi">
-          <img :src="item.img" mode="scaleToFill">
-          <div class="texts">{{item.name}}</div>
-        </swiper-item>
+
+    <swipers class="swiper-box2" style="padding:0 30rpx;">
+      <block>
+        <swiperitem class="wid100 paddi">
+          <img :src="lookpro.big_pic" mode="scaleToFill">
+        </swiperitem>
       </block>
-    </swiper>
+
+      <block>
+        <swiperitem class="wid100 paddi" @click="bindViewTap('/pages/experience/main')">
+          <img :src="topro.big_pic" mode="scaleToFill">
+        </swiperitem>
+      </block>
+
+    </swipers>
 
     <div class="titss mar30 mar50">
       {{zwal}}
@@ -104,23 +106,9 @@ export default {
         nickName: "mpvue",
         avatarUrl: "http://mpvue.com/assets/logo.png"
       },
-      imgUrls: [
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/management-school-picture/7683b32e-4e44-4b2f-9c03-c21f34320870"
-      ],
-      lookpro: [
-        {
-          name: "看产品",
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-        },
-        {
-          name: "去体验",
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
-        }
-      ],
+      imgUrls: [],
+      lookpro: {},
+      topro: {},
       zwal: "整屋案例",
       shfs: "生活方式",
       xinfengshan: "IMOLA · 新风尚"
@@ -130,13 +118,11 @@ export default {
     card
   },
   methods: {
-    bindViewTap() {
-      const url = "../logs/main";
-      if (mpvuePlatform === "wx") {
-        mpvue.switchTab({ url });
-      } else {
-        mpvue.navigateTo({ url });
-      }
+
+    bindViewTap(url) {
+        mpvue.navigateTo({
+            url: url
+        })
     },
     toproductdetail(e) {
       const url = "/pages/productDetail/main?id=" + e;
@@ -147,9 +133,20 @@ export default {
       }
     }
   },
-
-  created() {
-    // let app = getApp()
+  onShow() {
+      var _this=this
+      // 获取banner图
+      _this.$http.get('index/getAdvListByCatId/15',{},function (res) {
+         _this.imgUrls=res.data
+      })
+      // 获取看产品模块的图
+      _this.$http.get('index/getAdvListByCatId/16',{},function (res) {
+          _this.lookpro=res.data[0]
+      })
+      // 获取去体验模块的图
+      _this.$http.get('index/getAdvListByCatId/17',{},function (res) {
+          _this.topro=res.data[0]
+      })
   }
 };
 </script>

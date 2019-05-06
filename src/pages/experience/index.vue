@@ -3,24 +3,24 @@
     <div>
       <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="trw=0">
         {{shfs}}
-        <span></span>
+        <span v-if="trw==0"></span>
       </div>
       <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="trw=1">
         {{ddty}}
-        <span></span>
+        <span v-if="trw==1"></span>
       </div>
     </div>
     <div style="clear:both;width:100%;height:1px;"></div>
 
     <div v-show="trw==0?'true':''">
-      <div class="dja hei290">
+      <div class="dja hei290" @click="bindViewTap('/pages/experiencedetails/main?id='+news7.id)">
         <img
-          src="http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
+          :src="news7.picture"
           class="hei290"
         >
         <div class="ab bott65">
           <span></span>
-          <div>到实景案例看效果更真实</div>
+          <div>{{ news7.title }}</div>
         </div>
       </div>
 
@@ -73,9 +73,9 @@
         </div>
         <map
           id="map"
-          longitude="113.324520"
-          latitude="23.099994"
-          scale="14"
+          :longitude="longitude"
+          :latitude="latitude"
+          scale="15"
           bindcontroltap="controltap"
           :markers="markers"
           bindmarkertap="markertap"
@@ -208,9 +208,16 @@ export default {
           width: 2,
           dottedLine: true
         }
-      ]
+      ],
 
       //地图结束
+      news7:{
+          title:'',
+          picture:'',
+          id:''
+      },
+      latitude:'',
+      longitude:''
     };
   },
 
@@ -246,58 +253,34 @@ export default {
     toproductdetail(e) {
       const url = "../productDetail/main?id=" + e;
       mpvue.navigateTo({ url });
-      console.log(e);
+
     },
-    bindViewTap() {
-      const url = "../about/main";
-      if (mpvuePlatform === "wx") {
-        mpvue.switchTab({ url });
-      } else {
+    bindViewTap(url) {
+
         mpvue.navigateTo({ url });
-      }
     },
     create_timestamp() {
       return Long.toString(System.currentTimeMillis() / 1000);
-    },
-    onShareAppMessage: function(options) {
-      var that = this; // 设置菜单中的转发按钮触发转发事件时的转发内容
-      console.log(options);
-      var shareObj = {
-        title: "体验馆", // 默认是小程序的名称(可以写slogan等)
-        path: "/pages/experience/index", // 默认是当前页面，必须是以‘/’开头的完整路径
-        imgUrl: "", //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
-        success: function(res) {
-          // 转发成功之后的回调
-          if (res.errMsg == "shareAppMessage:ok") {
-          }
-        },
-        fail: function() {
-          // 转发失败之后的回调
-          if (res.errMsg == "shareAppMessage:fail cancel") {
-            // 用户取消转发
-          } else if (res.errMsg == "shareAppMessage:fail") {
-            // 转发失败，其中 detail message 为详细失败信息
-          }
-        }
-        // 　　　　complete:fucntion(){
-        // 　　　　　　// 转发结束之后的回调（转发成不成功都会执行）
-        //           console.log("gg");
-        // 　　　　},
-      }; // 来自页面内的按钮的转发
-      if (options.from == "button") {
-        var eData = options.target.dataset;
-        console.log(eData.name); // shareBtn // 此处可以修改 shareObj 中的内容
-        shareObj.path = "/pages/experience/index";
-      } // 返回shareObj
-      return shareObj;
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     }
   },
-  created() {
-    // let app = getApp()
+  onShow() {
+      var _this=this
+      // 获取文章
+      _this.$http.get('index/getSingListByCatId/7/1',{},function (res) {
+          _this.news7=res.data[0]
+      })
+      mpvue.getLocation({
+          //返回可以用于wx.openLocation的经纬度
+          success: function (res) {
+              _this.latitude = res.latitude
+              _this.longitude = res.longitude//经度
+          }
+      })
+
   }
 };
 </script>
@@ -441,16 +424,8 @@ input::-webkit-input-placeholder {
   background-color: #ffdc76;
   border-radius: 20rpx;
   position: relative;
-  animation: myfirst 2s;
 }
-@keyframes myfirst {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100rpx;
-  }
-}
+
 .fix {
   position: fixed;
   height: 100rpx;

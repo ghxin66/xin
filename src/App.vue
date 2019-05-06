@@ -78,16 +78,8 @@ swiper {
   background-color: #ffdc76;
   border-radius: 20rpx;
   position: relative;
-  animation: myfirst 2s;
 }
-@keyframes myfirst {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100rpx;
-  }
-}
+
 .fr {
   float: right;
 }
