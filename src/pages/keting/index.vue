@@ -58,13 +58,11 @@ export default {
       urls: [
         {
           shoucan: false,
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
+          img: ""
         },
         {
           shoucan: true,
-          img:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
+          img: ""
         }
       ]
     };
@@ -72,6 +70,11 @@ export default {
   methods: {
     onSlideChangeEnd(e) {
       this.curr = e.target.current;
+      let title=this.urls[e.target.current].title
+
+      wx.setNavigationBarTitle({
+          title: title
+      })
     },
     previewImg(ind) {
       let that = this;
@@ -88,7 +91,27 @@ export default {
     // this.article.replace("<img", '<img style="max-width:100%;height:auto" ');
     // console.log(this.urls);
     // this.previewImg(0);
-  }
+  },
+    onShow(){
+        let _this=this;
+        let Query=_this.$http.getQuery()
+        let id=Query.id
+        let url=Query.url
+
+        _this.$http.get('index/getArticleContentById/'+id,{},function (res) {
+           _this.urls=res.data
+          for(let item in _this.urls){
+             if(url==_this.urls[item].img){
+                 _this.curr=item
+             }
+          }
+          let title=_this.urls[_this.curr].title
+
+          wx.setNavigationBarTitle({
+              title: title
+          })
+        });
+    }
 };
 </script>
 

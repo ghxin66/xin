@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "兴辉",
+  "usingComponents": {
+    "list-html": "../../static/wx-index-list/wx-index-list"
+  }
+}

@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/experience/main",
-    "pages/experiencedetails/main",
-
     "pages/index/main",
     "pages/about/main",
+    "pages/sousuo_article/main",
+    "pages/productlist/main",
+    "pages/experience/main",
     "pages/productDetail/main",
+    "pages/cityselect/main",
     "pages/center/main",
     "pages/centerdetail2/main",
     "pages/centerdetail/main",
@@ -14,9 +15,9 @@
     "pages/panoramic/main",
     "pages/appointmentdetails/main",
     "pages/productdetails_3/main",
-    "pages/productlist/main",
     "pages/keting/main",
-    "pages/sousuo/main"
+    "pages/sousuo/main",
+    "pages/experiencedetails/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -37,7 +38,7 @@
       "selectedIconPath": "static/tabs/home-active.png"
     }, {
       "text": "订单",
-      "pagePath": "pages/about/main",
+      "pagePath": "pages/center/main",
       "iconPath": "static/tabs/orders.png",
       "selectedIconPath": "static/tabs/orders-active.png"
     }],
@@ -49,7 +50,7 @@
       "activeIcon": "static/tabs/home-active.png"
     }, {
       "name": "订单",
-      "pagePath": "pages/about/main",
+      "pagePath": "pages/center/main",
       "icon": "static/tabs/orders.png",
       "activeIcon": "static/tabs/orders-active.png"
     }],

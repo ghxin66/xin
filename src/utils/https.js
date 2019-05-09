@@ -28,31 +28,45 @@ fly.config.baseURL='https://www.xinhui.cnm/index.php/api/v1'
 function get(url,data,callback) {
     fly.get(url,data).then((d)=>{
         let res=d.data
-        if(res.code==10013){
-            mpvue.showToast({
-                title: '请先登录',
-                icon: 'none',
-                duration: 1000,
-                complete:function () {
-                    mpvue.redirectTo({
-                        url: 'pages/center/main?login=true'
-                    })
-                }
-            })
-        }else{
-            if(res.code!=200){
-                mpvue.showToast({
-                    title: res.msg,
-                    icon: 'none',
-                    duration: 1000
-                })
-            }else{
-                callback(res)
-            }
-        }
+        flyres(res,callback)
     }).catch(err=>{
         console.log(err.status,err.message)
     })
+}
+function post(url,data,callback) {
+    fly.post(url, data)
+        .then(function (response) {
+            let res=response.data
+            flyres(res,callback)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function flyres(res,callback) {
+    if(res.code==10013){
+        mpvue.showToast({
+            title: '请先登录',
+            icon: 'none',
+            duration: 1000,
+            complete:function () {
+                mpvue.redirectTo({
+                    url: 'pages/center/main?login=true'
+                })
+            }
+        })
+    }else{
+        if(res.code!=200){
+            mpvue.showToast({
+                title: res.msg,
+                icon: 'none',
+                duration: 1000
+            })
+        }else{
+            callback(res)
+        }
+    }
 }
 export function getQuery() { /* 获取当前路由栈数组 */
     const pages = getCurrentPages()
@@ -63,5 +77,6 @@ export function getQuery() { /* 获取当前路由栈数组 */
 
 export default {
     get,
-    getQuery
+    getQuery,
+    post
 }

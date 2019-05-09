@@ -1,70 +1,84 @@
 <template>
   <div>
     <div class="prode_top">
-      <img :src="productdeal.alxq" alt class="wid100">
+      <image
+              style="width: 100%;height: 750rpx; background-color: #eeeeee;"
+              mode="center"
+              :src="content.picture"
+      ></image>
       <div class="ab cents weiyi">
-        <div class="title">{{productdeal.title}}</div>
+        <div class="title">{{content.title}}</div>
         <div class="dja pf3">
-          <div class="kuai" v-for="(item,index) in productdeal.icon" :key="index">
+          <div class="kuai">
             <div class="vertop">
               <i class="icoon">
-                <img :src="item.pic">
+                <img src="/static/images/icon1.png">
               </i>
-              <span class="descss">{{item.huxin}}</span>
+              <span class="descss">户型</span>
             </div>
-            <div class="mar40 huxin">{{item.val}}</div>
+            <div class="mar40 huxin">{{ content.description }}</div>
+          </div>
+
+          <div class="kuai">
+            <div class="vertop">
+              <i class="icoon">
+                <img src="/static/images/icon2.png">
+              </i>
+              <span class="descss">面积</span>
+            </div>
+            <div class="mar40 huxin">{{ content.link_url }}㎡</div>
+          </div>
+
+          <div class="kuai">
+            <div class="vertop">
+              <i class="icoon">
+                <img src="/static/images/icon3.png">
+              </i>
+              <span class="descss">城市</span>
+            </div>
+            <div class="mar40 huxin">{{ content.author }}</div>
           </div>
         </div>
       </div>
       <div class="borru"></div>
     </div>
 
-    <div class="titss mar30 mar20">
-      {{shfs}}
+    <div class="titss mar30 mar20" v-show="content.massage.length>=1">
+      业主说
       <span></span>
     </div>
-    <div class="dja padd30" style="align-items: flex-start">
+    <div class="dja padd30"  v-show="content.massage.length>=1" style="align-items: flex-start">
       <div class="fle1">
-        <img :src="yezhupic" class="fle1pic">
+        <img src="/static/images/avatar.png" class="fle1pic">
       </div>
-      <div class="fle2">{{fles}}</div>
+      <div class="fle2">{{ content.massage }}</div>
     </div>
+
 
     <div class="cenrt">
-      <!-- <wxParse :content="centent"/> -->
-      <div v-for="(item,indd) in list_item" :key="indd+1">
-        <div class="titss mar20">{{item.title}}</div>
-        <div v-for="(items,index) in item.imgs" :key="index" @click="toketin(items.id)">
-          <img :src="items.pic" mode="widthFix" :style="'width:100%;'">
-        </div>
-        <div class="desc">{{item.text}}</div>
-      </div>
+       <wxParse :content="content.contents.content" @preview="showImgs"/>
     </div>
 
-    <div class="titss mar30 mar20">
-      {{shfs}}
-      <span></span>
-    </div>
+
 
     <div class="clearfix"></div>
 
-    <div class="titss2 mar30" style>
+    <div class="titss2 mar30"  v-show="content.goods_list.length > 0">
       <span></span>
-      {{xinfengshan}}
+      选用产品
     </div>
-    <div class="pad30 mar20">
-      <swiper display-multiple-items="3" next-margin="50rpx" class="fl" v-if="imgUrls.length > 0">
-        <block v-for="(item, index) in imgUrls" :key="index">
-          <swiper-item class="widssgg3 fl" @click="toproductdetails_3(item.id)">
-            <img :src="item.pic" mode="aspectFill">
+    <div class="pad30 mar20" v-show="content.goods_list.length > 0">
+      <swiper
+              :display-multiple-items="multipleItems"
+              next-margin="50rpx"
+              class="fl"
+              :indidator-dots="content.goods_list.length > 0">
+        <block v-for="(item, index) in content.goods_list" :key="index">
+          <swiper-item class="widssgg3 fl">
+            <img :src="item.goods_img" mode="aspectFill">
             <div class="titss2 mar20">
-              <div class="descss eklp1">客厅</div>
-              <div class="eklp1">NIRVIRA</div>
-              <!-- <div class>
-                <i class="icos act fl">#法式</i>
-                <i class="icos fl">#法式</i>
-                <i class="icos fl">#法式</i>
-              </div>-->
+              <div class="descss eklp1">{{ item.space }}</div>
+              <div class="eklp1">{{ item.goods_name }}</div>
             </div>
           </swiper-item>
         </block>
@@ -90,34 +104,29 @@
       </div>
     </div>
     <!--分享-->
-    <div class="dja">
-      <div class="wid100ss padd30" @click="toanli()">
+    <div class="dja" v-show="content.other.length > 0">
+      <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
         <span style="float:left;" class="eklp1 titss">你可能感兴趣的其他案例</span>
         <span style="font-family: cursive;float:right;padding-top:10rpx;">></span>
       </div>
     </div>
     <!--2轮播-->
-    <div class="padd30 lunbo2">
-      <swiper display-multiple-items="1" next-margin="80rpx" class="fl" v-if="imgUrls.length > 0">
-        <block v-for="(item, index) in imgUrls" :key="index">
-          <swiper-item class="widssgg4 fl" @click="toproductdetail(item.id)">
-            <img :src="item.pic">
+    <div class="padd30 lunbo2" v-show="content.other.length > 0">
+      <swiper display-multiple-items="1" next-margin="80rpx" class="fl" v-if="content.other.length > 0">
+        <block v-for="(item, index) in content.other" :key="index">
+          <swiper-item class="widssgg4 fl" @click="toanli('/pages/productDetail/main?id'+item.article_id)">
+            <img :src="item.picture">
             <div class="titss2 mar20 wid270">
-              <div class="eklp1">NIRVIRA</div>
+              <div class="eklp1">{{ item.title }}</div>
               <div class="descss eklp1">
-                客厅
+                {{ item.description }}·{{ item.author }}·{{ item.keyword }}
                 <i class="fr dja" style="margin-top:-10rpx">
                   <a>
                     <img :src="guanzhu" class="ims">
-                  </a>880
+                  </a>{{ item.views }}
                 </i>
               </div>
 
-              <!-- <div class>
-                <i class="icos act fl">#法式</i>
-                <i class="icos fl">#法式</i>
-                <i class="icos fl">#法式</i>
-              </div>-->
             </div>
           </swiper-item>
         </block>
@@ -139,11 +148,11 @@
 <script>
 // import card from "@/components/card";
 
-// import wxParse from "mpvue-wxparse";
+import wxParse from "mpvue-wxparse";
 export default {
-  // components: {
-  //   wxParse
-  // },
+   components: {
+     wxParse
+   },
   data() {
     return {
       wxhy: "/static/images/wechat.jpg",
@@ -152,85 +161,21 @@ export default {
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
-      userInfo: {
-        nickName: "mpvue",
-        avatarUrl: "http://mpvue.com/assets/logo.png"
-      },
-      imgUrls: [
-        {
-          pic:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-          id: 0
-        },
-        {
-          pic:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-          id: 1
-        },
-        {
-          pic:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-          id: 2
-        }
-      ],
-      shfs: "业主说",
-      xinfengshan: "IMOLA · 新风尚",
-      fles:
-        "很多人都好奇，设计师装修过各种风格、各种样式的家，那他们自己的家会是什么样呢？今天我们就一起来欣赏一个从业14年的资深设计师的家，看他是如何设计的。",
-      yezhupic:
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d",
-      productdeal: {
-        title: "我是标题",
-        alxq: "/static/images/alxqbg.jpg",
-        icon: [
-          { pic: "/static/images/icon1.png", huxin: "户型", val: "平房" },
-          { pic: "/static/images/icon2.png", huxin: "面积", val: "70㎡" },
-          { pic: "/static/images/icon3.png", huxin: "城市", val: "广州" }
-        ]
-      },
-      list_item: [
-        {
-          title: "我是标题",
-          imgs: [
-            {
-              id: 0,
-              pic:
-                "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-            },
-            {
-              id: 1,
-              pic:
-                "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-            },
-            {
-              id: 2,
-              pic:
-                "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-            }
-          ],
-          text:
-            "这是一个设计师的家。客厅则根据自己的喜好，选了不同色彩倾向的灰色系，搭配蓝色的抽象画，让空间更有冷静的质感。他认为设计应该真正服务于生活，所以摒弃了复杂的电视背景墙，而是以极具造型感的整排收纳柜代替，从而满足日常生活中的储物需求，也展现出设计中“藏”的本质。"
-        },
-        {
-          title: "我是标题",
-          imgs: [
-            {
-              id: 3,
-              pic:
-                "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
-            },
-            {
-              id: 4,
-              pic:
-                "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d"
-            }
-          ],
-          text: ""
-        }
-      ],
+
       detailImagesHeight: 0,
-      showt: false
-      // centent: "我是富文本，富文本不能为空"
+      showt: false,
+      id:'',
+
+      content:{
+          contents:{
+              imglist:[],
+              content:''
+          },
+          massage:'',
+          goods_list:[],
+          other:[]
+      },
+      multipleItems:1,
     };
   },
 
@@ -249,21 +194,11 @@ export default {
     }
     return {
       title: "蜜蜂demo",
-      path: `../productDetail/main`,
+      path: `/pages/productDetail/main?id=`+this.id,
       success: function(res) {
         // 转发成功
         console.log("转发成功:" + JSON.stringify(res));
-        var shareTickets = res.shareTickets;
-        // if (shareTickets.length == 0) {
-        //   return false;
-        // }
-        // //可以获取群组信息
-        // wx.getShareInfo({
-        //   shareTicket: shareTickets[0],
-        //   success: function (res) {
-        //     console.log(res)
-        //   }
-        // })
+
       },
       fail: function(res) {
         // 转发失败
@@ -277,7 +212,6 @@ export default {
     },
     showthis() {
       //获取相册授权
-
       wx.getSetting({
         success(res) {
           wx.downloadFile({
@@ -306,40 +240,41 @@ export default {
         }
       });
     },
-    toketin(e) {
-      const url = "../keting/main?id=" + e;
-      mpvue.navigateTo({ url });
+    showImgs(e,evn){
+        mpvue.navigateTo({
+            url: '/pages/keting/main?id='+this.id+'&url='+e
+        })
     },
-    bindViewTap() {
-      const url = "../logs/main";
-      if (mpvuePlatform === "wx") {
-        mpvue.switchTab({ url });
-      } else {
-        mpvue.navigateTo({ url });
-      }
-    },
-    toanli() {
-      // console.log("gfds");
-      wx.setStorageSync("trw", 1);
-      const url = "../productlist/main";
-      mpvue.navigateTo({ url });
-    },
-    toappointment() {
-      const url = "../appointment/main";
-      mpvue.navigateTo({ url });
-    },
-    toproductdetails_3(e) {
-      const url = "../productdetails_3/main?id=" + e;
-      mpvue.navigateTo({ url });
-    },
-    toproductdetail(e) {
-      const url = "../productDetail/main?id=" + e;
-      mpvue.navigateTo({ url });
+    toanli(url){
+        mpvue.navigateTo({
+            url: url
+        })
     }
   },
 
-  created() {
-    // let app = getApp()
+  onShow(){
+      let _this=this;
+      let Query=_this.$http.getQuery()
+      let id=Query.id
+//      let id=2
+      _this.id=id
+      mpvue.showLoading({
+          title: '加载中',
+          mask:true
+      })
+      _this.$http.get('index/getArticleDetailsById/'+id,{},function (res) {
+          wx.hideLoading();
+          _this.content=res.data
+          if(_this.content.goods_id>=3){
+              _this.multipleItems=3
+          }
+
+          wx.setNavigationBarTitle({
+            title: _this.content.title
+          })
+      });
+
+
   }
 };
 </script>
@@ -447,8 +382,8 @@ button {
   border-radius: 10rpx;
 }
 .descss {
-  font-size: 0.2rem;
-  color: #999;
+  font-size: 25rpx;
+  /*color: #999;*/
 }
 .titss2 {
   width: 250rpx;
@@ -499,7 +434,7 @@ swiper {
   box-sizing: border-box;
 }
 .prode_top {
-  width: 750rpx;
+  width: 100%;
   height: 750rpx;
   margin: 0 auto;
   position: relative;
@@ -511,8 +446,8 @@ swiper {
 }
 .icoon {
   display: inline-block;
-  width: 30rpx;
-  height: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
   position: relative;
   margin-right: 10rpx;
 }
@@ -523,8 +458,8 @@ swiper {
   position: absolute;
   top: 0;
   left: 0;
-  width: 30rpx;
-  height: 30rpx;
+  width: 35rpx;
+  height: 35rpx;
 }
 .borru {
   width: 750rpx;
@@ -538,12 +473,12 @@ swiper {
   overflow: hidden;
   margin: 0 auto;
 }
-.wid100 {
-  width: 100%;
-  margin: 0 auto;
-  display: block;
-  height: 750rpx;
-}
+/*.wid100 {*/
+  /*width: auto;*/
+  /*margin: 0 auto;*/
+  /*display: block;*/
+  /*height: 750rpx;*/
+/*}*/
 .cents {
   width: 100%;
   margin: 50rpx auto;
@@ -608,7 +543,7 @@ swiper {
   width: 690rpx;
 }
 .huxin {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: bold;
 }
 .wids {

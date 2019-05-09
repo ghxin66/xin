@@ -1,4 +1,4 @@
-<script src="../../../../../vue/yajie/yajie移动/src/main.js"></script>
+
 <template>
   <div class="index_index">
     <div class="swiper-box">
@@ -11,7 +11,7 @@
       >
         <block v-for="(item, index) in imgUrls" :key="index">
           <swiper-item class="wid100">
-            <img :src="item.big_pic" mode="scaleToFill">
+            <img :src="item.big_pic" mode="scaleToFill" @click="topic(item.linkurl,item.adv_id)">
           </swiper-item>
         </block>
       </swiper>
@@ -19,7 +19,7 @@
 
     <swipers class="swiper-box2" style="padding:0 30rpx;">
       <block>
-        <swiperitem class="wid100 paddi">
+        <swiperitem class="wid100 paddi" @click="bindViewTap('/pages/productlist/main')">
           <img :src="lookpro.big_pic" mode="scaleToFill">
         </swiperitem>
       </block>
@@ -118,7 +118,14 @@ export default {
     card
   },
   methods: {
+     topic(linkurl,adv_id){
 
+      if(linkurl==1){
+          mpvue.navigateTo({
+              url:'/pages/about/main?id='+adv_id
+          })
+      }
+    },
     bindViewTap(url) {
         mpvue.navigateTo({
             url: url

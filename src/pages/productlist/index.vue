@@ -1,11 +1,11 @@
 <template>
   <div class="experience">
     <div>
-      <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="gg0()">
+      <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="gg(0)">
         {{pro}}
         <span></span>
       </div>
-      <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="gg1()">
+      <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="gg(1)">
         {{ani}}
         <span></span>
       </div>
@@ -16,11 +16,11 @@
       <div type="submit" class="ab bac">
         <img :src="soupic" class="soupic">
       </div>
-      <input type="text" name="sou" placeholder="大家都在搜。。。" class="sou">
+      <input type="text" name="sou" placeholder="大家都在搜:现代" class="sou">
     </div>
 
     <!-- 0-->
-    <div v-show="trw==0?'true':''">
+    <div v-if="trw==0?'true':''">
       <div class="cenrt">
         <div class="dix">
           <div class="fles2 fontwei">{{product[0].case_title}}</div>
@@ -84,18 +84,7 @@
             </span>
           </div>
         </div>
-        <!--1结束-->
-        <div class="fles1" style="line-height:55rpx" v-show="sels">
-          <span
-            v-for="(items,i) in product_case[1].list"
-            :key="i+1"
-            @click="selec4(i)"
-            :class="(index4===i)?'sspan':''"
-          >
-            {{items.title}}
-            <i class="cha">X</i>
-          </span>
-        </div>
+
 
         <!--结束-->
       </div>
@@ -139,64 +128,27 @@
       </div>
     </div>
 
-    <div v-show="trw==1?'true':''">
+    <div v-if="trw==1?'true':''">
       <!-- 1 -->
 
       <div class="cenrt">
         <!--0-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product_case[0].case_title}}</div>
+        <div class="dix" v-for="(item,index) in product_case" :key="index">
+          <div class="fles2 fontwei">{{ item.title }}</div>
           <div class="fles1">
             <span
-              v-for="(items,index) in product_case[0].list"
-              :key="index"
-              @click="selec_case0(index)"
-              :class="(index_case0===index)?'sspan':''"
+              v-for="(val,key) in item.childs"
+              :key="key"
+              @click="selec_case(index,val.id)"
+              :class="(item.sel===val.id)?'sspan':''"
             >
-              {{items.title}}
+              {{val.name}}
               <i class="cha">X</i>
             </span>
           </div>
         </div>
-        <!--0结束-->
-        <!--1-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product_case[1].case_title}}</div>
-          <div class="fles1">
-            <span
-              v-for="(items,index) in product_case[1].list"
-              :key="index"
-              @click="selec_case1(index)"
-              :class="(index_case1===index)?'sspan':''"
-            >
-              {{items.title}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
-        <!--1结束-->
-        <!--2-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product_case[2].case_title}}</div>
-          <div class="fles1">
-            <span
-              v-for="(items,index) in product_case[2].list"
-              :key="index"
-              @click="selec_case2(index)"
-              :class="(index_case2===index)?'sspan':''"
-            >
-              {{items.title}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
-        <!--2结束-->
-        <!-- <div class="fles1" style="line-height:55rpx" v-show="sels">
-          <span v-for="(items,index) in product_case[3].list" :key="index+1">
-            {{items.title}}
-            <i class="cha">X</i>
-          </span>
-        </div>-->
+
+
 
         <!--结束-->
       </div>
@@ -204,19 +156,18 @@
       <div class="clearfix"></div>
 
       <div class="padd30 lunbo2">
-        <swper vertical class="fl swiper" v-if="imgUrls.length > 0">
-          <block v-for="(item, index) in imgUrls" :key="index">
-            <swiperitem class="widssgg4 fl">
-              <div class="bttn">预约体验</div>
-              <img :src="item" mode="scaleToFill">
+        <swper vertical class="fl swiper" v-if="articlelist.length > 0">
+          <block v-for="(item, index) in articlelist" :key="index">
+            <swiperitem class="widssgg4 fl" @click="toUrl('/pages/productDetail/main?id='+item.article_id)">
+              <img :src="item.picture" mode="scaleToFill">
               <div class="titss2 mar20 wid270">
-                <div class="eklp1" style="font-size:30rpx;">灰色系 | 郑州设计师170 m2小窝</div>
+                <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
                 <div class="descss eklp1">
-                  现代 . 郑州 . 平层
+                  {{ item.description }} . {{ item.author }} . {{ item.keyword }}
                   <i class="fr dja">
                     <a style="margin-top:6rpx">
                       <img :src="shijian" class="imshijian">
-                    </a>&nbsp;23人体验
+                    </a>&nbsp;{{ item.views }}
                   </i>
                 </div>
               </div>
@@ -225,9 +176,15 @@
         </swper>
       </div>
       <div class="clearfix"></div>
-      <div class="dja mar45 martt45">
+      <div class="dja mar45 martt45" v-if="articlelist.length > 0">
         <div class="desc coleee talcen wid100r">
           <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
+          <div class="desc dja linegs"></div>
+        </div>
+      </div>
+      <div class="dja mar45 martt45" v-else>
+        <div class="desc coleee talcen wid100r">
+          <div class="bacfff bacffgg" style="font-size:28rpx;">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>
@@ -252,12 +209,8 @@ export default {
       bofan: "/static/images/bofan.png",
       zantin: "/static/images/zantin.png",
       listing: "/static/images/listing.jpg",
-      shijian: "/static/images/shijian.jpg",
-      imgUrls: [
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-      ],
+      shijian: "/static/images/guanzhu.jpg",
+      imgUrls:[],
       pro: "产品",
       _index: -1,
       product: [
@@ -350,78 +303,9 @@ export default {
           ]
         }
       ],
-      product_case: [
-        {
-          id: 0,
-          case_title: "空间",
-          list: [
-            {
-              id: 0,
-              title: "客厅"
-            },
-            {
-              id: 1,
-              title: "餐厅"
-            },
-            {
-              id: 2,
-              title: "厨房"
-            },
-            {
-              id: 3,
-              title: "卫生间"
-            },
-            {
-              id: 4,
-              title: "卧室"
-            },
-            {
-              id: 5,
-              title: "其他"
-            }
-          ]
-        },
-        {
-          id: 1,
-          case_title: "系列",
-          list: [
-            {
-              id: 0,
-              title: "大理石"
-            },
-            {
-              id: 1,
-              title: "石油"
-            },
-            {
-              id: 2,
-              title: "水泥"
-            },
-            {
-              id: 3,
-              title: "木纹"
-            }
-          ]
-        },
-        {
-          id: 2,
-          case_title: "颜色",
-          list: [
-            {
-              id: 0,
-              title: "米白"
-            },
-            {
-              id: 1,
-              title: "灰色"
-            },
-            {
-              id: 2,
-              title: "紫红"
-            }
-          ]
-        }
-      ],
+      product_case: [],
+        articlelist:[],
+        articleSel:null,
       //产品分类选择
       ins1: -1,
       index0: -1,
@@ -429,58 +313,21 @@ export default {
       index2: -1,
       index3: -1,
       index4: -1,
-      index_case0: -1,
-      index_case1: -1,
-      index_case2: -1,
       centent: "",
-      //地图开始
-      markers: [
-        {
-          // iconPath: "/resources/others.png",
-          id: 0,
-          latitude: 23.099994,
-          longitude: 113.32452,
-          width: 50,
-          height: 50
-        }
-      ],
-      polyline: [
-        {
-          points: [
-            {
-              longitude: 113.3245211,
-              latitude: 23.10229
-            },
-            {
-              longitude: 113.32452,
-              latitude: 23.21229
-            }
-          ],
-          color: "#FF0000DD",
-          width: 2,
-          dottedLine: true
-        }
-      ]
+
+        article_page:1,
+        article_last_page:1,
 
       //地图结束
     };
   },
-  onShow() {
-    if (wx.getStorageSync("trw") == 1) {
-      if (mpvuePlatform === "my") {
-        this.trw = mpvue.getStorageSync({ key: "trw" }).data || [];
-      } else {
-        this.trw = mpvue.getStorageSync("trw") || [];
-      }
-      // console.log(this.trw);
-    } else {
-      this.trw = 0;
-      // console.log(this.trw);
-    }
-  },
+
   methods: {
+    toUrl(url){
+        mpvue.navigateTo({ url });
+    },
     sousuo() {
-      wx.navigateTo({ url: "../sousuo/main" });
+      wx.navigateTo({ url: "/pages/sousuo_article/main" });
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);
@@ -502,44 +349,100 @@ export default {
     selec4(r) {
       this.index4 = r;
     },
-    selec_case0(r) {
-      this.index_case0 = r;
+    selec_case(index,id) {
+        let data=this.product_case[index]
+        this.articleSel=index
+        if(id!=data.sel){
+            data.sel=id
+        }else{
+            data.sel=null
+        }
+        this.article_page=1
+        this.articlelist=[]
+        this.getArticleList()
     },
-    selec_case1(r) {
-      this.index_case1 = r;
+
+    gg(trw){
+        this.trw = trw;
+        this.ins1 = -1;
+        this.index0 = -1;
+        this.index1 = -1;
+        this.index2 = -1;
+        this.index3 = -1;
+        this.index4 = -1;
+        this.sels = false;
+        if(trw==1){
+            this.getArticleFilter()
+        }
+
     },
-    selec_case2(r) {
-      this.index_case2 = r;
+    getArticleFilter(){
+        let _this=this
+        _this.product_case=[];
+        _this.articlelist=[];
+        _this.articleSel=null;
+        _this.getArticleList()
     },
-    gg0() {
-      this.trw = 0;
-      this.ins1 = -1;
-      this.index0 = -1;
-      this.index1 = -1;
-      this.index2 = -1;
-      this.index3 = -1;
-      this.index4 = -1;
-      this.index_case0 = -1;
-      this.index_case1 = -1;
-      this.index_case2 = -1;
-      this.sels = false;
-    },
-    gg1() {
-      this.trw = 1;
-      this.ins1 = -1;
-      this.index0 = -1;
-      this.index1 = -1;
-      this.index2 = -1;
-      this.index3 = -1;
-      this.index4 = -1;
-      this.index_case0 = -1;
-      this.index_case1 = -1;
-      this.index_case2 = -1;
-      this.sels = false;
+    getArticleList(){
+        let _this=this;
+        mpvue.showLoading({
+            title: '加载中',
+            mask:true
+        })
+        let filter=[]
+        // 获取筛选条件
+        for(let item in _this.product_case){
+            let sel=_this.product_case[item].sel
+            if(sel!=null){
+                filter.push({
+                    filter_id:_this.product_case[item].id,
+                    filter_value:sel,
+                })
+            }
+        }
+        _this.$http.get('index/getArticleByCatId/5',{
+            page:_this.article_page,
+            filter:filter,
+            articleSel:_this.articleSel,
+            filterBool:1
+        },function (res) {
+            wx.hideLoading();
+            _this.article_last_page=res.data.last_page
+            let list=res.data.data
+            for(let item in list){
+                _this.articlelist.push(list[item])
+            }
+            if(_this.article_page==1 && res.data.filter.length>=1){
+                _this.product_case=res.data.filter
+            }
+
+
+        })
     },
     videoPlay(index, e) {
       this.videosing = !this.videosing;
     }
+  },
+  onShow() {
+      let _this=this;
+      let Query=_this.$http.getQuery()
+      let trw=Query.trw?Query.trw:0
+      if(trw==1){
+          _this.gg(1)
+      }else{
+          _this.gg(0)
+      }
+
+  },
+  onReachBottom(){
+
+      if(this.trw==1){
+          if(this.article_page<this.article_last_page){
+              this.article_page +=1
+              this.getArticleList()
+          }
+      }
+
   }
 };
 </script>
@@ -625,7 +528,7 @@ export default {
   width: 690rpx;
 }
 .fles1 span {
-  padding: 6rpx 27rpx;
+  padding: 6rpx 18rpx;
   border-radius: 30rpx;
   font-size: 24rpx;
   color: #333;
