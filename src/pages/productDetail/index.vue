@@ -197,7 +197,8 @@
       </div>
       <div class="dis2">
         <div class="dja">
-          <img :src="shoucan" class="tupic">
+          <img :src="shoucan" class="tupic" v-show="shoucaning">
+          <img :src="yishoucan" class="tupic2" v-show="!shoucaning">
         </div>
       </div>
     </div>
@@ -214,6 +215,7 @@ export default {
   },
   data() {
     return {
+      shoucaning: false,
       wxhy: "/static/images/wechat.jpg",
       pyq: "/static/images/frient.jpg",
       indicatorDots: true,
@@ -221,6 +223,7 @@ export default {
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
       righs: "/static/images/right.png",
+      yishoucan: "/static/images/yishoucan.png",
       detailImagesHeight: 0,
       showt: false,
       id: "",
@@ -387,6 +390,12 @@ button {
   height: 58rpx;
   margin: 0 20rpx;
 }
+.tupic2 {
+  width: 56rpx;
+  height: 54rpx;
+  margin: 0 20rpx;
+}
+
 .butt {
   width: 470rpx;
   height: 70rpx;
