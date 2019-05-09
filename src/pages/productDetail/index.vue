@@ -70,7 +70,7 @@
     <div class="pad30 mar20" v-show="content.goods_list.length > 0">
       <swiper
               :display-multiple-items="multipleItems"
-              next-margin="50rpx"
+              next-margin="30rpx"
               class="fl"
               :indidator-dots="content.goods_list.length > 0">
         <block v-for="(item, index) in content.goods_list" :key="index">
@@ -107,7 +107,9 @@
     <div class="dja" v-show="content.other.length > 0">
       <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
         <span style="float:left;" class="eklp1 titss">你可能感兴趣的其他案例</span>
-        <span style="font-family: cursive;float:right;padding-top:10rpx;">></span>
+        <span style="font-family: cursive;float:right;padding-top:10rpx;">
+          <img :src="righs" style="width:10rpx;height:22rpx;">
+        </span>
       </div>
     </div>
     <!--2轮播-->
@@ -161,7 +163,7 @@ export default {
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
-
+      righs: "/static/images/right.png",
       detailImagesHeight: 0,
       showt: false,
       id:'',
@@ -369,8 +371,16 @@ button {
   color: #999 !important;
   font-size: 24rpx;
 }
+.widssgg3:first-child {
+  margin-right: 30rpx;
+  box-sizing: border-box;
+}
+.widssgg3 {
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
 .widssgg3 image {
-  width: 210rpx;
+  width: 100%;
   height: 200rpx;
   overflow: hidden;
   border-radius: 10rpx;
@@ -386,7 +396,7 @@ button {
   /*color: #999;*/
 }
 .titss2 {
-  width: 250rpx;
+  width: 210rpx;
 }
 .fle1pic {
   width: 100rpx;
