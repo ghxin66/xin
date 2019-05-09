@@ -61,7 +61,7 @@
                   </div>
                   <i class="fr dja">
                     <div>
-                      <img :src="bofan" v-show="item.urls" class="ims" @click="videoPlay(index)">
+                      <img :src="bofan" class="ims" @click="videoPlay(index)">
                     </div>
                   </i>
                 </div>
@@ -118,7 +118,7 @@
               class="widssgg4 fl"
               @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
             >
-              <img :src="item.picture" mode="scaleToFill">
+              <img :src="item.picture" mode="scaleToFill" class="tupi">
               <div class="titss2 mar20 wid270">
                 <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
                 <div class="descss eklp1">

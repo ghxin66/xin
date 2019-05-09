@@ -225,7 +225,7 @@ swiper {
   display: inline-block;
   position: absolute;
   right: -15rpx;
-  bottom: 5rpx;
+  top: 2rpx;
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
