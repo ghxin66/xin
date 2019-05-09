@@ -244,7 +244,7 @@ export default {
     },
     showImgs(e,evn){
         mpvue.navigateTo({
-            url: '/pages/keting/main?id='+this.id+'&url='+e
+            url: '/pages/keting/main?type=article&id='+this.id+'&url='+e
         })
     },
     toanli(url){

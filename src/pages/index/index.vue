@@ -33,21 +33,23 @@
     </swipers>
 
     <div class="titss mar30 mar50">
-      {{zwal}}
+      整屋案例
       <span></span>
     </div>
 
-    <div class="wids ">
-      <swiper next-margin="30rpx" previous-margin="30rpx" class="fl pross" v-if="imgUrls.length > 0">
-        <block v-for="(item, index) in imgUrls" :key="index">
-          <swiper-item class="widss fl" @click="toproductdetail(item.id)">
-            <img :src="item" mode="scaleToFill">
+
+    <div class="wids pad30">
+      <swiper next-margin="70rpx" class="fl pross" v-if="articlelist.length > 0">
+        <block v-for="(item, index) in articlelist" :key="index">
+          <swiper-item class="widss fl" @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)">
+            <img :src="item.picture" mode="scaleToFill">
+
             <div class="titss2 mar20">
-              低调沉稳，策划过年都法式别墅
+            {{ item.title }}
               <div class>
-                <i class="icos act fl">#法式</i>
-                <i class="icos fl">#法式</i>
-                <i class="icos fl">#法式</i>
+                <i class="icos act fl">#{{ item.keyword }}</i>
+                <i class="icos fl">#{{ item.author }}</i>
+                <i class="icos fl">#{{ item.description }}</i>
               </div>
             </div>
           </swiper-item>
@@ -83,11 +85,12 @@
         next-margin="30rpx"
         previous-margin="30rpx"
         class="fl prossgg marbtn50"
-        v-if="imgUrls.length > 0"
+        v-if="goodslist.length > 0"
       >
-        <block v-for="(item, index) in imgUrls" :key="index">
-          <swiper-item class="widssgg fl">
-            <img :src="item" mode="scaleToFill">
+        <block v-for="(item, index) in goodslist" :key="index">
+
+          <swiper-item class="widssgg fl" @click="bindViewTap('/pages/productdetails_3/main?id='+item.goods_id)">
+            <img :src="item.goods_img" mode="center">
           </swiper-item>
         </block>
       </swiper>
@@ -112,7 +115,9 @@ export default {
       topro: {},
       zwal: "整屋案例",
       shfs: "生活方式",
-      xinfengshan: "IMOLA · 新风尚"
+      xinfengshan: "SANFI · 新风尚",
+        articlelist:[],
+        goodslist:[]
     };
   },
   components: {
@@ -120,10 +125,13 @@ export default {
   },
   methods: {
      topic(linkurl,adv_id){
-
       if(linkurl==1){
           mpvue.navigateTo({
               url:'/pages/about/main?id='+adv_id
+          })
+      }else{
+          mpvue.navigateTo({
+              url:'/pages/about2/main?id='+adv_id
           })
       }
     },
@@ -155,6 +163,15 @@ export default {
       _this.$http.get('index/getAdvListByCatId/17',{},function (res) {
           _this.topro=res.data[0]
       })
+      // 获取案例
+      _this.$http.get('index/getArticleByCatId/5',{},function (res) {
+          _this.articlelist=res.data.data
+      })
+      // 获取产品
+      _this.$http.get('product/getGoodsListByParam',{},function (res) {
+          _this.goodslist=res.data.data
+      })
+
   }
 };
 </script>

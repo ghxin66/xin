@@ -97,8 +97,16 @@ export default {
         let Query=_this.$http.getQuery()
         let id=Query.id
         let url=Query.url
+        let type=Query.type
 
-        _this.$http.get('index/getArticleContentById/'+id,{},function (res) {
+        let geturl
+        if(type=="goods"){
+            geturl='product/getGoodsContentById/'+id
+        }else{
+            geturl='index/getArticleContentById/'+id
+        }
+
+        _this.$http.get(geturl,{},function (res) {
            _this.urls=res.data
           for(let item in _this.urls){
              if(url==_this.urls[item].img){

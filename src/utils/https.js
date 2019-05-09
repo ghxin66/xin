@@ -52,7 +52,7 @@ function flyres(res,callback) {
             duration: 1000,
             complete:function () {
                 mpvue.redirectTo({
-                    url: 'pages/center/main?login=true'
+                    url: '/pages/center/main?login=1'
                 })
             }
         })
