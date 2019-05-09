@@ -3,21 +3,18 @@
     <div>
       <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="trw=0">
         {{shfs}}
-        <span v-if="trw==0"></span>
+        <span v-if="trw==0" class="gjsd"></span>
       </div>
       <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="trw=1">
         {{ddty}}
-        <span v-if="trw==1"></span>
+        <span v-if="trw==1" class="gjsd"></span>
       </div>
     </div>
     <div style="clear:both;width:100%;height:1px;"></div>
 
     <div v-show="trw==0?'true':''">
       <div class="dja hei290" @click="bindViewTap('/pages/experiencedetails/main?id='+news7.id)">
-        <img
-          :src="news7.picture"
-          class="hei290"
-        >
+        <img :src="news7.picture" class="hei290">
         <div class="ab bott65">
           <span></span>
           <div>{{ news7.title }}</div>
@@ -34,17 +31,24 @@
       <div class="padd30 lunbo2">
         <swper vertical class="fl swiper" v-if="imgUrls.length > 0">
           <block v-for="(item, index) in imgUrls" :key="index">
-            <swiperitem class="widssgg4 fl" @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)">
+            <swiperitem
+              class="widssgg4 fl"
+              @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)"
+            >
               <div class="bttn">预约体验</div>
               <img :src="item.picture" mode="scaleToFill">
               <div class="titss2 mar20 wid270">
                 <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
                 <div class="descss eklp1">
                   {{ item.description }} . {{ item.author }} . {{ item.keyword }}
-                  <i class="fr dja" style="margin-top:-10rpx">
+                  <i
+                    class="fr dja"
+                    style="margin-top:-10rpx"
+                  >
                     <a>
                       <img :src="shijian" class="ims">
-                    </a>&nbsp;{{ item.reser_number }}人体验
+                    </a>
+                    &nbsp;{{ item.reser_number }}人体验
                   </i>
                 </div>
               </div>
@@ -88,7 +92,12 @@
       </div>
       <div class="clearfix"></div>
 
-      <div class="dibu" v-for="(item,index) in business_list" :key="index" @click="busine_click(item.lat,item.lng)">
+      <div
+        class="dibu"
+        v-for="(item,index) in business_list"
+        :key="index"
+        @click="busine_click(item.lat,item.lng)"
+      >
         <div class="dj dibu_view">
           <div class="fles1">
             <div class="gonli">
@@ -113,9 +122,7 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </template>
@@ -145,7 +152,7 @@ export default {
       lookpro: [],
       shfs: "到家体验",
       xinfengshan: "IMOLA · 新风尚",
-      fles:'',
+      fles: "",
       yezhupic: "",
 
       centent: "",
@@ -161,17 +168,17 @@ export default {
       ],
 
       //地图结束
-      news7:{
-          title:'',
-          picture:'',
-          id:''
+      news7: {
+        title: "",
+        picture: "",
+        id: ""
       },
-      latitude:'',
-      longitude:'',
-      business_list:[],
-      mycity:'',
-      page:1,
-        last_page:1
+      latitude: "",
+      longitude: "",
+      business_list: [],
+      mycity: "",
+      page: 1,
+      last_page: 1
     };
   },
 
@@ -181,11 +188,11 @@ export default {
 
   methods: {
     tijiao() {
-        mpvue.navigateTo({
-            url: '/pages/cityselect/main?mycity='+this.mycity
-        })
+      mpvue.navigateTo({
+        url: "/pages/cityselect/main?mycity=" + this.mycity
+      });
     },
-    daohans(lat,lng) {
+    daohans(lat, lng) {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
       wx.openLocation({
@@ -208,7 +215,7 @@ export default {
     },
 
     bindViewTap(url) {
-        mpvue.navigateTo({ url });
+      mpvue.navigateTo({ url });
     },
     create_timestamp() {
       return Long.toString(System.currentTimeMillis() / 1000);
@@ -217,97 +224,98 @@ export default {
       console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     },
-    busine_click(lat,lng){
-        this.latitude=lat
-        this.longitude=lng
+    busine_click(lat, lng) {
+      this.latitude = lat;
+      this.longitude = lng;
     },
-    getcaselist(){
-      let _this=this
+    getcaselist() {
+      let _this = this;
       mpvue.showLoading({
-          title: '加载中',
-          mask:true
-      })
-      _this.$http.get('index/getArticleByCatId/5',{page:_this.page},function (res) {
+        title: "加载中",
+        mask: true
+      });
+      _this.$http.get(
+        "index/getArticleByCatId/5",
+        { page: _this.page },
+        function(res) {
           wx.hideLoading();
-          _this.last_page=res.data.last_page
-          let list=res.data.data
+          _this.last_page = res.data.last_page;
+          let list = res.data.data;
 
-          for(let item in list){
-              _this.imgUrls.push(list[item])
+          for (let item in list) {
+            _this.imgUrls.push(list[item]);
           }
-      })
+        }
+      );
     }
   },
-  onLoad: function () {
-      // 实例化API核心类
-      qqmapsdk = new QQMapWX({
-          key: 'ZZHBZ-L3J3W-U55R6-ROONK-TQIMO-RTF55'
-      });
-
+  onLoad: function() {
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: "ZZHBZ-L3J3W-U55R6-ROONK-TQIMO-RTF55"
+    });
   },
   onShow() {
-      var _this=this
+    var _this = this;
 
-      // 获取文章
-      _this.$http.get('index/getSingListByCatId/7/1',{},function (res) {
-          _this.news7=res.data[0]
-      })
-      mpvue.showLoading({
-          title: '加载中',
-          mask:true
-      })
-      mpvue.getLocation({
-          //返回可以用于wx.openLocation的经纬度
-          success: function (res) {
-              _this.latitude = res.latitude
-              _this.longitude = res.longitude//经度
-              let mycity=_this.$http.getQuery().mycity
-              if(mycity){
-                  _this.trw=1
-              }
-              qqmapsdk.reverseGeocoder({
-                  location:_this.latitude+','+_this.longitude,
-                  success:function (res) {
+    // 获取文章
+    _this.$http.get("index/getSingListByCatId/7/1", {}, function(res) {
+      _this.news7 = res.data[0];
+    });
+    mpvue.showLoading({
+      title: "加载中",
+      mask: true
+    });
+    mpvue.getLocation({
+      //返回可以用于wx.openLocation的经纬度
+      success: function(res) {
+        _this.latitude = res.latitude;
+        _this.longitude = res.longitude; //经度
+        let mycity = _this.$http.getQuery().mycity;
+        if (mycity) {
+          _this.trw = 1;
+        }
+        qqmapsdk.reverseGeocoder({
+          location: _this.latitude + "," + _this.longitude,
+          success: function(res) {
+            let city = res.result.address_component.city;
+            if (mycity) {
+              city = mycity;
+            }
+            _this.mycity = city;
+            _this.$http.get(
+              "index/getBusinessList/" + city,
+              { latlng: _this.latitude + "," + _this.longitude },
+              function(res) {
+                mpvue.hideLoading();
+                _this.business_list = res.data;
 
-                      let city=res.result.address_component.city
-                      if(mycity){
-                          city=mycity
-                      }
-                      _this.mycity=city;
-                      _this.$http.get(
-                          'index/getBusinessList/'+city,
-                          {latlng:_this.latitude+','+_this.longitude},
-                          function (res) {
-                            mpvue.hideLoading()
-                            _this.business_list=res.data
-
-                            for(let item in _this.business_list){
-                                if(item==0){
-                                    _this.latitude=_this.business_list[item].lat
-                                    _this.longitude=_this.business_list[item].lng
-                                }
-                                _this.markers.push({
-                                    id: item,
-                                    latitude: _this.business_list[item].lat,
-                                    longitude: _this.business_list[item].lng,
-                                    width: 50,
-                                    height: 50
-                                })
-                            }
-
-                          }
-                      )
+                for (let item in _this.business_list) {
+                  if (item == 0) {
+                    _this.latitude = _this.business_list[item].lat;
+                    _this.longitude = _this.business_list[item].lng;
                   }
-              })
+                  _this.markers.push({
+                    id: item,
+                    latitude: _this.business_list[item].lat,
+                    longitude: _this.business_list[item].lng,
+                    width: 50,
+                    height: 50
+                  });
+                }
+              }
+            );
           }
-      })
-      _this.getcaselist()
-  },
-  onReachBottom(){
-      if(this.page<this.last_page){
-          this.page +=1
-          this.getcaselist()
+        });
       }
+    });
+    _this.getcaselist();
+  },
+  onReachBottom() {
+    if (this.page < this.last_page) {
+      this.page += 1;
+      this.getcaselist();
+    }
   }
 };
 </script>
@@ -357,7 +365,7 @@ export default {
   margin-top: 10rpx;
   margin-left: 10rpx;
 }
-.titss4{
+.titss4 {
   color: #333;
   position: relative;
   width: max-content;

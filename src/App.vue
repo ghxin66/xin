@@ -213,6 +213,9 @@ swiper {
   border-radius: 50%;
   background: rgb(231, 170, 3);
 }
+.col999 .gjsd {
+  display: none;
+}
 .dess {
   position: relative;
   width: max-content;
