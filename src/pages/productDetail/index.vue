@@ -139,7 +139,8 @@
         <img :src="listing" class="tupic">
       </button>
       <div class="dja">
-        <img :src="shoucan" class="tupic">
+        <img :src="shoucan" class="tupic" v-if="!content.collect" @click="collect(1)">
+        <img :src="yishoucan" class="tupic" v-else @click="collect(2)">
       </div>
     </div>
   </div>
@@ -161,6 +162,7 @@ export default {
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
+      yishoucan: "/static/images/yishoucan.png",
 
       detailImagesHeight: 0,
       showt: false,
@@ -248,6 +250,34 @@ export default {
     toanli(url){
         mpvue.navigateTo({
             url: url
+        })
+    },
+    collect(type){
+       let url
+        let _this=this
+        if(type==1){
+           url="user/collect"
+        }else{
+           url="user/cancelCollect"
+        }
+        mpvue.showLoading({
+            title: '请求中',
+            mask:true
+        })
+        _this.$http.post(url,{key:_this.content.article_id,cat_id:1},function (res) {
+            wx.hideLoading();
+            if(type==1){
+                _this.content.collect=true
+            }else{
+                _this.content.collect=false
+            }
+
+            wx.showToast({
+                title: res.msg,
+                icon: 'success',
+                duration: 1500
+            })
+
         })
     }
   },

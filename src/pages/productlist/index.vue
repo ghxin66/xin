@@ -198,6 +198,8 @@ export default {
     sousuo() {
         if(this.trw==1){
             wx.navigateTo({ url: "/pages/sousuo_article/main" });
+        }else{
+            wx.navigateTo({ url: "/pages/sousuo/main" });
         }
     },
     clickHandle(ev) {

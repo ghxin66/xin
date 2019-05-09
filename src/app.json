@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/center/main",
     "pages/productlist/main",
     "pages/productdetails_3/main",
     "pages/panoramicdetails/main",
@@ -10,17 +11,14 @@
     "pages/experience/main",
     "pages/productDetail/main",
     "pages/cityselect/main",
-    "pages/center/main",
     "pages/centerdetail2/main",
     "pages/centerdetail/main",
     "pages/appointment/main",
     "pages/panoramic/main",
     "pages/appointmentdetails/main",
-
     "pages/keting/main",
     "pages/sousuo/main",
-    "pages/experiencedetails/main",
-    "pages/shouquan/main"
+    "pages/experiencedetails/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -5,15 +5,58 @@
       <input type="text" name="sou" v-model="val" placeholder="大家都在搜。。。" class="sou">
       <span class="font28 widtal" @click="sou_pro(val)">搜索</span>
     </div>
-    <div class="cenrt">
+    <div class="cenrt" v-show="isClicktrue==0">
       <ul>
         <li
           v-for="(item,index) in sou_content"
           :key="index+1"
           class="soucon"
-          @click="fenlei(item.title)"
-        >{{item.title}}</li>
+          @click="fenlei(item.keyword)"
+        >{{item.keyword}}</li>
       </ul>
+    </div>
+
+    <div class="padd30 lunbo2">
+      <swper vertical class="fl swiper" v-if="goodslist.length > 0">
+        <block v-for="(item, index) in goodslist" :key="index">
+          <swiperitem class="widssgg4 fl">
+            <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
+            <video
+                    :src="item.urls"
+                    v-show="item.videosing==1"
+                    :id="'myVideo_'+index"
+            ></video>
+            <div class="titss2 mar20 wid270">
+              <div class="eklp1 fontwei">
+                <div class="dess">
+                  {{ item.goods_name }}
+                  <i></i>
+                </div>
+                <i class="fr dja">
+                  <div>
+                    <img :src="bofan" v-show="item.urls" class="ims" @click="videoPlay(index)">
+                  </div>
+                </i>
+              </div>
+              <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
+            </div>
+          </swiperitem>
+        </block>
+      </swper>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="dja mar45 martt45" v-if="goodslist.length > 0">
+      <div class="desc coleee talcen wid100r">
+        <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
+        <div class="desc dja linegs"></div>
+      </div>
+    </div>
+    <div class="dja mar45 martt45" v-else>
+      <div class="desc coleee talcen wid100r" v-if="isClicktrue">
+        <div class="bacfff bacffgg" style="font-size:28rpx;color: #000">暂无数据</div>
+        <div class="desc dja linegs"></div>
+      </div>
     </div>
 
     <!--填写手机号弹框-->
@@ -38,36 +81,18 @@ export default {
       changeModel: false,
       isModel: false,
       val: "",
-      sou_content: [
-        {
-          title: "客厅"
-        },
-        {
-          title: "卫生间"
-        },
-        {
-          title: "马卡龙"
-        },
-        {
-          title: "安特瑞斯"
-        },
-        {
-          title: "卡瑞拉"
-        },
-        {
-          title: "吉那斯"
-        },
-        {
-          title: "KOALA"
-        },
-        {
-          title: "紫金"
-        }
-      ]
+      sou_content: [],
       //地图结束
+        isClicktrue:false,
+        goodslist:[],
+        goods_page:1,
+        goods_last_page:1,
     };
   },
   methods: {
+      toUrl(url){
+          mpvue.navigateTo({ url });
+      },
     //  弹框取消
     tapCancel() {
       // this.phoneNumber = "";
@@ -83,26 +108,55 @@ export default {
       // this.$emit("confirmSend", this.phoneNumber);
       // this.phoneNumber = "";
     },
-    sou_pro(val) {
+    sou_pro() {
+        let val=this.val
       if (val.trim() == "" || val.trim() == null) {
         this.changeModel = !this.changeModel;
         this.isModel = !this.isModel;
       } else {
-        console.log(val.trim(val));
+            this.goodslist=[]
+          this.getArticleList()
       }
     },
-    fenlei(val) {
-      if (val.trim() == "" || val.trim() == null) {
-        this.changeModel = !this.changeModel;
-        this.isModel = !this.isModel;
-      } else {
-        console.log(val.trim(val));
+    fenlei(keyrowd) {
+        this.val=keyrowd
+        this.getArticleList()
+    },
+      getArticleList(){
+          let _this=this;
+
+          mpvue.showLoading({
+              title: '加载中',
+              mask:true
+          })
+          _this.$http.get('product/getGoodsListByParam/',{
+              page:_this.goods_page,
+              keyword:_this.val,
+          },function (res) {
+              wx.hideLoading();
+              _this.goods_last_page=res.data.last_page
+              let list=res.data.data
+              for(let item in list){
+                  _this.goodslist.push(list[item])
+              }
+              _this.isClicktrue=true;
+          })
       }
-    }
   },
-  created() {
-    // let app = getApp()
-  }
+    onShow() {
+        let _this=this
+
+        _this.$http.get('product/getSearchList',{},function (res) {
+            _this.sou_content=res.data
+        })
+    },
+    onReachBottom(){
+        if(this.goods_page<this.goods_last_page){
+            this.goods_page +=1
+            this.getArticleList()
+        }
+
+    }
 };
 </script>
 
@@ -120,6 +174,7 @@ export default {
   background-color: #edecec;
   border-radius: 8rpx;
   float: left;
+  overflow:hidden ;
 }
 .soucon:nth-child(4n) {
   margin: 36rpx 0rpx 0 0;
@@ -221,6 +276,76 @@ export default {
   text-align: center;
 }
 /* tangkuang */
+.padd30 {
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.cents .desc {
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+.swiper-box2 {
+  overflow: hidden;
+  margin: 25rpx auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150rpx;
+}
+.texts {
+  text-align: center;
+  line-height: 150rpx;
+  position: absolute;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+.pross {
+  height: 550rpx;
+}
+.paddi {
+  height: 150rpx !important;
+  padding: 15rpx;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.paddi:first-child {
+  padding-left: 0;
+}
+.paddi:last-child {
+  padding-right: 0;
+}
+.paddi img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+.wid100 image {
+  border-radius: 16rpx;
+  height: 400rpx;
+  width: 690rpx;
+}
+.huxin {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.wids {
+  margin: 40rpx auto;
+  display: block;
+  max-width: 100%;
+}
+.widss image {
+  border-radius: 16rpx;
+  height: 370rpx;
+  width: 630rpx;
+}
+.prossgg {
+  height: 280rpx;
+}
 .re {
   position: relative;
 }
