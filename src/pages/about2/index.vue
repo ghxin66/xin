@@ -22,9 +22,13 @@
         </div>
         <div>
           <img :src="item.key_id.goods_img" class="wid100 ovh">
-          <div class="title">{{item.key_id.goods_name}}系列</div>
+          <div class="desc" style="width:max-content;">
+            <span style="float:left">{{item.key_id.goods_name}}系列</span>
+            <span class="arrow-up" style="float:left"></span>
+          </div>
+          <div class="clearfix"></div>
         </div>
-        <div class="desc">{{item.mcontent}}</div>
+        <div class="desc mar20">{{item.mcontent}}</div>
       </div>
 
       <!-- <wxParse :content="article"/> -->
@@ -311,7 +315,15 @@ button {
   height: 400rpx;
   position: relative;
 }
-
+.arrow-up {
+  width: 0;
+  margin-top: 20rpx;
+  margin-left: 10rpx;
+  height: 0;
+  border-left: 7rpx solid transparent;
+  border-right: 7rpx solid transparent;
+  border-bottom: 15rpx solid rgb(236, 181, 0);
+}
 .ban_cen image {
   width: 100%;
   height: 100%;

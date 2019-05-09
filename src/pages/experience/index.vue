@@ -91,34 +91,35 @@
         ></map>
       </div>
       <div class="clearfix"></div>
-
-      <div
-        class="dibu"
-        v-for="(item,index) in business_list"
-        :key="index"
-        @click="busine_click(item.lat,item.lng)"
-      >
-        <div class="dj dibu_view">
-          <div class="fles1">
-            <div class="gonli">
-              <span>{{ item.distance }}公里</span>
-              <span v-show="index==0">距离最短</span>
-            </div>
-            <div class="titss3">{{ item.bus_name }}</div>
-            <div class="titss4">{{ item.address }}</div>
-          </div>
-          <div class="fles2 dja">
-            <div @click="calling(item.mobile)" class="s100rp">
-              <div class="dja">
-                <img :src="hujiao" class="hujiao">
+      <div cla>
+        <div
+          class="dibu"
+          v-for="(item,index) in business_list"
+          :key="index"
+          @click="busine_click(item.lat,item.lng)"
+        >
+          <div class="dj dibu_view">
+            <div class="fles1">
+              <div class="gonli">
+                <span>{{ item.distance }}公里</span>
+                <span v-show="index==0">距离最短</span>
               </div>
-              <div class="hujiaozi">一键呼叫</div>
+              <div class="titss3">{{ item.bus_name }}</div>
+              <div class="titss4">{{ item.address }}</div>
             </div>
-            <div @click="daohans(item.lat,item.lng)" class="s100rp">
-              <div class="dja">
-                <img :src="daohan" class="hujiao">
+            <div class="fles2 dja">
+              <div @click="calling(item.mobile)" class="s100rp">
+                <div class="dja">
+                  <img :src="hujiao" class="hujiao">
+                </div>
+                <div class="hujiaozi">一键呼叫</div>
               </div>
-              <div class="hujiaozi">一键导航</div>
+              <div @click="daohans(item.lat,item.lng)" class="s100rp">
+                <div class="dja">
+                  <img :src="daohan" class="hujiao">
+                </div>
+                <div class="hujiaozi">一键导航</div>
+              </div>
             </div>
           </div>
         </div>
