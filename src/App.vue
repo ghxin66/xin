@@ -184,9 +184,10 @@ swiper {
   line-height: 60rpx;
   font-size: 32rpx;
 }
+
 .cenrt image {
   display: block;
-  margin: 20rpx auto;
+  /* margin: 20rpx auto; */
   border-radius: 10rpx !important;
 }
 .pad30 {
@@ -212,6 +213,9 @@ swiper {
   border-radius: 50%;
   background: rgb(231, 170, 3);
 }
+.col999 .gjsd {
+  display: none;
+}
 .dess {
   position: relative;
   width: max-content;
@@ -221,7 +225,7 @@ swiper {
   display: inline-block;
   position: absolute;
   right: -15rpx;
-  bottom: 5rpx;
+  top: 2rpx;
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;

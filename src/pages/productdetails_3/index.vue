@@ -5,11 +5,13 @@
         <div class="wh170 dja">
           <div class="pic">{{content.goods_name}}</div>
           <div>
-            <div class="dja title">{{content.goods_name}}</div>
-            <div class="desc">{{content.goods_title}}</div>
+            <div
+              class="dja title fontwei"
+              style="text-align:center;font-size:44rpx;"
+            >{{content.goods_name}}</div>
+            <div class="desc" style="text-align:center">{{content.goods_title}}</div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -52,10 +54,9 @@
         <ul>
           <li>
             <span class="fl">位置</span>
-            <span class="fr">
+            <span class="fr dja">
               <template v-for="(item,index) in content.service_1">
-                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
-
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_1">
                 <template v-if="index>0">/</template>
@@ -66,10 +67,9 @@
           <div class="clearfix"></div>
           <li>
             <span class="fl">结构</span>
-            <span class="fr">
-               <template v-for="(item,index) in content.service_2">
-                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
-
+            <span class="fr dja">
+              <template v-for="(item,index) in content.service_2">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_2">
                 <template v-if="index>0">/</template>
@@ -80,9 +80,9 @@
           <div class="clearfix"></div>
           <li>
             <span class="fl">表面外观</span>
-            <span class="fr">
-               <template v-for="(item,index) in content.service_3">
-                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
+            <span class="fr dja">
+              <template v-for="(item,index) in content.service_3">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_3">
                 <template v-if="index>0">/</template>
@@ -128,7 +128,7 @@
     </div>
     <div v-show="sel==1">
       <div class="cenrt">
-          <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
+        <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
       </div>
 
       <!--分享-->
@@ -149,12 +149,13 @@
             <block v-for="(item, index) in content.other" :key="index">
               <swiper-item class="widssgg4 fl re">
                 <!-- <div class="bttn">预约体验</div> -->
-                <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
-                <video
-                        :id="'myVideo_'+index"
-                  :src="item.urls"
-                  v-show="item.videosing==1"
-                ></video>
+                <img
+                  :src="item.goods_img"
+                  mode="scaleToFill"
+                  v-show="item.videosing==0"
+                  @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
+                >
+                <video :id="'myVideo_'+index" :src="item.urls" v-show="item.videosing==1"></video>
                 <div class="titss2 par20 wid270">
                   <div class="eklp1 fontwei">
                     <div class="dess">
@@ -209,7 +210,6 @@ export default {
       selectchicun: 0,
       select: "/static/images/sele.jpg",
       empty: "/static/images/empty.jpg",
-
 
       imgcent: [
         {
@@ -268,10 +268,8 @@ export default {
           name: "90X180cm"
         }
       ],
-      content:{
-
-      },
-      id:''
+      content: {},
+      id: ""
     };
   },
 
@@ -282,53 +280,51 @@ export default {
     console.log(this.$root.$mp.query.id);
   },
   methods: {
-      toUrl(url){
-          mpvue.navigateTo({ url });
-      },
+    toUrl(url) {
+      mpvue.navigateTo({ url });
+    },
     selectra(e) {
       console.log(e);
     },
     sels(e) {
-        if(e==2){
-            if(this.content.promote_title!="#"){
-                this.sel = e;
-            }
-        }else{
-            this.sel = e;
+      if (e == 2) {
+        if (this.content.promote_title != "#") {
+          this.sel = e;
         }
-
+      } else {
+        this.sel = e;
+      }
     },
     videoPlay(index, e) {
-        let videosing=this.content.other[index].videosing
+      let videosing = this.content.other[index].videosing;
 
-        if(videosing==1){
-            this.content.other[index].videosing = 0
-        }else{
-            this.content.other[index].videosing=1
-        }
+      if (videosing == 1) {
+        this.content.other[index].videosing = 0;
+      } else {
+        this.content.other[index].videosing = 1;
+      }
 
-        let videoContext = wx.createVideoContext('myVideo_'+index)
-        if(videosing==0){
-            videoContext.pause()
-        }else{
-            videoContext.play()
-        }
-
-
+      let videoContext = wx.createVideoContext("myVideo_" + index);
+      if (videosing == 0) {
+        videoContext.pause();
+      } else {
+        videoContext.play();
+      }
     },
     chicuns(index) {
       this.selectchicun = index;
     },
-    showImgs(e,evn){
-        mpvue.navigateTo({
-            url: '/pages/keting/main?type=goods&id='+this.id+'&url='+e
-        })
-    },
+    showImgs(e, evn) {
+      mpvue.navigateTo({
+        url: "/pages/keting/main?type=goods&id=" + this.id + "&url=" + e
+      });
+    }
   },
 
   created() {
     // let app = getApp()
   },
+
   onShow(){
       let _this=this
       let Query=_this.$http.getQuery()
@@ -340,7 +336,9 @@ export default {
           wx.setNavigationBarTitle({
               title: _this.content.goods_name
           })
+
       });
+
   }
 };
 </script>

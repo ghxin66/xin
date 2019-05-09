@@ -9,7 +9,12 @@
     </div>
 
     <div class="cents">
-      <div class="mar20" v-for="(item,index) in content.lists" :key="index" @click="bindViewTap('/pages/productDetail/main?id='+item.key_id.article_id)">
+      <div
+        class="mar20"
+        v-for="(item,index) in content.lists"
+        :key="index"
+        @click="bindViewTap('/pages/productDetail/main?id='+item.key_id.article_id)"
+      >
         <div class="wh170 dja">
           <div class="pic" v-if="index<10">0{{index+1}}</div>
           <div class="pic" v-if="index>=10">{{index+1}}</div>
@@ -28,7 +33,12 @@
             <div class="title">{{item.key_id.title}}</div>
             <div class="desc col999">{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
           </div>
-          <div class="dja wid1203">></div>
+
+          <div class="dja wid1203">
+            <span style="font-family: cursive;float:right;padding-top:10rpx;">
+              <img :src="righs" style="width:10rpx;height:22rpx;">
+            </span>
+          </div>
         </div>
       </div>
 
@@ -83,8 +93,9 @@ export default {
       wxhy: "/static/images/wechat.jpg",
       pyq: "/static/images/frient.jpg",
       logs: [],
-      content:{
-          lists:[],
+      righs: "/static/images/right.png",
+      content: {
+        lists: []
       },
       showt: false
     };
@@ -125,10 +136,10 @@ export default {
       });
     },
     bindViewTap(url) {
-        mpvue.navigateTo({
-            url: url
-        })
-    },
+      mpvue.navigateTo({
+        url: url
+      });
+    }
   },
   /* 转发*/
   onShareAppMessage: function(ops) {
@@ -156,19 +167,16 @@ export default {
       }
     };
   },
-  created() {
-
-  },
-    onShow(){
-        let _this=this
-        let Query=_this.$http.getQuery()
-        let id=Query.id
-//        let id=97
-        _this.$http.get('index/getAdvDetailsById/'+id,{},function (res) {
-            _this.content=res.data
-
-        });
-    }
+  created() {},
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    //        let id=97
+    _this.$http.get("index/getAdvDetailsById/" + id, {}, function(res) {
+      _this.content = res.data;
+    });
+  }
 };
 </script>
 
@@ -302,7 +310,7 @@ button {
 }
 
 .cents .title {
-  font-size: 40rpx;
+  font-size: 38rpx;
   font-weight: bold;
 }
 

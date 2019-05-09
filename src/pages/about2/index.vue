@@ -9,7 +9,12 @@
     </div>
 
     <div class="cents">
-      <div class="mar20" v-for="(item,index) in content.lists" :key="index" @click="bindViewTap('/pages/productdetails_3/main?id='+item.key_id.article_id)">
+      <div
+        class="mar20"
+        v-for="(item,index) in content.lists"
+        :key="index"
+        @click="bindViewTap('/pages/productdetails_3/main?id='+item.key_id.article_id)"
+      >
         <div class="wh170 dja">
           <div class="pic" v-if="index<10">0{{index+1}}</div>
           <div class="pic" v-if="index>=10">{{index+1}}</div>
@@ -17,11 +22,21 @@
         </div>
         <div>
           <img :src="item.key_id.goods_img" class="wid100 ovh">
-          <div class="title">{{item.key_id.goods_name}}系列</div>
+          <div class="desc" style="width:max-content;">
+            <span style="float:left">{{item.key_id.goods_name}}系列</span>
+            <span class="arrow-up" style="float:left"></span>
+          </div>
+          <div class="clearfix"></div>
         </div>
-        <div class="desc">{{item.mcontent}}</div>
+        <div class="desc mar20">{{item.mcontent}}</div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="titss2 mar30" v-show="content.goods_list.length > 0">
+        <span></span>
+        选用产品
       </div>
 
+      <div class="clearfix"></div>
       <!-- <wxParse :content="article"/> -->
       <!--分享-->
       <div class="fixd" v-if="showt" @click.stop="showthiss">
@@ -73,8 +88,8 @@ export default {
       wxhy: "/static/images/wechat.jpg",
       pyq: "/static/images/frient.jpg",
       logs: [],
-      content:{
-          lists:[],
+      content: {
+        lists: []
       },
       showt: false
     };
@@ -115,10 +130,10 @@ export default {
       });
     },
     bindViewTap(url) {
-        mpvue.navigateTo({
-            url: url
-        })
-    },
+      mpvue.navigateTo({
+        url: url
+      });
+    }
   },
   /* 转发*/
   onShareAppMessage: function(ops) {
@@ -146,19 +161,16 @@ export default {
       }
     };
   },
-  created() {
-
-  },
-    onShow(){
-        let _this=this
-        let Query=_this.$http.getQuery()
-        let id=Query.id
-//        let id=97
-        _this.$http.get('index/getAdvDetailsById/'+id,{},function (res) {
-            _this.content=res.data
-
-        });
-    }
+  created() {},
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    //        let id=97
+    _this.$http.get("index/getAdvDetailsById/" + id, {}, function(res) {
+      _this.content = res.data;
+    });
+  }
 };
 </script>
 
@@ -245,6 +257,20 @@ button {
   font-family: cursive;
   margin-left: 12rpx;
 }
+.widssgg3:first-child {
+  margin-right: 30rpx;
+  box-sizing: border-box;
+}
+.widssgg3 {
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
+.widssgg3 image {
+  width: 100%;
+  height: 200rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+}
 
 .ovh {
   overflow: hidden;
@@ -292,7 +318,7 @@ button {
 }
 
 .cents .title {
-  font-size: 40rpx;
+  font-size: 38rpx;
   font-weight: bold;
 }
 
@@ -309,7 +335,15 @@ button {
   height: 400rpx;
   position: relative;
 }
-
+.arrow-up {
+  width: 0;
+  margin-top: 20rpx;
+  margin-left: 10rpx;
+  height: 0;
+  border-left: 7rpx solid transparent;
+  border-right: 7rpx solid transparent;
+  border-bottom: 15rpx solid rgb(236, 181, 0);
+}
 .ban_cen image {
   width: 100%;
   height: 100%;

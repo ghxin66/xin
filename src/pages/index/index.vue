@@ -29,7 +29,6 @@
           <img :src="topro.big_pic" mode="scaleToFill">
         </swiperitem>
       </block>
-
     </swipers>
 
     <div class="titss mar30 mar50">
@@ -37,15 +36,22 @@
       <span></span>
     </div>
 
-
-    <div class="wids pad30">
-      <swiper next-margin="70rpx" class="fl pross" v-if="articlelist.length > 0">
+    <div class="wids">
+      <swiper
+        next-margin="30rpx"
+        previous-margin="30rpx"
+        class="fl pross"
+        v-if="articlelist.length > 0"
+      >
         <block v-for="(item, index) in articlelist" :key="index">
-          <swiper-item class="widss fl" @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)">
+          <swiper-item
+            class="widss fl"
+            @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)"
+          >
             <img :src="item.picture" mode="scaleToFill">
 
             <div class="titss2 mar20">
-            {{ item.title }}
+              {{ item.title }}
               <div class>
                 <i class="icos act fl">#{{ item.keyword }}</i>
                 <i class="icos fl">#{{ item.author }}</i>
@@ -88,8 +94,10 @@
         v-if="goodslist.length > 0"
       >
         <block v-for="(item, index) in goodslist" :key="index">
-
-          <swiper-item class="widssgg fl" @click="bindViewTap('/pages/productdetails_3/main?id='+item.goods_id)">
+          <swiper-item
+            class="widssgg fl"
+            @click="bindViewTap('/pages/productdetails_3/main?id='+item.goods_id)"
+          >
             <img :src="item.goods_img" mode="center">
           </swiper-item>
         </block>
@@ -116,29 +124,29 @@ export default {
       zwal: "整屋案例",
       shfs: "生活方式",
       xinfengshan: "SANFI · 新风尚",
-        articlelist:[],
-        goodslist:[]
+      articlelist: [],
+      goodslist: []
     };
   },
   components: {
     card
   },
   methods: {
-     topic(linkurl,adv_id){
-      if(linkurl==1){
-          mpvue.navigateTo({
-              url:'/pages/about/main?id='+adv_id
-          })
-      }else{
-          mpvue.navigateTo({
-              url:'/pages/about2/main?id='+adv_id
-          })
+    topic(linkurl, adv_id) {
+      if (linkurl == 1) {
+        mpvue.navigateTo({
+          url: "/pages/about/main?id=" + adv_id
+        });
+      } else {
+        mpvue.navigateTo({
+          url: "/pages/about2/main?id=" + adv_id
+        });
       }
     },
     bindViewTap(url) {
-        mpvue.navigateTo({
-            url: url
-        })
+      mpvue.navigateTo({
+        url: url
+      });
     },
     toproductdetail(e) {
       const url = "/pages/productDetail/main?id=" + e;
@@ -150,28 +158,27 @@ export default {
     }
   },
   onShow() {
-      var _this=this
-      // 获取banner图
-      _this.$http.get('index/getAdvListByCatId/15',{},function (res) {
-         _this.imgUrls=res.data
-      })
-      // 获取看产品模块的图
-      _this.$http.get('index/getAdvListByCatId/16',{},function (res) {
-          _this.lookpro=res.data[0]
-      })
-      // 获取去体验模块的图
-      _this.$http.get('index/getAdvListByCatId/17',{},function (res) {
-          _this.topro=res.data[0]
-      })
-      // 获取案例
-      _this.$http.get('index/getArticleByCatId/5',{},function (res) {
-          _this.articlelist=res.data.data
-      })
-      // 获取产品
-      _this.$http.get('product/getGoodsListByParam',{},function (res) {
-          _this.goodslist=res.data.data
-      })
-
+    var _this = this;
+    // 获取banner图
+    _this.$http.get("index/getAdvListByCatId/15", {}, function(res) {
+      _this.imgUrls = res.data;
+    });
+    // 获取看产品模块的图
+    _this.$http.get("index/getAdvListByCatId/16", {}, function(res) {
+      _this.lookpro = res.data[0];
+    });
+    // 获取去体验模块的图
+    _this.$http.get("index/getAdvListByCatId/17", {}, function(res) {
+      _this.topro = res.data[0];
+    });
+    // 获取案例
+    _this.$http.get("index/getArticleByCatId/5", {}, function(res) {
+      _this.articlelist = res.data.data;
+    });
+    // 获取产品
+    _this.$http.get("product/getGoodsListByParam", {}, function(res) {
+      _this.goodslist = res.data.data;
+    });
   }
 };
 </script>
@@ -181,6 +188,13 @@ swiper {
   height: 400rpx;
   text-align: center;
   display: flex;
+}
+.widssgg img {
+  margin: 0 auto;
+  width: 314rpx;
+}
+.widssgg {
+  text-align: center;
 }
 .swiper-box {
   width: 690rpx;
@@ -212,8 +226,9 @@ swiper {
 }
 .pross {
   height: 550rpx;
-}.pross .widss {
-  padding-right: 30rpx;
+}
+.pross .widss {
+  padding-right: 15rpx;
   box-sizing: border-box;
 }
 .pross .widss:last-child {
@@ -249,10 +264,14 @@ swiper {
   display: block;
   max-width: 100%;
 }
+.widss {
+  text-align: center;
+}
 .widss image {
   border-radius: 16rpx;
   height: 370rpx;
-  width: 630rpx;
+  width: 660rpx;
+  margin: 0 auto;
 }
 .prossgg {
   height: 280rpx;

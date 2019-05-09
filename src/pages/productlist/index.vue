@@ -3,11 +3,11 @@
     <div>
       <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="gg(0)">
         {{pro}}
-        <span></span>
+        <span class="gjsd"></span>
       </div>
       <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="gg(1)">
         {{ani}}
-        <span></span>
+        <span class="gjsd"></span>
       </div>
     </div>
     <div class="clearfix"></div>
@@ -37,8 +37,6 @@
           </div>
         </div>
 
-
-
         <!--结束-->
       </div>
 
@@ -48,12 +46,13 @@
         <swper vertical class="fl swiper" v-if="goodslist.length > 0">
           <block v-for="(item, index) in goodslist" :key="index">
             <swiperitem class="widssgg4 fl">
-              <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
-              <video
-                :src="item.urls"
-                v-show="item.videosing==1"
-                :id="'myVideo_'+index"
-              ></video>
+              <img
+                :src="item.goods_img"
+                mode="scaleToFill"
+                v-show="item.videosing==0"
+                @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
+              >
+              <video :src="item.urls" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
               <div class="titss2 mar20 wid270">
                 <div class="eklp1 fontwei">
                   <div class="dess">
@@ -62,7 +61,7 @@
                   </div>
                   <i class="fr dja">
                     <div>
-                      <img :src="bofan" v-show="item.urls" class="ims" @click="videoPlay(index)">
+                      <img :src="bofan" class="ims" @click="videoPlay(index)">
                     </div>
                   </i>
                 </div>
@@ -107,8 +106,6 @@
           </div>
         </div>
 
-
-
         <!--结束-->
       </div>
 
@@ -117,8 +114,11 @@
       <div class="padd30 lunbo2">
         <swper vertical class="fl swiper" v-if="articlelist.length > 0">
           <block v-for="(item, index) in articlelist" :key="index">
-            <swiperitem class="widssgg4 fl" @click="toUrl('/pages/productDetail/main?id='+item.article_id)">
-              <img :src="item.picture" mode="scaleToFill">
+            <swiperitem
+              class="widssgg4 fl"
+              @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
+            >
+              <img :src="item.picture" mode="scaleToFill" class="tupi">
               <div class="titss2 mar20 wid270">
                 <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
                 <div class="descss eklp1">
@@ -126,7 +126,8 @@
                   <i class="fr dja">
                     <a style="margin-top:6rpx">
                       <img :src="shijian" class="imshijian">
-                    </a>&nbsp;{{ item.views }}
+                    </a>
+                    &nbsp;{{ item.views }}
                   </i>
                 </div>
               </div>
@@ -169,213 +170,213 @@ export default {
       zantin: "/static/images/zantin.png",
       listing: "/static/images/listing.jpg",
       shijian: "/static/images/guanzhu.jpg",
-      imgUrls:[],
+      imgUrls: [],
       pro: "产品",
       _index: -1,
       product: [],
-        goodslist:[],
-        goodsSel:null,
+      goodslist: [],
+      goodsSel: null,
       product_case: [],
-        articlelist:[],
-        articleSel:null,
+      articlelist: [],
+      articleSel: null,
       //产品分类选择
       ins1: -1,
 
       centent: "",
-        goods_page:1,
-        goods_last_page:1,
-        article_page:1,
-        article_last_page:1,
+      goods_page: 1,
+      goods_last_page: 1,
+      article_page: 1,
+      article_last_page: 1
 
       //地图结束
     };
   },
 
   methods: {
-    toUrl(url){
-        mpvue.navigateTo({ url });
+    toUrl(url) {
+      mpvue.navigateTo({ url });
     },
     sousuo() {
+
         if(this.trw==1){
             wx.navigateTo({ url: "/pages/sousuo_article/main" });
         }else{
             wx.navigateTo({ url: "/pages/sousuo/main" });
         }
+
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     },
-    selec(index,id) {
-        let data=this.product[index]
-        this.goodsSel=data.id
+    selec(index, id) {
+      let data = this.product[index];
+      this.goodsSel = data.id;
 
-        if(id!=data.sel){
-            data.sel=id
-        }else{
-            data.sel=null
+      if (id != data.sel) {
+        data.sel = id;
+      } else {
+        data.sel = null;
+      }
+      this.goods_page = 1;
+      this.goodslist = [];
+      this.getGoodsList();
+    },
+
+    selec_case(index, id) {
+      let data = this.product_case[index];
+      this.articleSel = index;
+      if (id != data.sel) {
+        data.sel = id;
+      } else {
+        data.sel = null;
+      }
+      this.article_page = 1;
+      this.articlelist = [];
+      this.getArticleList();
+    },
+
+    gg(trw) {
+      this.trw = trw;
+      this.ins1 = -1;
+      this.sels = false;
+      if (trw == 1) {
+        this.getArticleFilter();
+      } else {
+        this.getGoodsFilter();
+      }
+    },
+    getGoodsFilter() {
+      let _this = this;
+      _this.product = [];
+      _this.goodslist = [];
+      _this.goodsSel = null;
+      _this.getGoodsList();
+    },
+    getGoodsList() {
+      let _this = this;
+      //        mpvue.showLoading({
+      //            title: '加载中',
+      //            mask:true
+      //        })
+      let filter = [];
+      // 获取筛选条件
+      for (let item in _this.product) {
+        let sel = _this.product[item].sel;
+        if (sel != null) {
+          filter.push({
+            filter_id: _this.product[item].id,
+            filter_value: sel
+          });
         }
-        this.goods_page=1
-        this.goodslist=[]
-        this.getGoodsList()
-    },
+      }
 
-    selec_case(index,id) {
-        let data=this.product_case[index]
-        this.articleSel=index
-        if(id!=data.sel){
-            data.sel=id
-        }else{
-            data.sel=null
+      _this.$http.get(
+        "product/getGoodsListByParam",
+        {
+          page: _this.goods_page,
+          filter: filter,
+          articleSel: _this.goodsSel,
+          filterBool: 1
+        },
+        function(res) {
+          //            wx.hideLoading();
+          _this.goods_last_page = res.data.last_page;
+          let list = res.data.data;
+          for (let item in list) {
+            _this.goodslist.push(list[item]);
+          }
+          if (_this.goods_page == 1 && res.data.filter.length >= 1) {
+            _this.product = res.data.filter;
+          }
         }
-        this.article_page=1
-        this.articlelist=[]
-        this.getArticleList()
+      );
     },
-
-    gg(trw){
-        this.trw = trw;
-        this.ins1 = -1;
-        this.sels = false;
-        if(trw==1){
-            this.getArticleFilter()
-        }else{
-            this.getGoodsFilter()
+    getArticleFilter() {
+      let _this = this;
+      _this.product_case = [];
+      _this.articlelist = [];
+      _this.articleSel = null;
+      _this.getArticleList();
+    },
+    getArticleList() {
+      let _this = this;
+      mpvue.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      let filter = [];
+      // 获取筛选条件
+      for (let item in _this.product_case) {
+        let sel = _this.product_case[item].sel;
+        if (sel != null) {
+          filter.push({
+            filter_id: _this.product_case[item].id,
+            filter_value: sel
+          });
         }
-    },
-    getGoodsFilter(){
-        let _this=this
-        _this.product=[]
-        _this.goodslist=[]
-        _this.goodsSel=null
-        _this.getGoodsList()
-
-    },
-    getGoodsList(){
-        let _this=this;
-//        mpvue.showLoading({
-//            title: '加载中',
-//            mask:true
-//        })
-        let filter=[]
-        // 获取筛选条件
-        for(let item in _this.product){
-            let sel=_this.product[item].sel
-            if(sel!=null){
-                filter.push({
-                    filter_id:_this.product[item].id,
-                    filter_value:sel,
-                })
-            }
+      }
+      _this.$http.get(
+        "index/getArticleByCatId/5",
+        {
+          page: _this.article_page,
+          filter: filter,
+          articleSel: _this.articleSel,
+          filterBool: 1
+        },
+        function(res) {
+          wx.hideLoading();
+          _this.article_last_page = res.data.last_page;
+          let list = res.data.data;
+          for (let item in list) {
+            _this.articlelist.push(list[item]);
+          }
+          if (_this.article_page == 1 && res.data.filter.length >= 1) {
+            _this.product_case = res.data.filter;
+          }
         }
-
-        _this.$http.get('product/getGoodsListByParam',{
-            page:_this.goods_page,
-            filter:filter,
-            articleSel:_this.goodsSel,
-            filterBool:1
-        },function (res) {
-//            wx.hideLoading();
-            _this.goods_last_page=res.data.last_page
-            let list=res.data.data
-            for(let item in list){
-                _this.goodslist.push(list[item])
-            }
-            if(_this.goods_page==1 && res.data.filter.length>=1){
-                _this.product=res.data.filter
-            }
-
-
-        })
-    },
-    getArticleFilter(){
-        let _this=this
-        _this.product_case=[];
-        _this.articlelist=[];
-        _this.articleSel=null;
-        _this.getArticleList()
-    },
-    getArticleList(){
-        let _this=this;
-        mpvue.showLoading({
-            title: '加载中',
-            mask:true
-        })
-        let filter=[]
-        // 获取筛选条件
-        for(let item in _this.product_case){
-            let sel=_this.product_case[item].sel
-            if(sel!=null){
-                filter.push({
-                    filter_id:_this.product_case[item].id,
-                    filter_value:sel,
-                })
-            }
-        }
-        _this.$http.get('index/getArticleByCatId/5',{
-            page:_this.article_page,
-            filter:filter,
-            articleSel:_this.articleSel,
-            filterBool:1
-        },function (res) {
-            wx.hideLoading();
-            _this.article_last_page=res.data.last_page
-            let list=res.data.data
-            for(let item in list){
-                _this.articlelist.push(list[item])
-            }
-            if(_this.article_page==1 && res.data.filter.length>=1){
-                _this.product_case=res.data.filter
-            }
-
-
-        })
+      );
     },
     videoPlay(index, e) {
-      let videosing=this.goodslist[index].videosing
+      let videosing = this.goodslist[index].videosing;
 
-      if(videosing==0){
-          this.goodslist[index].videosing =1;
-      }else{
-          this.goodslist[index].videosing = 0;
+      if (videosing == 0) {
+        this.goodslist[index].videosing = 1;
+      } else {
+        this.goodslist[index].videosing = 0;
       }
 
-      let videoContext = wx.createVideoContext('myVideo_'+index)
-      console.log(videosing)
-      if(videosing==0){
-          videoContext.play()
-      }else{
-          videoContext.pause()
+      let videoContext = wx.createVideoContext("myVideo_" + index);
+      console.log(videosing);
+      if (videosing == 0) {
+        videoContext.play();
+      } else {
+        videoContext.pause();
       }
-
-
     }
   },
   onShow() {
-      let _this=this;
-      let Query=_this.$http.getQuery()
-      let trw=Query.trw?Query.trw:0
-      if(trw==1){
-          _this.gg(1)
-      }else{
-          _this.gg(0)
-      }
-
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let trw = Query.trw ? Query.trw : 0;
+    if (trw == 1) {
+      _this.gg(1);
+    } else {
+      _this.gg(0);
+    }
   },
-  onReachBottom(){
-
-      if(this.trw==1){
-          if(this.article_page<this.article_last_page){
-              this.article_page +=1
-              this.getArticleList()
-          }
-      }else if(this.trw===0){
-          if(this.goods_page<this.goods_last_page){
-              this.goods_page +=1
-              this.getGoodsList()
-          }
+  onReachBottom() {
+    if (this.trw == 1) {
+      if (this.article_page < this.article_last_page) {
+        this.article_page += 1;
+        this.getArticleList();
       }
-
+    } else if (this.trw === 0) {
+      if (this.goods_page < this.goods_last_page) {
+        this.goods_page += 1;
+        this.getGoodsList();
+      }
+    }
   }
 };
 </script>
@@ -760,7 +761,6 @@ swiper {
   width: 100%;
   margin: 50rpx auto;
 }
-
 .cents .title {
   font-size: 40rpx;
   font-weight: bold;
