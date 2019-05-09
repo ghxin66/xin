@@ -184,9 +184,10 @@ swiper {
   line-height: 60rpx;
   font-size: 32rpx;
 }
+
 .cenrt image {
   display: block;
-  margin: 20rpx auto;
+  /* margin: 20rpx auto; */
   border-radius: 10rpx !important;
 }
 .pad30 {

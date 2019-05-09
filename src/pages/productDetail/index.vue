@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="prode_top">
-      <image
-              style="width: 100%;height: 750rpx; background-color: #eeeeee;"
-              mode="center"
-              :src="content.picture"
-      ></image>
+      <img
+        style="width: 100%;height: 750rpx; background-color: #eeeeee;"
+        mode="center"
+        :src="content.picture"
+      >
       <div class="ab cents weiyi">
         <div class="title">{{content.title}}</div>
         <div class="dja pf3">
@@ -47,32 +47,28 @@
       业主说
       <span></span>
     </div>
-    <div class="dja padd30"  v-show="content.massage.length>=1" style="align-items: flex-start">
+    <div class="dja padd30" v-show="content.massage.length>=1" style="align-items: flex-start">
       <div class="fle1">
         <img src="/static/images/avatar.png" class="fle1pic">
       </div>
       <div class="fle2">{{ content.massage }}</div>
     </div>
 
-
     <div class="cenrt">
-       <wxParse :content="content.contents.content" @preview="showImgs"/>
+      <wxParse :content="content.contents.content" @preview="showImgs"/>
     </div>
-
-
-
     <div class="clearfix"></div>
-
-    <div class="titss2 mar30"  v-show="content.goods_list.length > 0">
+    <div class="titss2 mar30" v-show="content.goods_list.length > 0">
       <span></span>
       选用产品
     </div>
     <div class="pad30 mar20" v-show="content.goods_list.length > 0">
       <swiper
-              :display-multiple-items="multipleItems"
-              next-margin="30rpx"
-              class="fl"
-              :indidator-dots="content.goods_list.length > 0">
+        :display-multiple-items="multipleItems"
+        next-margin="30rpx"
+        class="fl"
+        :indidator-dots="content.goods_list.length > 0"
+      >
         <block v-for="(item, index) in content.goods_list" :key="index">
           <swiper-item class="widssgg3 fl">
             <img :src="item.goods_img" mode="aspectFill">
@@ -113,35 +109,96 @@
       </div>
     </div>
     <!--2轮播-->
-    <div class="padd30 lunbo2" v-show="content.other.length > 0">
-      <swiper display-multiple-items="1" next-margin="80rpx" class="fl" v-if="content.other.length > 0">
+    <div class="padd30gs lunbo2" v-show="content.other.length == 1">
+      <swiper
+        display-multiple-items="1"
+        previous-margin="30rpx"
+        next-margin="30rpx"
+        class="fl padd30gss swipersf"
+      >
         <block v-for="(item, index) in content.other" :key="index">
-          <swiper-item class="widssgg4 fl" @click="toanli('/pages/productDetail/main?id'+item.article_id)">
-            <img :src="item.picture">
-            <div class="titss2 mar20 wid270">
+          <swiper-item
+            class="widssgg4 fl"
+            @click="toanli('/pages/productDetail/main?id'+item.article_id)"
+          >
+            <div style="width:100%;height:400rpx;overflow:hidden;border-radius:15rpx">
+              <img :src="item.picture" mode="widthFix">
+            </div>
+            <div class="titss2 mar20 wid270 wid10d">
               <div class="eklp1">{{ item.title }}</div>
               <div class="descss eklp1">
                 {{ item.description }}·{{ item.author }}·{{ item.keyword }}
-                <i class="fr dja" style="margin-top:-10rpx">
+                <i
+                  class="fr dja"
+                  style="margin-top:-10rpx"
+                >
                   <a>
                     <img :src="guanzhu" class="ims">
-                  </a>{{ item.views }}
+                  </a>
+                  {{ item.views }}
                 </i>
               </div>
-
             </div>
           </swiper-item>
         </block>
       </swiper>
     </div>
-
-    <div class="fix wid100ss dja">
+    <!--2-->
+    <div class="padd30gs lunbo2" v-show="content.other.length > 1">
+      <swiper
+        display-multiple-items="1"
+        previous-margin="30rpx"
+        next-margin="30rpx"
+        class="fl padd30gss"
+        v-if="content.other.length > 1"
+      >
+        <block v-for="(item, index) in content.other" :key="index">
+          <swiper-item
+            class="widssgg4 fl"
+            @click="toanli('/pages/productDetail/main?id'+item.article_id)"
+          >
+            <div style="width:100%;height:300rpx;overflow:hidden;border-radius:15rpx">
+              <img :src="item.picture" mode="widthFix">
+            </div>
+            <div class="titss2 mar20 wid270">
+              <div class="eklp1">{{ item.title }}</div>
+              <div class="descss eklp1">
+                {{ item.description }}·{{ item.author }}·{{ item.keyword }}
+                <i
+                  class="fr dja"
+                  style="margin-top:-10rpx"
+                >
+                  <a>
+                    <img :src="guanzhu" class="ims">
+                  </a>
+                  {{ item.views }}
+                </i>
+              </div>
+            </div>
+          </swiper-item>
+        </block>
+      </swiper>
+    </div>
+    <!-- <div class="fix wid100ss dja">
       <div class="butt dja" @click="toappointment">预约参观</div>
       <button open-type="contact" session-from="weapp" class="dja">
         <img :src="listing" class="tupic">
       </button>
       <div class="dja">
         <img :src="shoucan" class="tupic">
+      </div>
+    </div>-->
+
+    <div class="fix wid100ss dja">
+      <div class="dis1">
+        <button open-type="contact" session-from="weapp" class="dja">
+          <img :src="listing" class="tupic">
+        </button>
+      </div>
+      <div class="dis2">
+        <div class="dja">
+          <img :src="shoucan" class="tupic">
+        </div>
       </div>
     </div>
   </div>
@@ -152,9 +209,9 @@
 
 import wxParse from "mpvue-wxparse";
 export default {
-   components: {
-     wxParse
-   },
+  components: {
+    wxParse
+  },
   data() {
     return {
       wxhy: "/static/images/wechat.jpg",
@@ -166,18 +223,18 @@ export default {
       righs: "/static/images/right.png",
       detailImagesHeight: 0,
       showt: false,
-      id:'',
+      id: "",
 
-      content:{
-          contents:{
-              imglist:[],
-              content:''
-          },
-          massage:'',
-          goods_list:[],
-          other:[]
+      content: {
+        contents: {
+          imglist: [],
+          content: ""
+        },
+        massage: "",
+        goods_list: [],
+        other: []
       },
-      multipleItems:1,
+      multipleItems: 1
     };
   },
 
@@ -196,11 +253,10 @@ export default {
     }
     return {
       title: "蜜蜂demo",
-      path: `/pages/productDetail/main?id=`+this.id,
+      path: `/pages/productDetail/main?id=` + this.id,
       success: function(res) {
         // 转发成功
         console.log("转发成功:" + JSON.stringify(res));
-
       },
       fail: function(res) {
         // 转发失败
@@ -242,48 +298,76 @@ export default {
         }
       });
     },
-    showImgs(e,evn){
-        mpvue.navigateTo({
-            url: '/pages/keting/main?type=article&id='+this.id+'&url='+e
-        })
+    showImgs(e, evn) {
+      mpvue.navigateTo({
+        url: "/pages/keting/main?type=article&id=" + this.id + "&url=" + e
+      });
     },
-    toanli(url){
-        mpvue.navigateTo({
-            url: url
-        })
+    toanli(url) {
+      mpvue.navigateTo({
+        url: url
+      });
     }
   },
 
-  onShow(){
-      let _this=this;
-      let Query=_this.$http.getQuery()
-      let id=Query.id
-//      let id=2
-      _this.id=id
-      mpvue.showLoading({
-          title: '加载中',
-          mask:true
-      })
-      _this.$http.get('index/getArticleDetailsById/'+id,{},function (res) {
-          wx.hideLoading();
-          _this.content=res.data
-          if(_this.content.goods_id>=3){
-              _this.multipleItems=3
-          }
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    //      let id=2
+    _this.id = id;
+    mpvue.showLoading({
+      title: "加载中",
+      mask: true
+    });
+    _this.$http.get("index/getArticleDetailsById/" + id, {}, function(res) {
+      wx.hideLoading();
+      _this.content = res.data;
+      if (_this.content.goods_id >= 3) {
+        _this.multipleItems = 3;
+      }
 
-          wx.setNavigationBarTitle({
-            title: _this.content.title
-          })
+      wx.setNavigationBarTitle({
+        title: _this.content.title
       });
-
-
+    });
   }
 };
 </script>
 
 <style scoped>
 /* @import url("~mpvue-wxparse/src/wxParse.css"); */
-
+.wid10d {
+  width: 100% !important;
+}
+.lunbo2 .swipersf {
+  height: 500rpx;
+}
+.dis1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.dis2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.widssgg4 image {
+  width: 100%;
+  height: 320rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+}
+.padd30gss .widssgg4 {
+  padding-right: 30rpx;
+  box-sizing: border-box;
+}
+.padd30gss .widssgg4:last-child {
+  padding-right: 0rpx;
+}
 button {
   position: relative;
   display: block;
@@ -327,10 +411,11 @@ button {
   height: 25rpx !important;
   margin-top: 8rpx;
 }
-.wid270 {
-  width: 560rpx !important;
+.widssgg4 .wid270 {
+  width: 540rpx;
   box-sizing: border-box;
 }
+
 .titss {
   font-size: 36rpx;
 }
@@ -386,7 +471,7 @@ button {
   border-radius: 10rpx;
 }
 .widssgg4 image {
-  width: 560rpx;
+  width: 100%;
   height: 320rpx;
   overflow: hidden;
   border-radius: 10rpx;
@@ -430,6 +515,7 @@ swiper {
   vertical-align: top;
   display: flex;
   align-items: center;
+  color: #ccc;
 }
 .pf3 {
   flex: 1 1 1;
@@ -472,6 +558,7 @@ swiper {
   height: 35rpx;
 }
 .borru {
+  position: relative;
   width: 750rpx;
   height: 70rpx;
   background-color: #fff;
@@ -484,10 +571,10 @@ swiper {
   margin: 0 auto;
 }
 /*.wid100 {*/
-  /*width: auto;*/
-  /*margin: 0 auto;*/
-  /*display: block;*/
-  /*height: 750rpx;*/
+/*width: auto;*/
+/*margin: 0 auto;*/
+/*display: block;*/
+/*height: 750rpx;*/
 /*}*/
 .cents {
   width: 100%;
