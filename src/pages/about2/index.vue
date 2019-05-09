@@ -30,7 +30,13 @@
         </div>
         <div class="desc mar20">{{item.mcontent}}</div>
       </div>
+      <div class="clearfix"></div>
+      <div class="titss2 mar30" v-show="content.goods_list.length > 0">
+        <span></span>
+        选用产品
+      </div>
 
+      <div class="clearfix"></div>
       <!-- <wxParse :content="article"/> -->
       <!--分享-->
       <div class="fixd" v-if="showt" @click.stop="showthiss">
@@ -250,6 +256,20 @@ button {
   flex: 0 1 20rpx;
   font-family: cursive;
   margin-left: 12rpx;
+}
+.widssgg3:first-child {
+  margin-right: 30rpx;
+  box-sizing: border-box;
+}
+.widssgg3 {
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
+.widssgg3 image {
+  width: 100%;
+  height: 200rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
 }
 
 .ovh {

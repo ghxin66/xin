@@ -73,8 +73,8 @@
           <swiper-item class="widssgg3 fl">
             <img :src="item.goods_img" mode="aspectFill">
             <div class="titss2 mar20">
-              <div class="descss eklp1">{{ item.space }}</div>
-              <div class="eklp1">{{ item.goods_name }}</div>
+              <div class="descss eklp1 col999" style="font-size:22rpx;">{{ item.space }}</div>
+              <div class="eklp1 fontwei">{{ item.goods_name }}</div>
             </div>
           </swiper-item>
         </block>

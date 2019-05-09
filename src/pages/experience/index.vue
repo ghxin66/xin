@@ -91,7 +91,7 @@
         ></map>
       </div>
       <div class="clearfix"></div>
-      <div cla>
+      <div class="bufens">
         <div
           class="dibu"
           v-for="(item,index) in business_list"
@@ -348,10 +348,14 @@ export default {
   font-size: 20rpx;
   padding: 5rpx 10rpx;
 }
+.bufens {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
 .dibu {
   background-color: #f3f1ee;
   width: 750rpx;
-  height: 250rpx;
+  height: 230rpx;
   margin-top: -2rpx;
   display: flex;
   justify-content: center;

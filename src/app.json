@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/experience/main",
     "pages/index/main",
     "pages/productlist/main",
     "pages/productdetails_3/main",
@@ -7,7 +8,7 @@
     "pages/about/main",
     "pages/about2/main",
     "pages/sousuo_article/main",
-    "pages/experience/main",
+
     "pages/productDetail/main",
     "pages/cityselect/main",
     "pages/center/main",
