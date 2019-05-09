@@ -54,9 +54,9 @@
         <ul>
           <li>
             <span class="fl">位置</span>
-            <span class="fr">
+            <span class="fr dja">
               <template v-for="(item,index) in content.service_1">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_1">
                 <template v-if="index>0">/</template>
@@ -67,9 +67,9 @@
           <div class="clearfix"></div>
           <li>
             <span class="fl">结构</span>
-            <span class="fr">
+            <span class="fr dja">
               <template v-for="(item,index) in content.service_2">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_2">
                 <template v-if="index>0">/</template>
@@ -80,9 +80,9 @@
           <div class="clearfix"></div>
           <li>
             <span class="fl">表面外观</span>
-            <span class="fr">
+            <span class="fr dja">
               <template v-for="(item,index) in content.service_3">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
               </template>
               <template v-for="(item,index) in content.service_3">
                 <template v-if="index>0">/</template>
