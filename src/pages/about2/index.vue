@@ -9,27 +9,17 @@
     </div>
 
     <div class="cents">
-      <div class="mar20" v-for="(item,index) in content.lists" :key="index" @click="bindViewTap('/pages/productDetail/main?id='+item.key_id.article_id)">
+      <div class="mar20" v-for="(item,index) in content.lists" :key="index" @click="bindViewTap('/pages/productdetails_3/main?id='+item.key_id.article_id)">
         <div class="wh170 dja">
           <div class="pic" v-if="index<10">0{{index+1}}</div>
           <div class="pic" v-if="index>=10">{{index+1}}</div>
           <div class="dja title">{{item.title}}</div>
         </div>
-        <div class="desc">{{item.mcontent}}</div>
         <div>
-          <img :src="item.key_id.picture" class="wid100 ovh">
+          <img :src="item.key_id.goods_img" class="wid100 ovh">
+          <div class="title">{{item.key_id.goods_name}}系列</div>
         </div>
-
-        <div class="ban_text2 sdfjk">
-          <div class="wid120">
-            <img :src="item.key_id.picture" alt>
-          </div>
-          <div class="wid1202 mar24">
-            <div class="title">{{item.key_id.title}}</div>
-            <div class="desc col999">{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
-          </div>
-          <div class="dja wid1203">></div>
-        </div>
+        <div class="desc">{{item.mcontent}}</div>
       </div>
 
       <!-- <wxParse :content="article"/> -->

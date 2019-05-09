@@ -1,29 +1,15 @@
 <template>
   <div class="productdetail_3">
     <div class="cents">
-      <div class="mar20" v-for="(item,index) in conts" :key="index">
+      <div class="mar20">
         <div class="wh170 dja">
-          <div class="pic">{{item.title}}</div>
+          <div class="pic">{{content.goods_name}}</div>
           <div>
-            <div class="dja title">{{item.title}}</div>
-            <div class="desc">{{item.desc}}</div>
+            <div class="dja title">{{content.goods_name}}</div>
+            <div class="desc">{{content.goods_title}}</div>
           </div>
         </div>
 
-        <!-- <div>
-          <img :src="item.pic" class="wid100 ovh">
-        </div>
-
-        <div class="ban_text2 sdfjk">
-          <div class="wid120">
-            <img :src="item.thumb" alt>
-          </div>
-          <div class="wid1202 mar24">
-            <div class="title">{{item.mintitle}}</div>
-            <div class="desc col999">{{item.mindesc}}</div>
-          </div>
-          <div class="dja wid1203">></div>
-        </div>-->
       </div>
     </div>
 
@@ -44,7 +30,7 @@
       </div>
       <div class="wid75" @click="sels(2)">
         <div :class="sel==2?'titss':'titmin'">
-          产品图
+          全景图
           <span></span>
         </div>
       </div>
@@ -53,37 +39,63 @@
     <div v-show="sel==0">
       <div class="titss2 mar30 fontwei" style="margin-top:30rpx">
         <span></span>
-        {{sjlg}}
+        设计灵感
       </div>
       <div class="cenrt">
-        <wxParse :content="productdetails"/>
+        <wxParse :content="content.goods_desc.content"/>
       </div>
       <div class="titss2 mar30 fontwei" style="margin-top:30rpx">
         <span></span>
-        {{jcxx}}
+        基础信息
       </div>
       <div class="wid485 pad30 fontwei font28 mart50">
         <ul>
           <li>
             <span class="fl">位置</span>
-            <span class="fr">墙面/地面</span>
+            <span class="fr">
+              <template v-for="(item,index) in content.service_1">
+                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
+
+              </template>
+              <template v-for="(item,index) in content.service_1">
+                <template v-if="index>0">/</template>
+                {{ item.name }}
+              </template>
+            </span>
           </li>
           <div class="clearfix"></div>
           <li>
             <span class="fl">结构</span>
-            <span class="fr">光滑</span>
+            <span class="fr">
+               <template v-for="(item,index) in content.service_2">
+                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
+
+              </template>
+              <template v-for="(item,index) in content.service_2">
+                <template v-if="index>0">/</template>
+                {{ item.name }}
+              </template>
+            </span>
           </li>
           <div class="clearfix"></div>
           <li>
             <span class="fl">表面外观</span>
-            <span class="fr">亚光/抛光</span>
+            <span class="fr">
+               <template v-for="(item,index) in content.service_3">
+                <img :src="item.small_img" alt="" style="width: 30rpx;height:30rpx">
+              </template>
+              <template v-for="(item,index) in content.service_3">
+                <template v-if="index>0">/</template>
+                {{ item.name }}
+              </template>
+            </span>
           </li>
           <div class="clearfix"></div>
         </ul>
       </div>
       <div class="titss2 mar30 fontwei" style="margin-top:40rpx">
         <span></span>
-        {{ggcs}}
+        规格参数
       </div>
       <div class="cenrts">
         <ul class="dja">
@@ -125,14 +137,14 @@
     </div>
     <div v-show="sel==1">
       <div class="cenrt">
-        <wxParse :content="article"/>
+          <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
       </div>
 
       <!--分享-->
       <div class="gg">
         <div class="dja">
           <div class="wid100ss padd30">
-            <span style="float:left;" class="eklp1 titss">你可能感兴趣的其他案例</span>
+            <span style="float:left;" class="eklp1 titss">你可能感兴趣</span>
             <span style="font-family: cursive;float:right;padding-top:4rpx;">></span>
           </div>
         </div>
@@ -141,29 +153,30 @@
             next-margin="80rpx"
             display-multiple-items="1"
             class="fl swiper"
-            v-if="imgUrls.length > 0"
+            v-if="content.other.length > 0"
           >
-            <block v-for="(item, index) in imgUrls" :key="index">
+            <block v-for="(item, index) in content.other" :key="index">
               <swiper-item class="widssgg4 fl re">
                 <!-- <div class="bttn">预约体验</div> -->
-                <img :src="item" mode="scaleToFill" v-show="!videosing">
+                <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
                 <video
-                  src="http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46"
-                  v-show="videosing"
+                        :id="'myVideo_'+index"
+                  :src="item.urls"
+                  v-show="item.videosing==1"
                 ></video>
                 <div class="titss2 par20 wid270">
                   <div class="eklp1 fontwei">
                     <div class="dess">
-                      现代 . 郑州 . 平层
+                      {{ item.goods_name }}
                       <i></i>
                     </div>
                     <i class="fr dja">
                       <div>
-                        <img :src="bofan" class="ims" @click="videoPlay()">
+                        <img :src="bofan" class="ims" v-show="item.urls" @click="videoPlay(index)">
                       </div>
                     </i>
                   </div>
-                  <div class="descss eklp1" style="font-size:24rpx;">灰色系 | 郑州设计师170 m2小窝</div>
+                  <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
                 </div>
               </swiper-item>
             </block>
@@ -172,7 +185,7 @@
       </div>
     </div>
     <div v-if="sel==2">
-      <web-view src="https://www.baidu.com/"></web-view>
+      <web-view :src="content.promote_title"></web-view>
       <div class="clearfix"></div>
     </div>
 
@@ -195,9 +208,6 @@ export default {
   },
   data() {
     return {
-      sjlg: "设计灵感",
-      jcxx: "基础信息",
-      ggcs: "规格参数",
       productdetails: "<div>我是标题HTML</div>",
       article: "<div>这里放置富文本</div>",
       bofan: "/static/images/bofan.png",
@@ -208,23 +218,8 @@ export default {
       selectchicun: 0,
       select: "/static/images/sele.jpg",
       empty: "/static/images/empty.jpg",
-      conts: [
-        {
-          title: "我是标题",
-          desc: "6种大理石纹的变化，独一无二的天然纯净",
-          pic:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-          mintitle: "我是小标题",
-          thumb:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-          mindesc: "我是小描述"
-        }
-      ],
-      imgUrls: [
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-        "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-      ],
+
+
       imgcent: [
         {
           id: 0,
@@ -281,7 +276,11 @@ export default {
           id: 2,
           name: "90X180cm"
         }
-      ]
+      ],
+      content:{
+
+      },
+      id:''
     };
   },
 
@@ -292,23 +291,66 @@ export default {
     console.log(this.$root.$mp.query.id);
   },
   methods: {
+      toUrl(url){
+          mpvue.navigateTo({ url });
+      },
     selectra(e) {
       console.log(e);
     },
     sels(e) {
-      this.sel = e;
-      // this.add = true;
+        if(e==2){
+            if(this.content.promote_title!="#"){
+                this.sel = e;
+            }
+        }else{
+            this.sel = e;
+        }
+
     },
     videoPlay(index, e) {
-      this.videosing = !this.videosing;
+        let videosing=this.content.other[index].videosing
+
+        if(videosing==1){
+            this.content.other[index].videosing = 0
+        }else{
+            this.content.other[index].videosing=1
+        }
+
+        let videoContext = wx.createVideoContext('myVideo_'+index)
+        if(videosing==0){
+            videoContext.pause()
+        }else{
+            videoContext.play()
+        }
+
+
     },
     chicuns(index) {
       this.selectchicun = index;
-    }
+    },
+    showImgs(e,evn){
+        mpvue.navigateTo({
+            url: '/pages/keting/main?type=goods&id='+this.id+'&url='+e
+        })
+    },
   },
 
   created() {
     // let app = getApp()
+  },
+  onShow(){
+      let _this=this
+      let Query=_this.$http.getQuery()
+      let id=Query.id
+//      let id=2
+      this.id=id
+      _this.$http.get('product/getGoodsDetailsById/'+id,{},function (res) {
+          _this.content=res.data
+
+          wx.setNavigationBarTitle({
+              title: _this.content.goods_name
+          })
+      });
   }
 };
 </script>

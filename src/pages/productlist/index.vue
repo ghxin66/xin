@@ -22,68 +22,21 @@
     <!-- 0-->
     <div v-if="trw==0?'true':''">
       <div class="cenrt">
-        <div class="dix">
-          <div class="fles2 fontwei">{{product[0].case_title}}</div>
+        <div class="dix" v-for="(item,index) in product" :key="index">
+          <div class="fles2 fontwei">{{item.name}}</div>
           <div class="fles1">
             <span
-              v-for="(items,index) in product[0].list"
-              :key="index"
-              @click="selec0(index)"
-              :class="(index0===index)?'sspan':''"
+              v-for="(items,key) in item.childs"
+              :key="key"
+              @click="selec(index,items.id)"
+              :class="(item.sel===items.id)?'sspan':''"
             >
-              {{items.title}}
+              {{items.name}}
               <i class="cha">X</i>
             </span>
           </div>
         </div>
-        <!--1结束-->
-        <!--1-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product[1].case_title}}</div>
-          <div class="fles1">
-            <span
-              v-for="(items,index) in product[1].list"
-              :key="index"
-              @click="selec1(index)"
-              :class="(index1===index)?'sspan':''"
-            >
-              {{items.title}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
-        <!--1结束-->
-        <!--2-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product[2].case_title}}</div>
-          <div class="fles1">
-            <span
-              v-for="(items,index) in product[2].list"
-              :key="index"
-              @click="selec2(index)"
-              :class="(index2===index)?'sspan':''"
-            >
-              {{items.title}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
-        <!--1结束-->
-        <!--3-->
-        <div class="dix">
-          <div class="fles2 fontwei">{{product[3].case_title}}</div>
-          <div class="fles1">
-            <span
-              v-for="(items,index) in product[3].list"
-              :key="index"
-              @click="selec3(index)"
-              :class="(index3===index)?'sspan':''"
-            >
-              {{items.title}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
+
 
 
         <!--结束-->
@@ -92,37 +45,43 @@
       <div class="clearfix"></div>
 
       <div class="padd30 lunbo2">
-        <swper vertical class="fl swiper" v-if="imgUrls.length > 0">
-          <block v-for="(item, index) in imgUrls" :key="index">
+        <swper vertical class="fl swiper" v-if="goodslist.length > 0">
+          <block v-for="(item, index) in goodslist" :key="index">
             <swiperitem class="widssgg4 fl">
-              <!-- <div class="bttn">预约体验</div> -->
-              <img :src="item" mode="scaleToFill" v-show="!videosing">
+              <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
               <video
-                src="http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46"
-                v-show="videosing"
+                :src="item.urls"
+                v-show="item.videosing==1"
+                :id="'myVideo_'+index"
               ></video>
               <div class="titss2 mar20 wid270">
                 <div class="eklp1 fontwei">
                   <div class="dess">
-                    现代 . 郑州 . 平层
+                    {{ item.goods_name }}
                     <i></i>
                   </div>
                   <i class="fr dja">
                     <div>
-                      <img :src="bofan" class="ims" @click="videoPlay()">
+                      <img :src="bofan" v-show="item.urls" class="ims" @click="videoPlay(index)">
                     </div>
                   </i>
                 </div>
-                <div class="descss eklp1" style="font-size:24rpx;">灰色系 | 郑州设计师170 m2小窝</div>
+                <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
               </div>
             </swiperitem>
           </block>
         </swper>
       </div>
       <div class="clearfix"></div>
-      <div class="dja mar45 martt45">
+      <div class="dja mar45 martt45" v-if="goodslist.length > 0">
         <div class="desc coleee talcen wid100r">
           <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
+          <div class="desc dja linegs"></div>
+        </div>
+      </div>
+      <div class="dja mar45 martt45" v-else>
+        <div class="desc coleee talcen wid100r">
+          <div class="bacfff bacffgg" style="font-size:28rpx;">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>
@@ -213,108 +172,18 @@ export default {
       imgUrls:[],
       pro: "产品",
       _index: -1,
-      product: [
-        {
-          id: 0,
-          case_title: "空间",
-          list: [
-            {
-              id: 0,
-              title: "客厅"
-            },
-            {
-              id: 1,
-              title: "餐厅"
-            },
-            {
-              id: 2,
-              title: "厨房"
-            },
-            {
-              id: 3,
-              title: "卫生间"
-            },
-            {
-              id: 4,
-              title: "卧室"
-            },
-            {
-              id: 5,
-              title: "其他"
-            }
-          ]
-        },
-        {
-          id: 1,
-          case_title: "系列",
-          list: [
-            {
-              id: 0,
-              title: "大理石"
-            },
-            {
-              id: 1,
-              title: "石油"
-            },
-            {
-              id: 2,
-              title: "水泥"
-            },
-            {
-              id: 3,
-              title: "木纹"
-            }
-          ]
-        },
-        {
-          id: 2,
-          case_title: "颜色",
-          list: [
-            {
-              id: 0,
-              title: "米白"
-            },
-            {
-              id: 1,
-              title: "灰色"
-            },
-            {
-              id: 2,
-              title: "紫红"
-            }
-          ]
-        },
-        {
-          id: 3,
-          case_title: "规格",
-          list: [
-            {
-              id: 0,
-              title: "小规格"
-            },
-            {
-              id: 1,
-              title: "中规格"
-            },
-            {
-              id: 2,
-              title: "大规格"
-            }
-          ]
-        }
-      ],
+      product: [],
+        goodslist:[],
+        goodsSel:null,
       product_case: [],
         articlelist:[],
         articleSel:null,
       //产品分类选择
       ins1: -1,
-      index0: -1,
-      index1: -1,
-      index2: -1,
-      index3: -1,
-      index4: -1,
-      centent: "",
 
+      centent: "",
+        goods_page:1,
+        goods_last_page:1,
         article_page:1,
         article_last_page:1,
 
@@ -327,28 +196,28 @@ export default {
         mpvue.navigateTo({ url });
     },
     sousuo() {
-      wx.navigateTo({ url: "/pages/sousuo_article/main" });
+        if(this.trw==1){
+            wx.navigateTo({ url: "/pages/sousuo_article/main" });
+        }
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     },
-    selec0(r) {
-      this.index0 = r;
+    selec(index,id) {
+        let data=this.product[index]
+        this.goodsSel=data.id
+
+        if(id!=data.sel){
+            data.sel=id
+        }else{
+            data.sel=null
+        }
+        this.goods_page=1
+        this.goodslist=[]
+        this.getGoodsList()
     },
-    selec1(r) {
-      this.index1 = r;
-    },
-    selec2(r) {
-      this.index2 = r;
-    },
-    selec3(r) {
-      this.index3 = r;
-      this.sels = true;
-    },
-    selec4(r) {
-      this.index4 = r;
-    },
+
     selec_case(index,id) {
         let data=this.product_case[index]
         this.articleSel=index
@@ -365,16 +234,57 @@ export default {
     gg(trw){
         this.trw = trw;
         this.ins1 = -1;
-        this.index0 = -1;
-        this.index1 = -1;
-        this.index2 = -1;
-        this.index3 = -1;
-        this.index4 = -1;
         this.sels = false;
         if(trw==1){
             this.getArticleFilter()
+        }else{
+            this.getGoodsFilter()
+        }
+    },
+    getGoodsFilter(){
+        let _this=this
+        _this.product=[]
+        _this.goodslist=[]
+        _this.goodsSel=null
+        _this.getGoodsList()
+
+    },
+    getGoodsList(){
+        let _this=this;
+//        mpvue.showLoading({
+//            title: '加载中',
+//            mask:true
+//        })
+        let filter=[]
+        // 获取筛选条件
+        for(let item in _this.product){
+            let sel=_this.product[item].sel
+            if(sel!=null){
+                filter.push({
+                    filter_id:_this.product[item].id,
+                    filter_value:sel,
+                })
+            }
         }
 
+        _this.$http.get('product/getGoodsListByParam',{
+            page:_this.goods_page,
+            filter:filter,
+            articleSel:_this.goodsSel,
+            filterBool:1
+        },function (res) {
+//            wx.hideLoading();
+            _this.goods_last_page=res.data.last_page
+            let list=res.data.data
+            for(let item in list){
+                _this.goodslist.push(list[item])
+            }
+            if(_this.goods_page==1 && res.data.filter.length>=1){
+                _this.product=res.data.filter
+            }
+
+
+        })
     },
     getArticleFilter(){
         let _this=this
@@ -420,7 +330,23 @@ export default {
         })
     },
     videoPlay(index, e) {
-      this.videosing = !this.videosing;
+      let videosing=this.goodslist[index].videosing
+
+      if(videosing==0){
+          this.goodslist[index].videosing =1;
+      }else{
+          this.goodslist[index].videosing = 0;
+      }
+
+      let videoContext = wx.createVideoContext('myVideo_'+index)
+      console.log(videosing)
+      if(videosing==0){
+          videoContext.play()
+      }else{
+          videoContext.pause()
+      }
+
+
     }
   },
   onShow() {
@@ -440,6 +366,11 @@ export default {
           if(this.article_page<this.article_last_page){
               this.article_page +=1
               this.getArticleList()
+          }
+      }else if(this.trw===0){
+          if(this.goods_page<this.goods_last_page){
+              this.goods_page +=1
+              this.getGoodsList()
           }
       }
 

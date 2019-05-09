@@ -177,7 +177,14 @@ export default {
         }
       }
     });
-  }
+  },
+    onShow(){
+        let _this=this;
+        let Query=_this.$http.getQuery()
+        if(Query.login==1){
+
+        }
+    }
 };
 </script>
 
