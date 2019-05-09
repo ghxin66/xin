@@ -42,6 +42,7 @@ export default {
 }
 swiper {
   width: 100%;
+  position: relative;
 }
 .tu img {
   width: 30rpx;
@@ -96,10 +97,10 @@ swiper {
 }
 * {
   font-size: 26rpx;
-  transition: width 2s;
+  /* transition: width 2s;
   -moz-transition: width 2s;
   -webkit-transition: width 2s;
-  -o-transition: width 2s;
+  -o-transition: width 2s; */
 }
 .eklp1 {
   overflow: hidden; /*超出部分隐藏*/
@@ -125,7 +126,12 @@ swiper {
 }
 .widssgg {
   border-radius: 16rpx;
-  width: 300rpx;
+  padding-right: 30rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+.widssgg:last-child {
+  padding-right: 0rpx;
 }
 .padr30 {
   padding-right: 30rpx;
@@ -133,7 +139,7 @@ swiper {
 }
 .widssgg img {
   border-radius: 16rpx;
-  width: 300rpx;
+  width: 100%;
   height: 280rpx;
 }
 .cenrt {

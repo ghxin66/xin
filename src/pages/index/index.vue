@@ -37,8 +37,8 @@
       <span></span>
     </div>
 
-    <div class="wids pad30">
-      <swiper next-margin="70rpx" class="fl pross" v-if="imgUrls.length > 0">
+    <div class="wids ">
+      <swiper next-margin="30rpx" previous-margin="30rpx" class="fl pross" v-if="imgUrls.length > 0">
         <block v-for="(item, index) in imgUrls" :key="index">
           <swiper-item class="widss fl" @click="toproductdetail(item.id)">
             <img :src="item" mode="scaleToFill">
@@ -77,10 +77,11 @@
       <span></span>
       {{xinfengshan}}
     </div>
-    <div class="pad30 mar20">
+    <div class="mar20">
       <swiper
         display-multiple-items="2"
-        next-margin="50rpx"
+        next-margin="30rpx"
+        previous-margin="30rpx"
         class="fl prossgg marbtn50"
         v-if="imgUrls.length > 0"
       >
@@ -194,6 +195,12 @@ swiper {
 }
 .pross {
   height: 550rpx;
+}.pross .widss {
+  padding-right: 30rpx;
+  box-sizing: border-box;
+}
+.pross .widss:last-child {
+  padding-right: 0rpx;
 }
 .paddi {
   height: 150rpx !important;

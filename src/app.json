@@ -17,7 +17,8 @@
     "pages/productdetails_3/main",
     "pages/keting/main",
     "pages/sousuo/main",
-    "pages/experiencedetails/main"
+    "pages/experiencedetails/main",
+    "pages/shouquan/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
