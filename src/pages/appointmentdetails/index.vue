@@ -8,7 +8,7 @@
     </div>
     <div class="pad30 padr30">
       <div class="add ma3" @click="daohans">
-        地址：河南省郑东新区金水区明理路与姚桥路交叉口永威五月花城
+        地址：{{content.area}}{{content.address}}
         <span class="rights">
           <img :src="rig" style="width:12rpx;height:20rpx">
         </span>
@@ -23,13 +23,13 @@
         </div>
         <map
           id="map"
-          longitude="113.324520"
-          latitude="23.099994"
-          scale="14"
+          :longitude="content.lng"
+          :latitude="content.lat"
+          scale="16"
           bindcontroltap="controltap"
           :markers="markers"
-          bindmarkertap="markertap"
           :polyline="polyline"
+          bindmarkertap="markertap"
           bindregionchange="regionchange"
           show-location
           style="width:100%;height:280rpx"
@@ -46,7 +46,7 @@
         <div type="submit" class="ab bac">
           <img :src="lxdh" class="soupic">
         </div>
-        <input type="text" name="sou" v-model="tel_val" placeholder="大家都在搜。。。" class="sou">
+        <input type="text" name="sou" v-model="tel_val" placeholder="请输入电话号码" class="sou">
       </div>
       <div class="mar80 pa3">
         <div class="add fontwei" style="font-size:28rpx">备注:</div>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -90,33 +91,16 @@ export default {
       lxdh: "/static/images/phone.jpg",
       rig: "/static/images/right.png",
       //地图开始
-      markers: [
-        {
-          // iconPath: "/resources/others.png",
-          id: 0,
-          latitude: 23.099994,
-          longitude: 113.32452,
-          width: 50,
-          height: 50
-        }
-      ],
-      polyline: [
-        {
-          points: [
+      markers: [],
+        polyline: [
             {
-              longitude: 113.3245211,
-              latitude: 23.10229
-            },
-            {
-              longitude: 113.32452,
-              latitude: 23.21229
+                points: [],
+                color: "#FF0000DD",
+                width: 2,
+                dottedLine: true
             }
-          ],
-          color: "#FF0000DD",
-          width: 2,
-          dottedLine: true
-        }
-      ]
+        ],
+      content:{}
       //地图结束
     };
   },
@@ -125,8 +109,8 @@ export default {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
       wx.openLocation({
-        longitude: Number(113.14721),
-        latitude: Number(22.90525)
+        longitude: Number(this.content.lng),
+        latitude: Number(this.content.lat)
       });
     },
     tijiao() {
@@ -142,7 +126,7 @@ export default {
         this.crre = true;
         this.zhi = `当前号码为：` + this.tel_val + `，点击确定进行预约`;
       }
-      console.log();
+
     },
     //  弹框取消
     tapCancel() {
@@ -158,8 +142,7 @@ export default {
       this.changeModel = !this.changeModel;
       this.isModel = !this.isModel;
       this.crre = false;
-      // this.$emit("confirmSend", this.phoneNumber);
-      // this.phoneNumber = "";
+     
     },
     confirmSends() {
       console.log("确认预约");
@@ -169,15 +152,31 @@ export default {
       //提交后置为false
       this.crre = false;
 
-      // this.$emit("confirmSend", this.phoneNumber);
-      // this.phoneNumber = "";
+      this.$http.post('user/reserve',{
+          id:this.content.article_id,
+          phone:this.tel_val
+      },function (res) {
+          wx.showModal({
+              title: '预约成功',
+              content: res.msg,
+              showCancel:false,
+              confirmText:'好的',
+              success:function (r) {
+                  if (res.confirm) {
+                      wx.redirectTo({
+                          url: '/pages/index/main'
+                      })
+                  }
+              }
+          })
+      });
     },
     daohans(e) {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
       wx.openLocation({
-        longitude: Number(113.14721),
-        latitude: Number(22.90525)
+          longitude: Number(this.content.lng),
+          latitude: Number(this.content.lat)
       });
     }
   },
@@ -185,15 +184,26 @@ export default {
     // let app = getApp();
   },
   mounted() {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          console.log(res.code);
-          // 这里可以把code传给后台，后台用此获取openid及session_key
-        }
-      }
-    });
-  }
+
+  },
+    onShow(){
+        let _this = this;
+        let Query = _this.$http.getQuery();
+        let id = Query.id;
+        
+        _this.$http.get('index/getArticleDetailsById/'+id,{},function (res) {
+            _this.content=res.data
+            _this.markers.push({
+                id:0,
+                latitude:_this.content.lat,
+                longitude:_this.content.lng,
+                width: 50,
+                height: 50
+            })
+
+        });
+
+    }
 };
 </script>
 

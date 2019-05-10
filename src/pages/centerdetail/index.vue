@@ -22,10 +22,10 @@
             class="fl tupian imgstu"
             @click="checkedOne(item)"
             @longpress="bianji"
-            v-for="(item,inde) in tupians"
+            v-for="(item,inde) in imglist"
             :key="inde+1"
           >
-            <img :src="item.tupian">
+            <img :src="item.img_url">
             <div v-if="!bianjis">
               <!-- <div class="ab yuan" v-show="!item.select"></div> -->
               <div class="ab yuan ggs" :class="{active:item.select}">
@@ -33,7 +33,7 @@
               </div>
             </div>
           </div>
-          <div v-if="tupians.length<=0" class="dja">
+          <div v-if="imglist.length<=0" class="dja">
             <div class="hei285 dja">
               <img :src="noshou" style="width:190rpx;height:185rpx;">
             </div>
@@ -71,10 +71,10 @@
             class="fl tupian2 imgstu"
             @click="checkedOne2(item)"
             @longpress="bianji"
-            v-for="(item,inde) in anli"
+            v-for="(item,inde) in articlelist"
             :key="inde+1"
           >
-            <img :src="item.tupian">
+            <img :src="item.article_id.picture" @click="toUrl('/pages/productDetail/main?id='+item.article_id.article_id)">
             <!-- <div class="ab yuan" v-show="!item.select">
             </div>-->
             <div v-if="!bianjis">
@@ -82,9 +82,9 @@
                 <img :src="select">
               </div>
             </div>
-            <div class="ab butle">{{item.title}}</div>
+            <div class="ab butle">{{item.article_id.title}}</div>
           </div>
-          <div v-if="anli.length<=0" class="dja">
+          <div v-if="articlelist.length<=0" class="dja">
             <div class="hei285 dja">
               <img :src="noshou" style="width:190rpx;height:185rpx;">
             </div>
@@ -133,62 +133,17 @@ export default {
       changeModel: false,
       isModel: false,
 
-      tupians: [
-        {
-          id: 0,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/alxqbg.jpg",
-          select: false
-        },
-        {
-          id: 1,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/alxqbg.jpg",
-          select: false
-        },
-        {
-          id: 2,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/alxqbg.jpg",
-          select: false
-        },
-        {
-          id: 3,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/alxqbg.jpg",
-          select: false
-        },
-        {
-          id: 4,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/alxqbg.jpg",
-          select: false
-        }
-      ],
-      anli: [
-        {
-          id: 0,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/banner_bg.png",
-          select: false
-        },
-        {
-          id: 1,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/banner_bg.png",
-          select: false
-        },
-        {
-          id: 2,
-          title: "低调沉稳，成都500m2法式别墅",
-          tupian: "/static/images/banner_bg.png",
-          select: false
-        }
-      ],
       fruitIds: [],
       anli_fruitIds: [],
       lengths: 0,
-      anli_lengths: 0
+      anli_lengths: 0,
+        ///////////////
+        img_page:1,
+        img_last_page:1,
+        article_page:1,
+        article_last_page:1,
+        imglist:[],
+        articlelist:[],
     };
   },
   methods: {
@@ -203,14 +158,42 @@ export default {
       this.isModel = !this.isModel;
     },
     confirmSend() {
-      console.log("确认删除" + this.fruitIds);
-      this.changeModel = !this.changeModel;
-      this.isModel = !this.isModel;
+      let _this=this
+        mpvue.showLoading({
+            title: "加载中",
+            mask: true
+        });
+      _this.$http.post('user/cancelCollectAll',{ids:this.fruitIds},function (res) {
+          wx.hideLoading();
+          console.log("确认删除" + _this.fruitIds);
+          _this.changeModel = !_this.changeModel;
+          _this.isModel = !_this.isModel;
+          _this.img_last_page=1
+          _this.img_page=1
+          _this.imglist=[]
+          _this.getimglist()
+
+      });
+
     },
     confirmSend2() {
-      console.log("确认删除" + this.anli_fruitIds);
-      this.changeModel = !this.changeModel;
-      this.isModel = !this.isModel;
+        let _this=this
+        mpvue.showLoading({
+            title: "加载中",
+            mask: true
+        });
+        _this.$http.post('user/cancelCollectAll',{ids:this.anli_fruitIds},function (res) {
+            wx.hideLoading();
+            console.log("确认删除" + _this.anli_fruitIds);
+            _this.changeModel = !_this.changeModel;
+            _this.isModel = !_this.isModel;
+            _this.article_last_page=1
+            _this.article_page=1
+            _this.articlelist=[]
+            _this.getarticleList()
+
+        });
+
     },
     checkedOne2(fruitId) {
       var that = this;
@@ -250,23 +233,76 @@ export default {
       this.isModel = false;
       this.bianjis = true;
       // this.add = true;
+        this.img_page=1;
+        this.img_last_page=1;
+        this.article_page=1;
+        this.article_last_page=1;
+        this.imglist=[];
+        this.articlelist=[];
+        if(e==0){
+            this.getimglist()
+        }else{
+            this.getarticleList()
+        }
+
     },
     bianji() {
       this.bianjis = false;
     },
     cancel() {
       this.bianjis = true;
-    }
+    },
+      toUrl(url) {
+          mpvue.navigateTo({ url });
+      },
+      getimglist(){
+          let _this = this;
+          mpvue.showLoading({
+              title: "加载中",
+              mask: true
+          });
+          _this.$http.get('user/getUserCollectListByCatId/2',{
+              page:_this.img_page
+          },function (res) {
+              wx.hideLoading();
+              _this.img_last_page=res.data.last_page
+              _this.imglist=res.data.data
+          })
+      },
+      getarticleList(){
+          let _this = this;
+          mpvue.showLoading({
+              title: "加载中",
+              mask: true
+          });
+          _this.$http.get('user/getUserCollectListByCatId/1',{
+              page:_this.article_page
+          },function (res) {
+              wx.hideLoading();
+              _this.article_last_page=res.data.last_page
+              _this.articlelist=res.data.data
+          })
+      }
   },
   mounted() {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          // 这里可以把code传给后台，后台用此获取openid及session_key
-        }
+
+  },
+    onShow(){
+      this.getimglist()
+    },
+    onReachBottom(){
+      if(this.sel==0){
+          if (this.img_page < this.img_last_page) {
+              this.img_page += 1;
+              this.getimglist();
+          }
+      }else{
+          if (this.article_page < this.article_last_page) {
+              this.article_page += 1;
+              this.getarticleList();
+          }
       }
-    });
-  }
+    }
 };
 </script>
 

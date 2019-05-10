@@ -42,20 +42,26 @@
       我的收藏
       <span></span>
     </div>
-    <div class="dja" v-if="collect">
+    <div class="dja" v-if="collect.length>0">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo">
-        <img :src="userInfo.avatarUrl" class="ab tl00 hei285">
+        <template v-if="collect.cat_id==1">
+          <img :src="collect.article_id.picture" class="ab tl00 hei285">
+        </template>
+        <template v-else>
+          <img :src="collect.img_url" class="ab tl00 hei285">
+        </template>
       </div>
 
       <div class="marr30">
         <div v-if="collect">
-          <img :src="userInfo.avatarUrl" class="hei185">
+          <img :src="collect.article_id.picture" class="hei185" v-if="collect.cat_id==1">
+          <img :src="collect.img_url" class="hei185" v-else>
         </div>
         <!-- 判断有大于3的显示 -->
         <div class="cl245 kefu dja" v-if="collect" @click="tocenterdetail()">全部收藏</div>
       </div>
     </div>
-    <div v-if="collect==false" class="dja">
+    <div v-else class="dja">
       <div class="hei285 dja">
         <img :src="noshou" style="width:190rpx;height:185rpx;">
       </div>
@@ -68,7 +74,7 @@
 
     <div class="dja" v-if="reserve">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo.avatarUrl">
-        <img :src="userInfo.avatarUrl" class="ab tl00 hei285">
+        <img :src="reserve.article_id.picture" class="ab tl00 hei285">
       </div>
 
       <div class="marr30">
@@ -77,9 +83,9 @@
             <!-- <img :src="userInfo.avatarUrl"> -->
             <div class="font24">最近预约</div>
             <div class="font24">
-              <span class="titss" style="color:#666">29</span>日
+              <span class="titss" style="color:#666">{{ reserve.add_time.d }}</span>日
             </div>
-            <div class="font24">2019年2月</div>
+            <div class="font24">{{ reserve.add_time.ym }}</div>
           </div>
         </div>
         <div class="cl245 kefu dja" v-if="userInfo.avatarUrl" @click="tocenterdetail2">全部预约</div>
@@ -193,6 +199,18 @@ export default {
                 wx.setStorageSync("UserInfo",data);
             });
         }
+    },
+    getUserCollect(){
+        let _this=this;
+        _this.$http.get('user/getUserCollectOne',{},function (res) {
+            _this.collect=res.data
+        })
+    },
+    getUserReserve(){
+        let _this=this;
+        _this.$http.get('user/getUserReserveOne',{},function (res) {
+            _this.reserve=res.data
+        })
     }
   },
   created() {
@@ -217,6 +235,8 @@ export default {
             return false;
         }
         _this.getUserInfo()
+        _this.getUserCollect()
+        _this.getUserReserve()
 
     }
 };

@@ -82,23 +82,7 @@
     </div>
     <div class="clearfix"></div>
     <!--分享-->
-    <div class="fixd" v-if="showt" @click.stop="showthiss">
-      <div>
-        <div class="fidx"></div>
-        <div class="savs dja" @click.stop="showthis">保存图片</div>
-      </div>
-    </div>
-    <div class="bormar">
-      <div class="cens mar20 mart90">
-        <span class="title">分享到：</span>
-        <button @click="showthiss" class="tis desc col999 lin50 tu dja">
-          <img :src="pyq">朋友圈
-        </button>
-        <button open-type="share" class="tis desc col999 lin50 tu dja">
-          <img :src="wxhy">微信好友
-        </button>
-      </div>
-    </div>
+    <Share :title="content.tite" :url="'/pages/productDetail/main?id='+content.article_id"></Share>
     <!--分享-->
     <div class="dja" v-show="content.other.length > 0">
       <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
@@ -179,8 +163,8 @@
         </block>
       </swiper>
     </div>
-    <!-- <div class="fix wid100ss dja">
-      <div class="butt dja" @click="toappointment">预约参观</div>
+    <div class="fix wid100ss dja" v-if="content.is_state==1">
+      <div class="butt dja" @click="toanli('/pages/appointment/main?id='+content.article_id)">预约参观</div>
       <button open-type="contact" session-from="weapp" class="dja">
         <img :src="listing" class="tupic">
       </button>
@@ -188,9 +172,9 @@
         <img :src="shoucan" class="tupic" v-if="!content.collect" @click="collect(1)">
         <img :src="yishoucan" class="tupic" v-else @click="collect(2)">
       </div>
-    </div>-->
+    </div>
 
-    <div class="fix wid100ss dja">
+    <div class="fix wid100ss dja" v-else>
       <div class="dis1">
         <button open-type="contact" session-from="weapp" class="dja">
           <img :src="listing" class="tupic">
@@ -198,8 +182,8 @@
       </div>
       <div class="dis2">
         <div class="dja">
-          <img :src="shoucan" class="tupic" v-show="shoucaning">
-          <img :src="yishoucan" class="tupic2" v-show="!shoucaning">
+          <img :src="shoucan" class="tupic" v-if="!content.collect" @click="collect(1)">
+          <img :src="yishoucan" class="tupic" v-else @click="collect(2)">
         </div>
       </div>
     </div>
@@ -207,18 +191,17 @@
 </template>
 
 <script>
-// import card from "@/components/card";
+import Share from "@/components/Share";
 
 import wxParse from "mpvue-wxparse";
 export default {
   components: {
-    wxParse
+      Share
   },
   data() {
     return {
       shoucaning: false,
-      wxhy: "/static/images/wechat.jpg",
-      pyq: "/static/images/frient.jpg",
+
       indicatorDots: true,
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
@@ -249,25 +232,7 @@ export default {
     // console.log(this.$root.$mp.query.id);
     //获取图片信息
   },
-  /* 转发*/
-  onShareAppMessage: function(ops) {
-    if (ops.from === "button") {
-      // 来自页面内转发按钮
-      console.log(ops.target);
-    }
-    return {
-      title: "蜜蜂demo",
-      path: `/pages/productDetail/main?id=` + this.id,
-      success: function(res) {
-        // 转发成功
-        console.log("转发成功:" + JSON.stringify(res));
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    };
-  },
+
   methods: {
     showthiss() {
       this.showt = !this.showt;
