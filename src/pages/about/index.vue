@@ -51,41 +51,14 @@
 
       <!-- <wxParse :content="article"/> -->
       <!--分享-->
-<<<<<<< HEAD
-      <div class="fixd" v-if="showt" @click.stop="showthiss">
-        <div>
-          <div class="fidx"></div>
-          <div class="savs dja" @click.stop="showthis">保存图片</div>
-        </div>
-      </div>
-      <div class="bormar">
-        <div class="cens mar20 mart90">
-          <span class="title coladadad">分享到：</span>
-          <button
-            @click="showthiss"
-            class="tis desc col999 lin50 tu dja font24"
-            style="background:#403c3c"
-          >
-            <img :src="pyq">朋友圈
-          </button>
-          <button
-            open-type="share"
-            class="tis desc col999 lin50 tu dja font24"
-            style="background:#403c3c;"
-          >
-            <img :src="wxhy">微信好友
-          </button>
-        </div>
-      </div>
-=======
-      <Share :title="content.ad_name"
-             :url="'/pages/about/main?id='+content.adv_id"
-             :thumb="content.big_pic"
-             cat="adv"
-             :keyid="content.adv_id"
-             :hasshare="hasshare"   
+      <Share
+        :title="content.ad_name"
+        :url="'/pages/about/main?id='+content.adv_id"
+        :thumb="content.big_pic"
+        cat="adv"
+        :keyid="content.adv_id"
+        :hasshare="hasshare"
       ></Share>
->>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
       <!--分享-->
       <div class="dja mar45">
         <div class="desc coleee talcen wid100r">
@@ -109,7 +82,7 @@
 import Share from "@/components/Share";
 import wxParse from "mpvue-wxparse";
 export default {
-  components: {wxParse, Share},
+  components: { wxParse, Share },
   data() {
     return {
       // article: "<div>我是HTML代码</div>",
@@ -121,7 +94,7 @@ export default {
         lists: []
       },
       showt: false,
-      hasshare:false,
+      hasshare: false
     };
   },
   methods: {
@@ -132,36 +105,35 @@ export default {
     }
   },
   /* 转发*/
-    onShareAppMessage: function(ops) {
-
-        let title=ops.target.dataset.title
-        let url=ops.target.dataset.url
-        return {
-            title: title,
-            path: url,
-            success: function(res) {
-                // 转发成功
-                console.log("转发成功:" + JSON.stringify(res));
-            },
-            fail: function(res) {
-                // 转发失败
-                console.log("转发失败:" + JSON.stringify(res));
-            }
-        };
-    },
+  onShareAppMessage: function(ops) {
+    let title = ops.target.dataset.title;
+    let url = ops.target.dataset.url;
+    return {
+      title: title,
+      path: url,
+      success: function(res) {
+        // 转发成功
+        console.log("转发成功:" + JSON.stringify(res));
+      },
+      fail: function(res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    };
+  },
   created() {},
   onShow() {
     let _this = this;
     let Query = _this.$http.getQuery();
-//    let id = Query.id;
-            let id=97
+    //    let id = Query.id;
+    let id = 97;
     _this.$http.get("index/getAdvDetailsById/" + id, {}, function(res) {
       _this.content = res.data;
     });
     let share = _this.$http.getQuery().share;
 
-    if(share){
-        _this.hasshare=true
+    if (share) {
+      _this.hasshare = true;
     }
   }
 };

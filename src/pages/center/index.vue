@@ -38,16 +38,10 @@
     </div>
     <div class="clearfix"></div>
 
-<<<<<<< HEAD
     <div class="titss mar30 mar50">
       <!-- <a style="display:inline;color:#b59570">质感</a> -->
       <a style="display:inline;color:#fff;font-size:38rpx">我收藏的</a>
       <!-- <span></span> -->
-=======
-    <div class="titss mar30">
-      我的收藏
-      <span></span>
->>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     </div>
     <div class="dja" v-if="collect">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo">
@@ -74,16 +68,10 @@
       </div>
     </div>
     <!-- 以上的是收藏，以下是预约 -->
-<<<<<<< HEAD
     <div class="titss mar30 mar50">
       <!-- <a style="display:inline;color:#b59570">质感</a> -->
       <a style="display:inline;color:#fff;font-size:38rpx">我预约的</a>
       <!-- <span></span> -->
-=======
-    <div class="titss mar30" style="margin-top:10rpx;">
-      我预约的
-      <span></span>
->>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     </div>
 
     <div class="dja" v-if="reserve">
@@ -127,15 +115,10 @@ export default {
       userInfo: "gg",
       nickName: [],
       avatarUrl: "",
-<<<<<<< HEAD
-      listing: "/static/images/listing.jpg"
-=======
       listing: "/static/images/listing.jpg",
 
-      collect:false,
-      reserve:false
-
->>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
+      collect: false,
+      reserve: false
     };
   },
 
@@ -155,27 +138,29 @@ export default {
     },
     bindGetUserInfo(e) {
       // console.log(e);
-      let _this=this
+      let _this = this;
       if (e.mp.detail.userInfo) {
         console.log("用户按了允许授权按钮");
         wx.getUserInfo({
           success: function(res) {
-
             wx.login({
-                success(loginres) {
-                    if (loginres.code) {
-                        _this.$http.post('login/wxlogin',{
-                            code:loginres.code,
-                            nickname:res.userInfo.nickName,
-                            avatarUrl:res.userInfo.avatarUrl,
-                            sex:res.userInfo.gender,
-                        },function (data) {
-                            wx.setStorageSync("token",data.data);
-
-                        });
-                        // 这里可以把code传给后台，后台用此获取openid及session_key
+              success(loginres) {
+                if (loginres.code) {
+                  _this.$http.post(
+                    "login/wxlogin",
+                    {
+                      code: loginres.code,
+                      nickname: res.userInfo.nickName,
+                      avatarUrl: res.userInfo.avatarUrl,
+                      sex: res.userInfo.gender
+                    },
+                    function(data) {
+                      wx.setStorageSync("token", data.data);
                     }
+                  );
+                  // 这里可以把code传给后台，后台用此获取openid及session_key
                 }
+              }
             });
             _this.userInfo = res.userInfo;
             _this.nickName = res.userInfo.nickName;
@@ -188,91 +173,70 @@ export default {
             // var country = userInfo.country; //所在国家
           }
         });
-
       } else {
         //用户按了拒绝按钮
         console.log("用户按了拒绝按钮");
       }
     },
-    getUserInfo(){
-        var _this=this
-        let userInfo = mpvue.getStorageSync("UserInfo");
-        if(userInfo){
-            let info={
-                avatarUrl:userInfo.open_face,
-                nickName:userInfo.open_name
-            }
-            _this.userInfo = info;
-            _this.nickName = userInfo.open_name;
-        }else{
-            _this.$http.get('user/getUserInfo',{},function (res) {
-                let data=res.data
-                let info={
-                    avatarUrl:data.open_face,
-                    nickName:data.open_name
-                }
-                _this.userInfo = info;
-                _this.nickName = data.open_name;
+    getUserInfo() {
+      var _this = this;
+      let userInfo = mpvue.getStorageSync("UserInfo");
+      if (userInfo) {
+        let info = {
+          avatarUrl: userInfo.open_face,
+          nickName: userInfo.open_name
+        };
+        _this.userInfo = info;
+        _this.nickName = userInfo.open_name;
+      } else {
+        _this.$http.get("user/getUserInfo", {}, function(res) {
+          let data = res.data;
+          let info = {
+            avatarUrl: data.open_face,
+            nickName: data.open_name
+          };
+          _this.userInfo = info;
+          _this.nickName = data.open_name;
 
-                wx.setStorageSync("UserInfo",data);
-            });
-        }
+          wx.setStorageSync("UserInfo", data);
+        });
+      }
     },
-    getUserCollect(){
-        let _this=this;
-        _this.$http.get('user/getUserCollectOne',{},function (res) {
-            _this.collect=res.data
-        })
+    getUserCollect() {
+      let _this = this;
+      _this.$http.get("user/getUserCollectOne", {}, function(res) {
+        _this.collect = res.data;
+      });
     },
-    getUserReserve(){
-        let _this=this;
-        _this.$http.get('user/getUserReserveOne',{},function (res) {
-            _this.reserve=res.data
-        })
+    getUserReserve() {
+      let _this = this;
+      _this.$http.get("user/getUserReserveOne", {}, function(res) {
+        _this.reserve = res.data;
+      });
     }
   },
   created() {
     // let app = getApp();
   },
-<<<<<<< HEAD
-  mounted() {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          // 这里可以把code传给后台，后台用此获取openid及session_key
-        }
-      }
-    });
-  },
+
   onShow() {
     let _this = this;
-    let Query = _this.$http.getQuery();
-    if (Query.login == 1) {
-=======
-
-    onShow(){
-        let _this=this;
-        let token = mpvue.getStorageSync("token");
-        if(!token){
-            wx.showModal({
-                title: '提示',
-                content: '请先点击头像进行登录',
-                success(res) {
-                    if (res.confirm) {
-
-                    } else if (res.cancel) {
-
-                    }
-                }
-            })
-            return false;
+    let token = mpvue.getStorageSync("token");
+    if (!token) {
+      wx.showModal({
+        title: "提示",
+        content: "请先点击头像进行登录",
+        success(res) {
+          if (res.confirm) {
+          } else if (res.cancel) {
+          }
         }
-        _this.getUserInfo()
-        _this.getUserCollect()
-        _this.getUserReserve()
-
->>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
+      });
+      return false;
     }
+    _this.getUserInfo();
+    _this.getUserCollect();
+    _this.getUserReserve();
   }
 };
 </script>
