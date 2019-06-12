@@ -328,8 +328,8 @@ export default {
   onShow(){
       let _this=this
       let Query=_this.$http.getQuery()
-//      let id=Query.id
-      let id=3
+     let id=Query.id
+      // let id=3
       this.id=id
       _this.$http.get('product/getGoodsDetailsById/'+id,{},function (res) {
           _this.content=res.data

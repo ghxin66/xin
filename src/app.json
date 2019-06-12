@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/about/main",
     "pages/center/main",
     "pages/centerdetail2/main",
     "pages/centerdetail/main",
@@ -11,12 +12,11 @@
     "pages/productlist/main",
     "pages/productdetails_3/main",
     "pages/panoramicdetails/main",
-    "pages/about/main",
+
     "pages/about2/main",
     "pages/sousuo_article/main",
     "pages/productDetail/main",
     "pages/cityselect/main",
-
     "pages/keting/main",
     "pages/sousuo/main",
     "pages/experiencedetails/main"

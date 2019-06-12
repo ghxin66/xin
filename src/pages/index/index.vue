@@ -125,7 +125,8 @@ export default {
       shfs: "生活方式",
       xinfengshan: "SANFI · 新风尚",
       articlelist: [],
-      goodslist: []
+      goodslist: [],
+      hasshare:false,
     };
   },
   components: {
@@ -179,6 +180,7 @@ export default {
     _this.$http.get("product/getGoodsListByParam", {}, function(res) {
       _this.goodslist = res.data.data;
     });
+  
   }
 };
 </script>

@@ -82,7 +82,12 @@
     </div>
     <div class="clearfix"></div>
     <!--分享-->
-    <Share :title="content.tite" :url="'/pages/productDetail/main?id='+content.article_id"></Share>
+    <Share :title="content.title"
+           :url="'pages/productDetail/main?id='+content.article_id"
+           :thumb="content.picture" cat="article" 
+           :keyid="content.article_id"
+           :hasshare="hasshare"
+           ></Share>
     <!--分享-->
     <div class="dja" v-show="content.other.length > 0">
       <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
@@ -164,7 +169,11 @@
       </swiper>
     </div>
     <div class="fix wid100ss dja" v-if="content.is_state==1">
-      <div class="butt dja" @click="toanli('/pages/appointment/main?id='+content.article_id)">预约参观</div>
+
+      <div class="butt dja" @click="toanli('/pages/appointment/main?id='+content.article_id)">
+        <template v-if="content.hasyy>=1">再次预约</template>
+        <template v-else>预约参观</template>
+      </div>
       <button open-type="contact" session-from="weapp" class="dja">
         <img :src="listing" class="tupic">
       </button>
@@ -196,12 +205,12 @@ import Share from "@/components/Share";
 import wxParse from "mpvue-wxparse";
 export default {
   components: {
-      Share
+      Share,
+      wxParse
   },
   data() {
     return {
       shoucaning: false,
-
       indicatorDots: true,
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
@@ -209,9 +218,7 @@ export default {
       righs: "/static/images/right.png",
       yishoucan: "/static/images/yishoucan.png",
       detailImagesHeight: 0,
-      showt: false,
       id: "",
-
       content: {
         contents: {
           imglist: [],
@@ -221,7 +228,8 @@ export default {
         goods_list: [],
         other: []
       },
-      multipleItems: 1
+      multipleItems: 1,
+      hasshare:false
     };
   },
 
@@ -234,39 +242,8 @@ export default {
   },
 
   methods: {
-    showthiss() {
-      this.showt = !this.showt;
-    },
-    showthis() {
-      //获取相册授权
-      wx.getSetting({
-        success(res) {
-          wx.downloadFile({
-            url:
-              "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-            success: function(res) {
-              console.log(res);
-              wx.saveImageToPhotosAlbum({
-                filePath: res.tempFilePath,
-                success: function(data) {
-                  wx.showToast({
-                    title: "保存成功",
-                    icon: "success",
-                    duration: 2000
-                  });
-                },
-                fail: function(err) {
-                  console.log(err);
-                },
-                complete(res) {
-                  console.log(res);
-                }
-              });
-            }
-          });
-        }
-      });
-    },
+
+
     showImgs(e, evn) {
       mpvue.navigateTo({
         url: "/pages/keting/main?type=article&id=" + this.id + "&url=" + e
@@ -330,7 +307,30 @@ export default {
         title: _this.content.title
       });
     });
-  }
+     let share = _this.$http.getQuery().share;
+
+      if(share){
+          _this.hasshare=true
+      }
+  },
+  /* 转发*/
+    onShareAppMessage: function(ops) {
+
+        let title=ops.target.dataset.title
+        let url=ops.target.dataset.url
+        return {
+            title: title,
+            path: url,
+            success: function(res) {
+                // 转发成功
+                console.log("转发成功:" + JSON.stringify(res));
+            },
+            fail: function(res) {
+                // 转发失败
+                console.log("转发失败:" + JSON.stringify(res));
+            }
+        };
+    },
 };
 </script>
 

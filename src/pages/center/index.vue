@@ -42,7 +42,7 @@
       我的收藏
       <span></span>
     </div>
-    <div class="dja" v-if="collect.length>0">
+    <div class="dja" v-if="collect">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo">
         <template v-if="collect.cat_id==1">
           <img :src="collect.article_id.picture" class="ab tl00 hei285">
