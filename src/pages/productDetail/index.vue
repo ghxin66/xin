@@ -82,23 +82,12 @@
     </div>
     <div class="clearfix"></div>
     <!--分享-->
-    <div class="fixd" v-if="showt" @click.stop="showthiss">
-      <div>
-        <div class="fidx"></div>
-        <div class="savs dja" @click.stop="showthis">保存图片</div>
-      </div>
-    </div>
-    <div class="bormar">
-      <div class="cens mar20 mart90">
-        <span class="title">分享到：</span>
-        <button @click="showthiss" class="tis desc col999 lin50 tu dja">
-          <img :src="pyq">朋友圈
-        </button>
-        <button open-type="share" class="tis desc col999 lin50 tu dja">
-          <img :src="wxhy">微信好友
-        </button>
-      </div>
-    </div>
+    <Share :title="content.title"
+           :url="'pages/productDetail/main?id='+content.article_id"
+           :thumb="content.picture" cat="article" 
+           :keyid="content.article_id"
+           :hasshare="hasshare"
+           ></Share>
     <!--分享-->
     <div class="dja" v-show="content.other.length > 0">
       <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
@@ -179,17 +168,22 @@
         </block>
       </swiper>
     </div>
-    <!-- <div class="fix wid100ss dja">
-      <div class="butt dja" @click="toappointment">预约参观</div>
+    <div class="fix wid100ss dja" v-if="content.is_state==1">
+
+      <div class="butt dja" @click="toanli('/pages/appointment/main?id='+content.article_id)">
+        <template v-if="content.hasyy>=1">再次预约</template>
+        <template v-else>预约参观</template>
+      </div>
       <button open-type="contact" session-from="weapp" class="dja">
         <img :src="listing" class="tupic">
       </button>
       <div class="dja">
-        <img :src="shoucan" class="tupic">
+        <img :src="shoucan" class="tupic" v-if="!content.collect" @click="collect(1)">
+        <img :src="yishoucan" class="tupic" v-else @click="collect(2)">
       </div>
-    </div>-->
+    </div>
 
-    <div class="fix wid100ss dja">
+    <div class="fix wid100ss dja" v-else>
       <div class="dis1">
         <button open-type="contact" session-from="weapp" class="dja">
           <img :src="listing" class="tupic">
@@ -197,8 +191,8 @@
       </div>
       <div class="dis2">
         <div class="dja">
-          <img :src="shoucan" class="tupic" v-show="shoucaning">
-          <img :src="yishoucan" class="tupic2" v-show="!shoucaning">
+          <img :src="shoucan" class="tupic" v-if="!content.collect" @click="collect(1)">
+          <img :src="yishoucan" class="tupic" v-else @click="collect(2)">
         </div>
       </div>
     </div>
@@ -206,18 +200,17 @@
 </template>
 
 <script>
-// import card from "@/components/card";
+import Share from "@/components/Share";
 
 import wxParse from "mpvue-wxparse";
 export default {
   components: {
-    wxParse
+      Share,
+      wxParse
   },
   data() {
     return {
       shoucaning: false,
-      wxhy: "/static/images/wechat.jpg",
-      pyq: "/static/images/frient.jpg",
       indicatorDots: true,
       guanzhu: "/static/images/guanzhu.jpg",
       listing: "/static/images/listing.jpg",
@@ -225,9 +218,7 @@ export default {
       righs: "/static/images/right.png",
       yishoucan: "/static/images/yishoucan.png",
       detailImagesHeight: 0,
-      showt: false,
       id: "",
-
       content: {
         contents: {
           imglist: [],
@@ -237,7 +228,8 @@ export default {
         goods_list: [],
         other: []
       },
-      multipleItems: 1
+      multipleItems: 1,
+      hasshare:false
     };
   },
 
@@ -248,68 +240,49 @@ export default {
     // console.log(this.$root.$mp.query.id);
     //获取图片信息
   },
-  /* 转发*/
-  onShareAppMessage: function(ops) {
-    if (ops.from === "button") {
-      // 来自页面内转发按钮
-      console.log(ops.target);
-    }
-    return {
-      title: "蜜蜂demo",
-      path: `/pages/productDetail/main?id=` + this.id,
-      success: function(res) {
-        // 转发成功
-        console.log("转发成功:" + JSON.stringify(res));
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    };
-  },
+
   methods: {
-    showthiss() {
-      this.showt = !this.showt;
-    },
-    showthis() {
-      //获取相册授权
-      wx.getSetting({
-        success(res) {
-          wx.downloadFile({
-            url:
-              "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6",
-            success: function(res) {
-              console.log(res);
-              wx.saveImageToPhotosAlbum({
-                filePath: res.tempFilePath,
-                success: function(data) {
-                  wx.showToast({
-                    title: "保存成功",
-                    icon: "success",
-                    duration: 2000
-                  });
-                },
-                fail: function(err) {
-                  console.log(err);
-                },
-                complete(res) {
-                  console.log(res);
-                }
-              });
-            }
-          });
-        }
-      });
-    },
+
+
     showImgs(e, evn) {
       mpvue.navigateTo({
         url: "/pages/keting/main?type=article&id=" + this.id + "&url=" + e
       });
     },
-    toanli(url) {
-      mpvue.navigateTo({
-        url: url
-      });
+
+    toanli(url){
+        mpvue.navigateTo({
+            url: url
+        })
+    },
+    collect(type){
+       let url
+        let _this=this
+        if(type==1){
+           url="user/collect"
+        }else{
+           url="user/cancelCollect"
+        }
+        mpvue.showLoading({
+            title: '请求中',
+            mask:true
+        })
+        _this.$http.post(url,{key:_this.content.article_id,cat_id:1},function (res) {
+            wx.hideLoading();
+            if(type==1){
+                _this.content.collect=true
+            }else{
+                _this.content.collect=false
+            }
+
+            wx.showToast({
+                title: res.msg,
+                icon: 'success',
+                duration: 1500
+            })
+
+        })
+
     }
   },
 
@@ -334,7 +307,30 @@ export default {
         title: _this.content.title
       });
     });
-  }
+     let share = _this.$http.getQuery().share;
+
+      if(share){
+          _this.hasshare=true
+      }
+  },
+  /* 转发*/
+    onShareAppMessage: function(ops) {
+
+        let title=ops.target.dataset.title
+        let url=ops.target.dataset.url
+        return {
+            title: title,
+            path: url,
+            success: function(res) {
+                // 转发成功
+                console.log("转发成功:" + JSON.stringify(res));
+            },
+            fail: function(res) {
+                // 转发失败
+                console.log("转发失败:" + JSON.stringify(res));
+            }
+        };
+    },
 };
 </script>
 

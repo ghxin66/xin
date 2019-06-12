@@ -196,9 +196,13 @@ export default {
       mpvue.navigateTo({ url });
     },
     sousuo() {
-      if (this.trw == 1) {
-        wx.navigateTo({ url: "/pages/sousuo_article/main" });
-      }
+
+        if(this.trw==1){
+            wx.navigateTo({ url: "/pages/sousuo_article/main" });
+        }else{
+            wx.navigateTo({ url: "/pages/sousuo/main" });
+        }
+
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+<<<<<<< HEAD
     "pages/center/main",
     "pages/about/main",
     "pages/about2/main",
@@ -11,15 +12,30 @@
     "pages/sousuo_article/main",
     "pages/productDetail/main",
     "pages/cityselect/main",
+=======
+    "pages/about/main",
+    "pages/center/main",
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     "pages/centerdetail2/main",
     "pages/centerdetail/main",
     "pages/appointment/main",
     "pages/panoramic/main",
     "pages/appointmentdetails/main",
+<<<<<<< HEAD
+=======
+    "pages/experience/main",
+    "pages/productlist/main",
+    "pages/productdetails_3/main",
+    "pages/panoramicdetails/main",
+
+    "pages/about2/main",
+    "pages/sousuo_article/main",
+    "pages/productDetail/main",
+    "pages/cityselect/main",
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     "pages/keting/main",
     "pages/sousuo/main",
-    "pages/experiencedetails/main",
-    "pages/shouquan/main"
+    "pages/experiencedetails/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

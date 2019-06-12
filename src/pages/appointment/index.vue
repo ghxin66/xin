@@ -17,8 +17,7 @@
           :key="inde+1"
         >
           <img :src="item.tupian">
-          <div class="ab yuan" v-show="!item.select">推荐</div>
-          <div class="ab yuan" v-show="item.select">不推荐</div>
+
           <div class="ab butle">
             <div class="titss cold">{{item.title}}</div>
             <div class="font27">{{item.desc}}</div>
@@ -85,17 +84,18 @@ export default {
         {
           id: 0,
           title: "陪同体验",
-          tupian: "/static/images/banner_bg.png",
+          tupian: "/static/images/select_ty_1.png",
           desc:
-            "imola专业销售人员负责和业主确定体验时间，全程陪同您一起去业主家体验。"
+            "SANFI专业销售人员负责和业主确定体验时间，全程陪同您一起去业主家体验。"
         },
         {
           id: 1,
           title: "自行体验",
-          tupian: "/static/images/banner_bg.png",
+          tupian: "/static/images/select_ty_2.png",
           desc: "您自己与业主取得联系，确定体验时间，全程自行体验。"
         }
-      ]
+      ],
+        id:''
     };
   },
   methods: {
@@ -106,7 +106,7 @@ export default {
         this.isModel = !this.isModel;
       } else {
         this.pttys = !this.pttys;
-        wx.navigateTo({ url: "../appointmentdetails/main" });
+        wx.navigateTo({ url: "../appointmentdetails/main?id="+this.id });
       }
     },
     // 打开输入手机号的模态框
@@ -142,6 +142,13 @@ export default {
         }
       }
     });
+  },
+  onShow(){
+      let _this = this;
+      let Query = _this.$http.getQuery();
+//      let id = Query.id;
+      let id = 10;
+      _this.id=id;
   }
 };
 </script>

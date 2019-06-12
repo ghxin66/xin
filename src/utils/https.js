@@ -23,6 +23,7 @@ fly.interceptors.request.use((config,promise)=>{
     return config;
 })
 //配置请求基地址
+// fly.config.baseURL='https://www.xinhui.cnm/index.php/api/v1'
 fly.config.baseURL='https://xhxcx.hengdikeji.com/api/v1'
 
 function get(url,data,callback) {
@@ -51,9 +52,16 @@ function flyres(res,callback) {
             icon: 'none',
             duration: 1000,
             complete:function () {
-                mpvue.redirectTo({
-                    url: '/pages/center/main?login=1'
-                })
+                wx.removeStorageSync('token')
+                wx.removeStorageSync('UserInfo')
+
+                  wx.switchTab({
+                    url: "/pages/center/main",
+                    fail:function(res){
+                        console.log(res)
+                    }
+                });
+               
             }
         })
     }else{

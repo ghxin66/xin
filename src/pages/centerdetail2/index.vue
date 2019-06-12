@@ -9,24 +9,24 @@
     <div class="clearfix"></div>
 
     <div class="padd30 lunbo2">
-      <swper vertical class="fl swiper" v-if="imgUrls.length > 0">
-        <block v-for="(item, index) in imgUrls" :key="index">
-          <div class="des fontwei mar20">{{item.time}}</div>
+      <swper vertical class="fl swiper" v-if="lists.length > 0">
+        <block v-for="(item, index) in lists" :key="index">
+          <div class="des fontwei mar20">{{item.add_time.ym}}{{item.add_time.d}}</div>
           <swiperitem class="widssgg4 fl">
             <!-- <div class="bttn">预约体验</div> -->
-            <img :src="item.urls" mode="widthFix">
+            <img :src="item.article_id.picture" mode="widthFix" @click="toUrl('/pages/productDetail/main?id='+item.article_id.article_id)">
             <div class="titss2 mar20 wid270">
               <div class="eklp1 fontwei">
                 <div class="dess">
-                  现代 . 郑州 . 平层
+                  {{ item.article_id.description }} . {{item.article_id.author}} . {{item.article_id.keyword}}
                   <i></i>
                 </div>
               </div>
               <div class="descss eklp1" style="font-size:24rpx;">
-                灰色系 | 郑州设计师170 m2小窝
+                {{ item.article_id.title }}
                 <i
                   class="fr dja font22"
-                  @click="todaohan(item.longitude,item.latitude)"
+                  @click="todaohan(item.article_id.lng,item.article_id.lat)"
                 >
                   <img :src="daohan" class="imssg">
                   一键导航
@@ -36,6 +36,12 @@
           </swiperitem>
         </block>
       </swper>
+      <div v-else class="dja">
+        <div class="hei285 dja">
+          <img :src="noyu" style="width:190rpx;height:185rpx;">
+        </div>
+      </div>
+
     </div>
     <div class="clearfix"></div>
     <div class="dja mar45 martt45">
@@ -53,63 +59,21 @@
 export default {
   data() {
     return {
+        noyu: "/static/images/yuyue.jpg",
       daohan: "/static/images/daohan.png",
-      imgUrls: [
-        {
-          id: 0,
-          longitude: 113.3245211,
-          latitude: 23.10229,
-          time: "2015年02月12日",
-          urls:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-        },
-        {
-          id: 1,
-          longitude: 113.5245211,
-          latitude: 22.10229,
-          time: "2019年04月12日",
-          urls:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-        },
-        {
-          id: 2,
-          longitude: 113.3245211,
-          latitude: 22.50229,
-          time: "2019年02月12日",
-          urls:
-            "http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6"
-        }
-      ],
-      wyyd: "我预约的"
+      imgUrls: [],
+      wyyd: "我预约的",
+        lists:[],
+        page:1,
+        last_page:1,
+
     };
   },
-  // onUnload: function() {
-  //   console.log("我隐藏了");
-  //   var that = this;
-  //   this.imgUrls.map(item => {
-  //     var timeStr = new Date(item.time);
-  //     console.log(timeStr);
-  //     item.time = timeStr.getTime();
-  //   });
-  // },
-  methods: {
-    // time: function(timestamp) {
-    //   console.log(timestamp);
-    //   var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-    //   var Y = date.getFullYear() + "/";
-    //   var M =
-    //     (date.getMonth() + 1 < 10
-    //       ? "0" + (date.getMonth() + 1)
-    //       : date.getMonth() + 1) + "/";
-    //   var D = date.getDate() + "/ ";
-    //   var h = date.getHours() + ":";
-    //   var m = date.getMinutes() + ":";
-    //   var s = date.getSeconds();
 
-    //   // return Y+M+D+h+m+s;
-    //   //这里返回时间的年月日时分秒，可按项目需求进行修改
-    //   return Y + M + D;
-    // },
+  methods: {
+      toUrl(url) {
+          mpvue.navigateTo({ url });
+      },
     todaohan(e, a) {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
@@ -117,14 +81,36 @@ export default {
         longitude: Number(e),
         latitude: Number(a)
       });
+    },
+      getlists(){
+          let _this=this
+          mpvue.showLoading({
+              title: "加载中",
+              mask: true
+          });
+          _this.$http.get('user/userReserveList',{
+              page:_this.page
+          },function (res) {
+              wx.hideLoading();
+              _this.last_page=res.data.last_page
+              let list=res.data.data
+              for(let item in list){
+                  _this.lists.push(list[item])
+              }
+          })
+      }
+  },
+    onShow(){
+        this.lists=[]
+        this.getlists()
+    },
+    onReachBottom(){
+        if (this.page < this.last_page) {
+            this.page += 1;
+            this.getlists();
+        }
     }
-  }
-  // onLoad() {
-  //   var that = this;
-  //   this.imgUrls.map(item => {
-  //     item.time = that.time(item.time);
-  //   });
-  // }
+
 };
 </script>
 
@@ -599,5 +585,11 @@ swiper {
 }
 .ab {
   position: absolute;
+}
+.hei285 {
+  height: 285rpx;
+  width: 420rpx;
+  overflow: hidden;
+  border-radius: 15rpx;
 }
 </style>

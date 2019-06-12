@@ -38,39 +38,57 @@
     </div>
     <div class="clearfix"></div>
 
+<<<<<<< HEAD
     <div class="titss mar30 mar50">
       <!-- <a style="display:inline;color:#b59570">质感</a> -->
       <a style="display:inline;color:#fff;font-size:38rpx">我收藏的</a>
       <!-- <span></span> -->
+=======
+    <div class="titss mar30">
+      我的收藏
+      <span></span>
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     </div>
-    <div class="dja" v-show="userInfo.avatarUrl">
-      <div class="re flss2 mar30 mar20 hei285" v-if="userInfo.avatarUrl">
-        <img :src="userInfo.avatarUrl" class="ab tl00 hei285">
+    <div class="dja" v-if="collect">
+      <div class="re flss2 mar30 mar20 hei285" v-if="userInfo">
+        <template v-if="collect.cat_id==1">
+          <img :src="collect.article_id.picture" class="ab tl00 hei285">
+        </template>
+        <template v-else>
+          <img :src="collect.img_url" class="ab tl00 hei285">
+        </template>
       </div>
 
       <div class="marr30">
-        <div v-if="userInfo.avatarUrl">
-          <img :src="userInfo.avatarUrl" class="hei185">
+        <div v-if="collect">
+          <img :src="collect.article_id.picture" class="hei185" v-if="collect.cat_id==1">
+          <img :src="collect.img_url" class="hei185" v-else>
         </div>
         <!-- 判断有大于3的显示 -->
-        <div class="cl245 kefu dja" v-if="userInfo.avatarUrl" @click="tocenterdetail()">全部收藏</div>
+        <div class="cl245 kefu dja" v-if="collect" @click="tocenterdetail()">全部收藏</div>
       </div>
     </div>
-    <div v-if="!userInfo.avatarUrl" class="dja">
-      <div class="hei285 dja" v-if="!userInfo.avatarUrl">
+    <div v-else class="dja">
+      <div class="hei285 dja">
         <img :src="noshou" style="width:190rpx;height:185rpx;">
       </div>
     </div>
     <!-- 以上的是收藏，以下是预约 -->
+<<<<<<< HEAD
     <div class="titss mar30 mar50">
       <!-- <a style="display:inline;color:#b59570">质感</a> -->
       <a style="display:inline;color:#fff;font-size:38rpx">我预约的</a>
       <!-- <span></span> -->
+=======
+    <div class="titss mar30" style="margin-top:10rpx;">
+      我预约的
+      <span></span>
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     </div>
 
-    <div class="dja" v-show="userInfo.avatarUrl">
+    <div class="dja" v-if="reserve">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo.avatarUrl">
-        <img :src="userInfo.avatarUrl" class="ab tl00 hei285">
+        <img :src="reserve.article_id.picture" class="ab tl00 hei285">
       </div>
 
       <div class="marr30">
@@ -79,16 +97,16 @@
             <!-- <img :src="userInfo.avatarUrl"> -->
             <div class="font24">最近预约</div>
             <div class="font24">
-              <span class="titss" style="color:#666">29</span>日
+              <span class="titss" style="color:#666">{{ reserve.add_time.d }}</span>日
             </div>
-            <div class="font24">2019年2月</div>
+            <div class="font24">{{ reserve.add_time.ym }}</div>
           </div>
         </div>
         <div class="cl245 kefu dja" v-if="userInfo.avatarUrl" @click="tocenterdetail2">全部预约</div>
       </div>
     </div>
 
-    <div v-if="!userInfo.avatarUrl" class="dja">
+    <div v-if="!reserve" class="dja">
       <div class="hei285 dja">
         <img :src="noyu" style="width:190rpx;height:185rpx;">
       </div>
@@ -109,7 +127,15 @@ export default {
       userInfo: "gg",
       nickName: [],
       avatarUrl: "",
+<<<<<<< HEAD
       listing: "/static/images/listing.jpg"
+=======
+      listing: "/static/images/listing.jpg",
+
+      collect:false,
+      reserve:false
+
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     };
   },
 
@@ -129,14 +155,31 @@ export default {
     },
     bindGetUserInfo(e) {
       // console.log(e);
-      const self = this;
+      let _this=this
       if (e.mp.detail.userInfo) {
         console.log("用户按了允许授权按钮");
         wx.getUserInfo({
           success: function(res) {
-            console.log(res.userInfo);
-            self.userInfo = res.userInfo;
-            self.nickName = res.userInfo.nickName;
+
+            wx.login({
+                success(loginres) {
+                    if (loginres.code) {
+                        _this.$http.post('login/wxlogin',{
+                            code:loginres.code,
+                            nickname:res.userInfo.nickName,
+                            avatarUrl:res.userInfo.avatarUrl,
+                            sex:res.userInfo.gender,
+                        },function (data) {
+                            wx.setStorageSync("token",data.data);
+
+                        });
+                        // 这里可以把code传给后台，后台用此获取openid及session_key
+                    }
+                }
+            });
+            _this.userInfo = res.userInfo;
+            _this.nickName = res.userInfo.nickName;
+
             // var nickName = userInfo.nickName; //用户名
             // var avatarUrl = userInfo.avatarUrl; //头像链接
             // var gender = userInfo.gender; //性别 0：未知、1：男、2：女
@@ -145,30 +188,53 @@ export default {
             // var country = userInfo.country; //所在国家
           }
         });
-        // let { encryptedData, userInfo, iv } = e.mp.detail;
-        // self.$http
-        //   .post(api, {
-        //     // 这里的code就是通过wx.login()获取的
-        //     code: self.code,
-        //     encryptedData,
-        //     iv
-        //   })
-        //   .then(res => {
-        //     console.log(`后台交互拿回数据:`, res);
-        //     // 获取到后台重写的session数据，可以通过vuex做本地保存
-        //   })
-        //   .catch(err => {
-        //     console.log(`api请求出错:`, err);
-        //   });
+
       } else {
         //用户按了拒绝按钮
         console.log("用户按了拒绝按钮");
       }
+    },
+    getUserInfo(){
+        var _this=this
+        let userInfo = mpvue.getStorageSync("UserInfo");
+        if(userInfo){
+            let info={
+                avatarUrl:userInfo.open_face,
+                nickName:userInfo.open_name
+            }
+            _this.userInfo = info;
+            _this.nickName = userInfo.open_name;
+        }else{
+            _this.$http.get('user/getUserInfo',{},function (res) {
+                let data=res.data
+                let info={
+                    avatarUrl:data.open_face,
+                    nickName:data.open_name
+                }
+                _this.userInfo = info;
+                _this.nickName = data.open_name;
+
+                wx.setStorageSync("UserInfo",data);
+            });
+        }
+    },
+    getUserCollect(){
+        let _this=this;
+        _this.$http.get('user/getUserCollectOne',{},function (res) {
+            _this.collect=res.data
+        })
+    },
+    getUserReserve(){
+        let _this=this;
+        _this.$http.get('user/getUserReserveOne',{},function (res) {
+            _this.reserve=res.data
+        })
     }
   },
   created() {
     // let app = getApp();
   },
+<<<<<<< HEAD
   mounted() {
     wx.login({
       success(res) {
@@ -182,6 +248,30 @@ export default {
     let _this = this;
     let Query = _this.$http.getQuery();
     if (Query.login == 1) {
+=======
+
+    onShow(){
+        let _this=this;
+        let token = mpvue.getStorageSync("token");
+        if(!token){
+            wx.showModal({
+                title: '提示',
+                content: '请先点击头像进行登录',
+                success(res) {
+                    if (res.confirm) {
+
+                    } else if (res.cancel) {
+
+                    }
+                }
+            })
+            return false;
+        }
+        _this.getUserInfo()
+        _this.getUserCollect()
+        _this.getUserReserve()
+
+>>>>>>> 2fdd2d7829e4a1468cd7c109f8f734a9e68eeea0
     }
   }
 };

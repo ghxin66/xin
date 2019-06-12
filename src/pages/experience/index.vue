@@ -71,35 +71,32 @@
     <div v-show="trw==1?'true':''">
       <!-- 2 -->
 
-      <div class="re hei850">
-        <div class="re hei30">
-          <div type="submit" class="ab bac" @click="tijiao()">
-            <img :src="soupic" class="soupic">
-          </div>
-          <input
-            type="text"
-            name="sou"
-            v-model="sou_val"
-            placeholder="大家都在搜。。。"
-            class="sou"
-            @click="tijiao()"
-          >
+        <div class="re hei850">
+          <cover-view class="re hei30">
+            <cover-view class="ab bac" type="submit" @click="tijiao()">
+              <cover-image :src="soupic" class="soupic"></cover-image>
+            </cover-view>
+            <cover-view  class="sou" @click="tijiao()">大家都在搜。。。</cover-view>
+
+          </cover-view>
+
+
+          <map
+                  id="map"
+                  :longitude="longitude"
+                  :latitude="latitude"
+                  scale="15"
+                  bindcontroltap="controltap"
+                  :markers="markers"
+                  bindmarkertap="markertap"
+                  :polyline="polyline"
+                  bindregionchange="regionchange"
+                  show-location
+                  style="width:100%;height:855rpx"
+                  class="re maps"
+          ></map>
         </div>
-        <map
-          id="map"
-          :longitude="longitude"
-          :latitude="latitude"
-          scale="15"
-          bindcontroltap="controltap"
-          :markers="markers"
-          bindmarkertap="markertap"
-          :polyline="polyline"
-          bindregionchange="regionchange"
-          show-location
-          style="width:100%;height:855rpx"
-          class="re maps"
-        ></map>
-      </div>
+
       <div class="clearfix"></div>
       <div class="bufens">
         <div
@@ -280,44 +277,43 @@ export default {
     mpvue.getLocation({
       //返回可以用于wx.openLocation的经纬度
       success: function(res) {
+
         _this.latitude = res.latitude;
         _this.longitude = res.longitude; //经度
         let mycity = _this.$http.getQuery().mycity;
         if (mycity) {
           _this.trw = 1;
         }
-        qqmapsdk.reverseGeocoder({
-          location: _this.latitude + "," + _this.longitude,
-          success: function(res) {
-            let city = res.result.address_component.city;
-            if (mycity) {
+
+//          let city = res.result.address_component.city;
+          let city ="";
+          if (mycity) {
               city = mycity;
-            }
-            _this.mycity = city;
-            _this.$http.get(
+          }
+          _this.mycity = city;
+          _this.$http.get(
               "index/getBusinessList/" + city,
               { latlng: _this.latitude + "," + _this.longitude },
               function(res) {
-                mpvue.hideLoading();
-                _this.business_list = res.data;
+                  mpvue.hideLoading();
+                  _this.business_list = res.data;
 
-                for (let item in _this.business_list) {
-                  if (item == 0) {
-                    _this.latitude = _this.business_list[item].lat;
-                    _this.longitude = _this.business_list[item].lng;
+                  for (let item in _this.business_list) {
+                      if (item == 0) {
+                          _this.latitude = _this.business_list[item].lat;
+                          _this.longitude = _this.business_list[item].lng;
+                      }
+                      _this.markers.push({
+                          id: item,
+                          latitude: _this.business_list[item].lat,
+                          longitude: _this.business_list[item].lng,
+                          width: 50,
+                          height: 50
+                      });
                   }
-                  _this.markers.push({
-                    id: item,
-                    latitude: _this.business_list[item].lat,
-                    longitude: _this.business_list[item].lng,
-                    width: 50,
-                    height: 50
-                  });
-                }
               }
-            );
-          }
-        });
+          );
+
       }
     });
     _this.getcaselist();
@@ -408,6 +404,7 @@ export default {
 }
 .hei30 {
   height: 65rpx;
+  line-height: 65rpx;
   width: 690rpx;
   margin: 0 auto;
   position: relative;
@@ -416,6 +413,7 @@ export default {
 }
 .sou {
   height: 65rpx;
+  line-height: 65rpx;
   background-color: #fff;
   border: 1px solid #f5f5f5;
   /* border-radius: 8rpx; */
@@ -438,7 +436,7 @@ input::-webkit-input-placeholder {
   height: 50rpx;
 }
 .maps {
-  z-index: 1;
+  z-index: -1;
   margin-top: -90rpx;
 }
 .re {

@@ -97,6 +97,7 @@ export default {
         this.changeModel = !this.changeModel;
         this.isModel = !this.isModel;
       }else {
+          this.articlelist=[]
           this.getArticleList()
       }
     },
@@ -132,13 +133,11 @@ export default {
   },
 
   onReachBottom(){
-
-      if(this.trw==1){
-          if(this.article_page<this.article_last_page){
-              this.article_page +=1
-              this.getArticleList()
-          }
+      if(this.article_page<this.article_last_page){
+          this.article_page +=1
+          this.getArticleList()
       }
+
 
   }
 

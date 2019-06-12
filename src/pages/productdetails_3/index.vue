@@ -93,42 +93,33 @@
           <div class="clearfix"></div>
         </ul>
       </div>
-      <div class="titss2 mar30 fontwei" style="margin-top:40rpx">
+      <div class="titss2 mar30 fontwei" v-show="content.images.length>0" style="margin-top:40rpx">
         <span></span>
         规格参数
       </div>
       <div class="cenrts">
         <ul class="dja">
           <li
-            v-for="(item,index) in chicun"
+            v-for="(item,index) in content.images"
             :key="index+1"
             @click="chicuns(index)"
             class="dja iradio50"
           >
             <img :src="select" class="cres" v-if="selectchicun==index">
             <img :src="empty" v-else class="cres">
-            {{item.name}}
+            {{item.title}}
           </li>
         </ul>
       </div>
       <div class="cents">
         <ul
-          v-for="(item,idss) in imgcent"
+          v-for="(item,idss) in content.images"
           :key="idss+1"
           v-show="selectchicun==idss"
           :class="selectchicun==idss?'animated fadeInRight':''"
         >
-          <li
-            v-for="(items,index) in item.cent"
-            :key="index+1"
-            @click="chicuns(index)"
-            class="dja wid50s"
-          >
-            <div>
-              <img :src="items.url" class="widhei200">
-              <div class="font26 col999">{{items.name}}</div>
-              <div class="font26 col999">{{items.desc}}</div>
-            </div>
+          <li class="dja">
+            <img :src="item.pic" mode="scaleToFill" style="width: 100%">
           </li>
         </ul>
       </div>
@@ -333,19 +324,21 @@ export default {
   created() {
     // let app = getApp()
   },
-  onShow() {
-    let _this = this;
-    let Query = _this.$http.getQuery();
-    let id = Query.id;
-    //      let id=2
-    this.id = id;
-    _this.$http.get("product/getGoodsDetailsById/" + id, {}, function(res) {
-      _this.content = res.data;
 
-      wx.setNavigationBarTitle({
-        title: _this.content.goods_name
+  onShow(){
+      let _this=this
+      let Query=_this.$http.getQuery()
+     let id=Query.id
+      // let id=3
+      this.id=id
+      _this.$http.get('product/getGoodsDetailsById/'+id,{},function (res) {
+          _this.content=res.data
+          wx.setNavigationBarTitle({
+              title: _this.content.goods_name
+          })
+
       });
-    });
+
   }
 };
 </script>
