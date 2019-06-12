@@ -1,15 +1,15 @@
 <template>
   <div class="centerdetail">
     <div class="padd30">
-      <div class="titss">我收藏的</div>
+      <div class="titss colfff" style="color:#fff;font-weight:bold">我收藏的</div>
       <div class="da mar20">
-        <div class="wid75" :class="sel==0?'titss':'titmin'" @click="sels(0)">
+        <div class="wid75" :class="sel==0?'titss coladadadd':'titmin'" @click="sels(0)">
           图片
-          <span></span>
+          <!-- <span></span> -->
         </div>
-        <div class="wid75" :class="sel==1?'titss':'titmin'" @click="sels(1)">
+        <div class="wid75" :class="sel==1?'titss coladadadd':'titmin'" @click="sels(1)">
           案例
-          <span></span>
+          <!-- <span></span> -->
         </div>
         <div class="ab bainji" @click="bianji" v-show="bianjis">编辑</div>
         <div class="ab bainji" @click="cancel" v-show="!bianjis">取消</div>
@@ -58,7 +58,7 @@
         </div>
         <div class="modalFooter">
           <div class="btnCancel" @tap="tapCancel">取消</div>
-          <div class="btnConfirm" @tap="confirmSend">确定删除</div>
+          <div class="btnConfirm" @tap="confirmSend">删除</div>
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@
         </div>
         <div class="modalFooter">
           <div class="btnCancel" @tap="tapCancel">取消</div>
-          <div class="btnConfirm" @tap="confirmSend2">确定删除</div>
+          <div class="btnConfirm" @tap="confirmSend2">删除</div>
         </div>
       </div>
     </div>
@@ -132,7 +132,6 @@ export default {
       select: "/static/images/select.png",
       changeModel: false,
       isModel: false,
-
       tupians: [
         {
           id: 0,
@@ -253,24 +252,37 @@ export default {
     },
     bianji() {
       this.bianjis = false;
+      this.anli.select = false;
+      this.tupians.select = false;
     },
     cancel() {
       this.bianjis = true;
+      this.anli.select = false;
+      this.tupians.select = false;
     }
   },
   mounted() {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          // 这里可以把code传给后台，后台用此获取openid及session_key
-        }
-      }
-    });
+    // wx.login({
+    //   success(res) {
+    //     if (res.code) {
+    //       // 这里可以把code传给后台，后台用此获取openid及session_key
+    //     }
+    //   }
+    // });
   }
 };
 </script>
 
 <style scoped>
+.titss {
+  font-size: 42rpx;
+  font-weight: 500;
+  color: #b59570;
+}
+.coladadadd {
+  padding-bottom: 15rpx;
+  border-bottom: 1px solid #b59570;
+}
 .ggs img {
   display: none;
 }
@@ -290,7 +302,6 @@ export default {
 .tupian2 img {
   width: 690rpx;
   height: 285rpx;
-  border-radius: 8rpx;
 }
 .hei285 {
   height: 485rpx;
@@ -361,14 +372,14 @@ export default {
 .btnCancel {
   width: 50%;
   font-size: 32rpx;
-  color: #333;
+  color: #087bff;
   text-align: center;
   border-right: 1px solid #e5e5e5;
 }
 .btnConfirm {
   font-size: 32rpx;
   width: 50%;
-  color: #f5c659;
+  color: #ff4041;
   text-align: center;
 }
 /* tangkuang */
@@ -398,7 +409,7 @@ export default {
   padding: 15rpx 40rpx;
   color: #fff;
   line-height: 29rpx;
-
+  border-radius: 0;
   background-color: #f4604c;
 }
 .claxu {
@@ -415,8 +426,8 @@ export default {
   position: fixed;
   bottom: 0;
   z-index: 22;
-  border-top: 1rpx solid #eee;
-  background-color: #fff;
+  border-top: 1rpx solid #262525;
+  background-color: #403c3c;
 }
 .pa3 {
   padding: 0 30rpx;
@@ -440,13 +451,15 @@ export default {
   top: 10rpx;
   right: 10rpx;
   font-size: 30rpx;
-  color: #f4be4e;
+  color: #adadad;
 }
 .titmin {
   font-size: 30rpx;
-  color: #cccccc;
+  color: #adadad;
+  font-weight: 100;
   display: flex;
   align-items: center;
+  margin-top: -10rpx;
 }
 .wid75 {
   margin-right: 50rpx;
@@ -462,8 +475,8 @@ export default {
   flex-wrap: nowrap;
   overflow-x: scroll;
   justify-content: flex-start;
-  padding-bottom: 12rpx;
-  border-bottom: 1px solid #eee;
+  /* padding-bottom: 12rpx; */
+  border-bottom: 1px solid #262525;
   position: relative;
   padding-right: 80rpx;
   overflow: hidden;

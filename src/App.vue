@@ -31,6 +31,13 @@ export default {
 </script>
 
 <style>
+page {
+  font-size: 0;
+  background: #403c3c;
+}
+.coladadad {
+  color: #adadad !important;
+}
 .container {
   height: 100%;
   display: flex;
@@ -60,7 +67,7 @@ swiper {
 }
 .mart90 {
   margin-top: 80rpx;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #333030;
   padding-bottom: 40rpx;
 }
 .bott65 {
@@ -125,7 +132,6 @@ swiper {
   box-sizing: border-box;
 }
 .widssgg {
-  border-radius: 16rpx;
   padding-right: 30rpx;
   box-sizing: border-box;
   width: 100%;
@@ -138,7 +144,6 @@ swiper {
   box-sizing: border-box;
 }
 .widssgg img {
-  border-radius: 16rpx;
   width: 100%;
   height: 280rpx;
 }
@@ -188,7 +193,6 @@ swiper {
 .cenrt image {
   display: block;
   /* margin: 20rpx auto; */
-  border-radius: 10rpx !important;
 }
 .pad30 {
   padding-left: 30rpx !important;
@@ -197,7 +201,7 @@ swiper {
   margin-top: 40rpx;
 }
 .titss {
-  font-size: 38rpx;
+  font-size: 48rpx;
   color: #333;
   position: relative;
   width: max-content;
@@ -237,6 +241,10 @@ swiper {
   height: 1px;
   zoom: 1;
 }
+.par20 {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
 .mar20 {
   margin-top: 20rpx;
   margin-bottom: 20rpx;
@@ -247,40 +255,45 @@ swiper {
 .font28 {
   font-size: 28rpx;
 }
+.colb59570 {
+  color: #b59570;
+}
+.font42 {
+  font-size: 42rpx !important;
+}
 .mart50 {
   margin-top: 30rpx;
   line-height: 60rpx;
 }
 .titss2 {
-  font-size: 32rpx;
-  color: #333;
+  font-size: 36rpx;
   position: relative;
   width: max-content;
-  padding-left: 15rpx;
+  /* padding-left: 15rpx; */
+  font-weight: 500;
 }
 .icos {
-  background-color: #f3f1f0;
+  background-color: #fff;
+  color: #999;
   float: left;
   margin-right: 10rpx;
-  color: #c6c5c4;
-  font-size: 18rpx;
-  padding: 6rpx 14rpx;
+  font-size: 20rpx;
+  padding: 6rpx 20rpx;
   margin-top: 20rpx;
-  border-radius: 4rpx;
 }
 .act {
-  background-color: #fff1d1;
-  color: #f4b228;
+  background-color: #b59570;
+  color: #fff;
 }
 .titss2 span {
   display: inline-block;
   position: absolute;
   left: 0rpx;
-  top: 0rpx;
-  width: 7rpx;
-  height: 100%;
+  top: 49%;
+  width: 22rpx;
+  height: 3rpx;
   border-radius: 10rpx;
-  background: rgb(231, 170, 3);
+  background: #b59570;
 }
 .ovscll {
   overflow-x: scroll;
@@ -316,6 +329,7 @@ button::after {
 }
 .wid100r {
   width: 120rpx;
+  opacity: 0.3;
 }
 .bacfff {
   background: #fff;
@@ -325,12 +339,13 @@ button::after {
   width: max-content;
   margin: 0 auto;
   padding: 0 12rpx;
+  font-size: 20rpx;
 }
 .linegs {
-  margin-top: -20rpx;
+  margin-top: -15rpx;
   width: 100%;
   height: 1px;
-  background-color: #eee;
+  background-color: #adadad;
 }
 .mar80 {
   margin-top: 75rpx;
@@ -339,10 +354,10 @@ button::after {
   margin: 10rpx 0;
 }
 .font24 {
-  font-size: 24rpx;
+  font-size: 24rpx !important;
 }
 .font26 {
-  font-size: 26rpx;
+  font-size: 26rpx !important;
 }
 .sou {
   height: 65rpx;
@@ -356,6 +371,12 @@ button::after {
 }
 input::-webkit-input-placeholder {
   color: #c6c6c6;
+}
+.font20 {
+  font-size: 20rpx !important;
+}
+.bac403c3c {
+  background: #403c3c;
 }
 .bac {
   position: absolute;

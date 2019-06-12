@@ -410,10 +410,10 @@ button {
   position: fixed;
   height: 100rpx;
   width: 100%;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #3b3737;
   bottom: 0;
   left: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: #403c3c;
 }
 .ims {
   width: 30rpx !important;
@@ -570,7 +570,7 @@ swiper {
   position: relative;
   width: 750rpx;
   height: 70rpx;
-  background-color: #fff;
+  background-color: #403c3c;
   border-radius: 23rpx;
   margin-top: -30rpx;
 }

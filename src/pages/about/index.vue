@@ -30,8 +30,14 @@
             <img :src="item.key_id.picture" alt>
           </div>
           <div class="wid1202 mar24">
-            <div class="title">{{item.key_id.title}}</div>
-            <div class="desc col999">{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
+            <div
+              class="title coladadad"
+              style="font-size:34rpx;line-height:48rpx;"
+            >{{item.key_id.title}}</div>
+            <div
+              class="desc coladadad"
+              style="font-size:24rpx;margin-top:15rpx;"
+            >{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
           </div>
 
           <div class="dja wid1203">
@@ -52,11 +58,19 @@
       </div>
       <div class="bormar">
         <div class="cens mar20 mart90">
-          <span class="title">分享到：</span>
-          <button @click="showthiss" class="tis desc col999 lin50 tu dja">
+          <span class="title coladadad">分享到：</span>
+          <button
+            @click="showthiss"
+            class="tis desc col999 lin50 tu dja font24"
+            style="background:#403c3c"
+          >
             <img :src="pyq">朋友圈
           </button>
-          <button open-type="share" class="tis desc col999 lin50 tu dja">
+          <button
+            open-type="share"
+            class="tis desc col999 lin50 tu dja font24"
+            style="background:#403c3c;"
+          >
             <img :src="wxhy">微信好友
           </button>
         </div>
@@ -64,7 +78,7 @@
       <!--分享-->
       <div class="dja mar45">
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg">END</div>
+          <div class="bac403c3c bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>
         </div>
       </div>
@@ -198,14 +212,14 @@ button {
 }
 
 .tu img {
-  width: 30rpx;
-  height: 30rpx;
-  padding-right: 5rpx;
+  width: 35rpx;
+  height: 35rpx;
+  padding-right: 10rpx;
 }
 
 .mart90 {
   margin-top: 80rpx;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #333030;
   padding-bottom: 40rpx;
 }
 
@@ -227,12 +241,12 @@ button {
 .ban_text2 {
   margin: 0 auto;
   text-align: justify;
-  box-shadow: 0 0 15rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* box-shadow: 0 0 15rpx 2rpx #eee; */
+  /* border-radius: 10rpx; */
   padding: 24rpx;
   position: relative;
   z-index: 1;
-  background-color: #fff;
+  background-color: #333030;
   font-size: 28rpx;
   box-sizing: border-box;
 }
@@ -250,7 +264,7 @@ button {
 
 .wid120 image {
   height: 150rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   overflow: hidden;
 }
 
@@ -266,7 +280,7 @@ button {
 
 .ovh {
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   margin: 15rpx 0;
 }
 
@@ -288,10 +302,10 @@ button {
   -webkit-background-clip: text;
   background-image: -webkit-gradient(
     linear,
-    0 80%,
+    0 50%,
     0 0%,
-    from(rgb(255, 255, 255)),
-    to(#ffeba2)
+    from(rgba(0, 0, 0, 0)),
+    to(#bc966c)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -312,10 +326,12 @@ button {
 .cents .title {
   font-size: 38rpx;
   font-weight: bold;
+  color: #fff;
 }
 
 .cents .desc {
   font-size: 28rpx;
+  color: #adadad;
 }
 
 .col999 {
@@ -348,8 +364,8 @@ button {
   width: 90%;
   margin: 0 auto;
   text-align: justify;
-  box-shadow: 0 0 20rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* box-shadow: 0 0 20rpx 2rpx #eee; */
+  /* border-radius: 10rpx; */
   padding: 28rpx;
   margin-top: -30rpx;
   position: relative;

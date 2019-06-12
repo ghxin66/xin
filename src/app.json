@@ -1,23 +1,21 @@
 {
   "pages": [
-    "pages/experience/main",
     "pages/index/main",
+    "pages/center/main",
+    "pages/about/main",
+    "pages/about2/main",
+    "pages/experience/main",
     "pages/productlist/main",
     "pages/productdetails_3/main",
     "pages/panoramicdetails/main",
-    "pages/about/main",
-    "pages/about2/main",
     "pages/sousuo_article/main",
-
     "pages/productDetail/main",
     "pages/cityselect/main",
-    "pages/center/main",
     "pages/centerdetail2/main",
     "pages/centerdetail/main",
     "pages/appointment/main",
     "pages/panoramic/main",
     "pages/appointmentdetails/main",
-
     "pages/keting/main",
     "pages/sousuo/main",
     "pages/experiencedetails/main",
@@ -25,39 +23,26 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999",
-    "backgroundColor": "#fafafa",
-    "selectedColor": "#333",
-    "borderStyle": "white",
+    "backgroundColor": "#403c3c",
+    "selectedColor": "#fff",
+    "borderStyle": "black",
 
     "list": [{
-      "text": "首页",
       "pagePath": "pages/index/main",
       "iconPath": "static/tabs/home.png",
       "selectedIconPath": "static/tabs/home-active.png"
     }, {
-      "text": "我的",
       "pagePath": "pages/center/main",
       "iconPath": "static/tabs/orders.png",
       "selectedIconPath": "static/tabs/orders-active.png"
     }],
 
-    "items": [{
-      "name": "首页",
-      "pagePath": "pages/index/main",
-      "icon": "static/tabs/home.png",
-      "activeIcon": "static/tabs/home-active.png"
-    }, {
-      "name": "我的",
-      "pagePath": "pages/center/main",
-      "icon": "static/tabs/orders.png",
-      "activeIcon": "static/tabs/orders-active.png"
-    }],
     "position": "bottom"
   },
   "permission": {

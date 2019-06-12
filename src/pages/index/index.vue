@@ -1,20 +1,37 @@
 
 <template>
   <div class="index_index">
-    <div class="swiper-box">
+    <div class="swiper-box" style="position:relative">
       <swiper
         v-if="imgUrls.length > 0"
         :indidator-dots="imgUrls.length > 0"
-        :indicator-dots="indicatorDots"
-        indicator-active-color="#efc159"
         autoplay
+        :circular="circular"
+        interval="10000"
+        @change="handleChange($event)"
       >
         <block v-for="(item, index) in imgUrls" :key="index">
-          <swiper-item class="wid100">
+          <swiper-item
+            class="wid100"
+            :class="curIndex===index ? 'active_item' : 'item'"
+            :animation="index == curIndex ? animationData : animationData2"
+          >
             <img :src="item.big_pic" mode="scaleToFill" @click="topic(item.linkurl,item.adv_id)">
           </swiper-item>
         </block>
       </swiper>
+      <div class="swiper_dot_wrap swiper-container-top">
+        <ul class="nowarpers">
+          <li
+            v-for="(item, index) in imgUrls"
+            :key="index"
+            class="tabs swiper-slide dja"
+            :class="{'active':curIndex === index}"
+          >
+            <dd></dd>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <swipers class="swiper-box2" style="padding:0 30rpx;">
@@ -32,9 +49,11 @@
     </swipers>
 
     <div class="titss mar30 mar50">
-      整屋案例
-      <span></span>
+      <a style="display:inline;color:#b59570">质感</a>
+      <a style="display:inline;color:#fff">空间</a>
+      <!-- <span></span> -->
     </div>
+    <div class="mar30 font24 coladadad" style="text-transform:uppercase">Texture space</div>
 
     <div class="wids">
       <swiper
@@ -50,7 +69,7 @@
           >
             <img :src="item.picture" mode="scaleToFill">
 
-            <div class="titss2 mar20">
+            <div class="titss2 mar20 coladadad" style="font-size:32rpx;">
               {{ item.title }}
               <div class>
                 <i class="icos act fl">#{{ item.keyword }}</i>
@@ -77,12 +96,14 @@
       </div>
     </div>-->
 
-    <div class="titss mar30">
-      {{shfs}}
-      <span></span>
+    <div class="titss mar30 mar50">
+      <a style="display:inline;color:#b59570">设计</a>
+      <a style="display:inline;color:#fff">方式</a>
+      <!-- <span></span> -->
     </div>
-    <div class="titss2 mar30" style="margin-top:30rpx">
-      <span></span>
+    <div class="mar30 font24 coladadad" style="text-transform:uppercase">Design life</div>
+    <div class="titss2 mar30 coladadad" style="margin-top:30rpx">
+      <span style="left:-30rpx;"></span>
       {{xinfengshan}}
     </div>
     <div class="mar20">
@@ -113,7 +134,9 @@ import card from "@/components/card";
 export default {
   data() {
     return {
+      curIndex: 0,
       indicatorDots: true,
+      circular: true,
       userInfo: {
         nickName: "mpvue",
         avatarUrl: "http://mpvue.com/assets/logo.png"
@@ -132,6 +155,37 @@ export default {
     card
   },
   methods: {
+    handleChange(e) {
+      this.curIndex = e.mp.detail.current;
+      this.changeActive();
+      this.changeNormal();
+    },
+    // 收缩
+    changeNormal() {
+      var animation2 = wx.createAnimation({
+        duration: 500,
+        timingFunction: "ease"
+      });
+      this.animation2 = animation2;
+      animation2
+        .scale(0.9)
+        .opacity(0.3)
+        .step();
+      this.animationData2 = animation2.export();
+    },
+    // 展开
+    changeActive() {
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: "ease"
+      });
+      this.animation = animation;
+      animation
+        .scale(1)
+        .opacity(1)
+        .step();
+      this.animationData = animation.export();
+    },
     topic(linkurl, adv_id) {
       if (linkurl == 1) {
         mpvue.navigateTo({
@@ -200,6 +254,7 @@ swiper {
   width: 690rpx;
   overflow: hidden;
   margin: 0 auto;
+  margin-top: 30rpx;
 }
 .wid100 {
   width: 690rpx;
@@ -255,7 +310,6 @@ swiper {
   height: 100%;
 }
 .wid100 image {
-  border-radius: 16rpx;
   height: 400rpx;
   width: 690rpx;
 }
@@ -268,12 +322,56 @@ swiper {
   text-align: center;
 }
 .widss image {
-  border-radius: 16rpx;
   height: 370rpx;
   width: 660rpx;
   margin: 0 auto;
 }
 .prossgg {
   height: 280rpx;
+}
+/*这里开始是自定义轮播指示点*/
+
+.active_item {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.swiper_dot_wrap {
+  position: absolute;
+  bottom: 20rpx;
+  right: 10rpx;
+}
+
+.swiper-container-top .swiper-slide {
+  padding-bottom: 0px;
+  margin-right: 20rpx;
+  transition: all 0s;
+  padding: 8rpx;
+  /* border: 1rpx solid #ccc; */
+  background: #262525;
+  border-radius: 50%;
+  float: left;
+}
+
+.swiper-container-top .swiper-slide ._dd {
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.swiper-container-top .active ._dd {
+  width: 6rpx;
+  height: 6rpx;
+  background: #b99770;
+  transition: all 0s;
+}
+.swiper-container-top .active {
+  border: 1rpx solid #b99770;
+  padding: 8rpx;
+  margin-top: -2rpx;
 }
 </style>

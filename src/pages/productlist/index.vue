@@ -181,7 +181,6 @@ export default {
       articleSel: null,
       //产品分类选择
       ins1: -1,
-
       centent: "",
       goods_page: 1,
       goods_last_page: 1,

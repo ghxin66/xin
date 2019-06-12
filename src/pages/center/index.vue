@@ -38,9 +38,10 @@
     </div>
     <div class="clearfix"></div>
 
-    <div class="titss mar30">
-      {{wscd}}
-      <span></span>
+    <div class="titss mar30 mar50">
+      <!-- <a style="display:inline;color:#b59570">质感</a> -->
+      <a style="display:inline;color:#fff;font-size:38rpx">我收藏的</a>
+      <!-- <span></span> -->
     </div>
     <div class="dja" v-show="userInfo.avatarUrl">
       <div class="re flss2 mar30 mar20 hei285" v-if="userInfo.avatarUrl">
@@ -61,9 +62,10 @@
       </div>
     </div>
     <!-- 以上的是收藏，以下是预约 -->
-    <div class="titss mar30" style="margin-top:10rpx;">
-      {{wyyd}}
-      <span></span>
+    <div class="titss mar30 mar50">
+      <!-- <a style="display:inline;color:#b59570">质感</a> -->
+      <a style="display:inline;color:#fff;font-size:38rpx">我预约的</a>
+      <!-- <span></span> -->
     </div>
 
     <div class="dja" v-show="userInfo.avatarUrl">
@@ -107,9 +109,7 @@ export default {
       userInfo: "gg",
       nickName: [],
       avatarUrl: "",
-      listing: "/static/images/listing.jpg",
-      wscd: "我收藏的",
-      wyyd: "我预约的"
+      listing: "/static/images/listing.jpg"
     };
   },
 
@@ -178,20 +178,19 @@ export default {
       }
     });
   },
-    onShow(){
-        let _this=this;
-        let Query=_this.$http.getQuery()
-        if(Query.login==1){
-
-        }
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    if (Query.login == 1) {
     }
+  }
 };
 </script>
 
 <style scoped>
 .yutiem {
   background: #fff;
-  box-shadow: 0 0 50rpx 5rpx #eee;
+  /* box-shadow: 0 0 50rpx 5rpx #eee; */
   text-align: center;
   color: #747474;
 }
@@ -205,18 +204,18 @@ export default {
 }
 .cl245 {
   width: 245rpx;
-  height: 95rpx;
-  box-shadow: 0 0 50rpx 5rpx #eee;
-  border-radius: 15rpx;
+  height: 100rpx;
+  /* box-shadow: 0 0 50rpx 5rpx #eee; 
+  border-radius: 15rpx;*/
   background-color: #fff !important;
 }
 .marr30 {
   margin-right: 30rpx;
 }
 .hei185 {
-  height: 170rpx;
+  height: 185rpx;
   width: 245rpx;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
   margin-bottom: 10rpx;
 }
 .kefucen {
@@ -272,10 +271,10 @@ export default {
   flex: 1;
   width: 420rpx;
   height: 240rpx;
-  margin-right: 30rpx;
+  margin-right: 15rpx;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
 }
 .flss2 {
   flex: 1;
@@ -283,20 +282,21 @@ export default {
   height: 240rpx;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
 }
 .hei285 {
-  height: 285rpx;
-  width: 420rpx;
+  height: 295rpx;
+  width: 433rpx;
   overflow: hidden;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
 }
 .frs {
   flex-basis: 240rpx;
   height: 240rpx;
   width: 240rpx;
-  box-shadow: 0 0 50rpx 5rpx #eee;
-  border-radius: 15rpx;
+  background: #fff;
+  /* box-shadow: 0 0 50rpx 5rpx #eee; */
+  /* border-radius: 15rpx; */
 }
 .re {
   position: relative;

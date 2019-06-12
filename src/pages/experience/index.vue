@@ -1,13 +1,23 @@
 <template>
   <div class="experience">
     <div>
-      <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="trw=0">
+      <div
+        class="titss mar30 mar20 font42"
+        :class="trw==1?'coladadad':'colb59570'"
+        style="float:left"
+        @click="trw=0"
+      >
         {{shfs}}
-        <span v-if="trw==0" class="gjsd"></span>
+        <!-- <span v-if="trw==0" class="gjsd"></span> -->
       </div>
-      <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="trw=1">
+      <div
+        class="titss mar30 mar20 font42"
+        :class="trw==0?'coladadad':'colb59570'"
+        style="float:left"
+        @click="trw=1"
+      >
         {{ddty}}
-        <span v-if="trw==1" class="gjsd"></span>
+        <!-- <span v-if="trw==1" class="gjsd"></span> -->
       </div>
     </div>
     <div style="clear:both;width:100%;height:1px;"></div>
@@ -37,9 +47,9 @@
             >
               <div class="bttn">预约体验</div>
               <img :src="item.picture" mode="scaleToFill">
-              <div class="titss2 mar20 wid270">
-                <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
-                <div class="descss eklp1">
+              <div class="titss2 par20 wid270">
+                <div class="eklp1 coladadad" style="font-size:34rpx;">{{ item.title }}</div>
+                <div class="descss eklp1 coladadad font24" style="margin-top:10rpx;">
                   {{ item.description }} . {{ item.author }} . {{ item.keyword }}
                   <i
                     class="fr dja"
@@ -341,9 +351,9 @@ export default {
 .gonli span {
   width: 100rpx;
   height: 37rpx;
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   background-color: #fff1d1;
-  color: #f6c251;
+  color: #b59570;
   margin-right: 12rpx;
   font-size: 20rpx;
   padding: 5rpx 10rpx;
@@ -384,7 +394,7 @@ export default {
   margin: 0 auto;
   height: 200rpx;
   background-color: #fff;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
   padding: 10rpx 10rpx;
   box-sizing: border-box;
 }
@@ -408,7 +418,7 @@ export default {
   height: 65rpx;
   background-color: #fff;
   border: 1px solid #f5f5f5;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
@@ -445,8 +455,8 @@ input::-webkit-input-placeholder {
 .butt {
   width: 470rpx;
   height: 70rpx;
-  border-radius: 8rpx;
-  background-color: #f9d97a;
+  /* border-radius: 8rpx; */
+  background-color: #b59570;
   font-size: 32rpx;
   color: #000;
   font-weight: 600;
@@ -462,7 +472,7 @@ input::-webkit-input-placeholder {
   left: 35rpx;
   width: 620rpx;
   color: #fff;
-  font-size: 42rpx;
+  font-size: 36rpx;
   font-weight: bold;
 }
 
@@ -470,8 +480,8 @@ input::-webkit-input-placeholder {
   display: inline-block;
   width: 100rpx;
   height: 10rpx;
-  background-color: #ffdc76;
-  border-radius: 20rpx;
+  background-color: #b59570;
+  /* border-radius: 20rpx; */
   position: relative;
 }
 
@@ -479,7 +489,7 @@ input::-webkit-input-placeholder {
   position: fixed;
   height: 100rpx;
   width: 100%;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #333030;
   bottom: 0;
   left: 0;
   background-color: rgb(255, 255, 255);
@@ -505,13 +515,14 @@ input::-webkit-input-placeholder {
 }
 
 .lunbo2 .titss2 {
-  padding-right: 20rpx !important;
+  padding: 20rpx !important;
+  border: 1rpx solid #525050;
 }
 .hei290 {
   width: 690rpx;
   margin: 0 auto;
   height: 290rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   position: relative;
 }
 .wid100ss {
@@ -543,20 +554,20 @@ input::-webkit-input-placeholder {
   width: 210rpx;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .widssgg4 {
   margin-bottom: 50rpx;
-  border: 1rpx solid #eee;
-  border-radius: 15rpx;
+  /* border: 1rpx solid #333030; */
+  /* border-radius: 15rpx; */
   position: relative;
 }
 .widssgg4 image {
   width: 690rpx;
   height: 420rpx;
   overflow: hidden;
-  border-top-right-radius: 10rpx;
-  border-top-left-radius: 10rpx;
+  /* border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx; */
 }
 .descss {
   font-size: 0.22rem;
@@ -596,10 +607,10 @@ swiper {
 }
 
 .bttn {
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   width: 140rpx;
   height: 50rpx;
-  background-color: #f4be4e;
+  background-color: #b59570;
   position: absolute;
   top: 24rpx;
   left: 24rpx;
@@ -614,7 +625,7 @@ swiper {
   width: 750rpx;
   height: 70rpx;
   background-color: #fff;
-  border-radius: 23rpx;
+  /* border-radius: 23rpx; */
   margin-top: -30rpx;
 }
 .swiper-box {
@@ -687,7 +698,7 @@ swiper {
   height: 100%;
 }
 .wid100 image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 400rpx;
   width: 690rpx;
 }
@@ -701,7 +712,7 @@ swiper {
   max-width: 100%;
 }
 .widss image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 370rpx;
   width: 630rpx;
 }
