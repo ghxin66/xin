@@ -1,13 +1,23 @@
 <template>
   <div class="experience">
     <div>
-      <div class="titss mar30 mar20" :class="trw==1?'col999':''" style="float:left" @click="gg(0)">
+      <div
+        class="titss mar30 mar20"
+        :class="trw==1?'colfff':'colb59570'"
+        style="float:left"
+        @click="gg(0)"
+      >
         {{pro}}
-        <span class="gjsd"></span>
+        <!-- <span class="gjsd"></span> -->
       </div>
-      <div class="titss mar30 mar20" :class="trw==0?'col999':''" style="float:left" @click="gg(1)">
+      <div
+        class="titss mar30 mar20"
+        :class="trw==0?'colfff':'colb59570'"
+        style="float:left"
+        @click="gg(1)"
+      >
         {{ani}}
-        <span class="gjsd"></span>
+        <!-- <span class="gjsd"></span> -->
       </div>
     </div>
     <div class="clearfix"></div>
@@ -23,13 +33,13 @@
     <div v-if="trw==0?'true':''">
       <div class="cenrt">
         <div class="dix" v-for="(item,index) in product" :key="index">
-          <div class="fles2 fontwei">{{item.name}}</div>
+          <div class="fles2 fontwei colb59570">{{item.name}}</div>
           <div class="fles1">
             <span
               v-for="(items,key) in item.childs"
               :key="key"
               @click="selec(index,items.id)"
-              :class="(item.sel===items.id)?'sspan':''"
+              :class="(item.sel===items.id)?'sspan':'coladadad'"
             >
               {{items.name}}
               <i class="cha">X</i>
@@ -53,34 +63,48 @@
                 @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
               >
               <video :src="item.urls" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
-              <div class="titss2 mar20 wid270">
+              <div
+                class="titss2 par20 wid270"
+                style="padding-left:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;"
+              >
                 <div class="eklp1 fontwei">
-                  <div class="dess">
+                  <div class="dess coladadad">
                     {{ item.goods_name }}
-                    <i></i>
+                    <!-- <i></i> -->
                   </div>
                   <i class="fr dja">
                     <div>
-                      <img :src="bofan" class="ims" @click="videoPlay(index)">
+                      <img
+                        :src="bofan"
+                        v-if="item.videosing==0"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      >
+                      <img
+                        :src="zantin"
+                        v-if="item.videosing==1"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      >
                     </div>
                   </i>
                 </div>
-                <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
+                <div class="descss eklp1 coladadad" style="font-size:24rpx;">{{ item.goods_title }}</div>
               </div>
             </swiperitem>
           </block>
         </swper>
       </div>
       <div class="clearfix"></div>
-      <div class="dja mar45 martt45" v-if="goodslist.length > 0">
+      <div class="dja mar45" style="margin-bottom:45rpx;" v-if="goodslist.length > 0">
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
-          <div class="desc dja linegs"></div>
+          <div class="bac403c3c bacffgg font20 coladadad">END</div>
+          <div class="linegs desc dja"></div>
         </div>
       </div>
       <div class="dja mar45 martt45" v-else>
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg" style="font-size:28rpx;">暂无数据</div>
+          <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>
@@ -118,10 +142,15 @@
               class="widssgg4 fl"
               @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
             >
+              <div class="bttn">预约体验</div>
+
               <img :src="item.picture" mode="scaleToFill" class="tupi">
-              <div class="titss2 mar20 wid270">
-                <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
-                <div class="descss eklp1">
+              <div
+                class="titss2 par20 wid270"
+                style="padding:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;width:100%;box-sizing:border-box;"
+              >
+                <div class="eklp1 colfff" style="font-size:30rpx;">{{ item.title }}</div>
+                <div class="descss eklp1 coladadad" style="margin-top:17rpx;">
                   {{ item.description }} . {{ item.author }} . {{ item.keyword }}
                   <i class="fr dja">
                     <a style="margin-top:6rpx">
@@ -136,15 +165,21 @@
         </swper>
       </div>
       <div class="clearfix"></div>
-      <div class="dja mar45 martt45" v-if="articlelist.length > 0">
+      <!-- <div class="dja mar45 martt45">
         <div class="desc coleee talcen wid100r">
           <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
           <div class="desc dja linegs"></div>
         </div>
+      </div>-->
+      <div class="dja mar45" style="margin-bottom:45rpx;" v-if="articlelist.length > 0">
+        <div class="desc coleee talcen wid100r">
+          <div class="bac403c3c bacffgg font20 coladadad">END</div>
+          <div class="linegs desc dja"></div>
+        </div>
       </div>
       <div class="dja mar45 martt45" v-else>
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg" style="font-size:28rpx;">暂无数据</div>
+          <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>
@@ -196,13 +231,11 @@ export default {
       mpvue.navigateTo({ url });
     },
     sousuo() {
-
-        if(this.trw==1){
-            wx.navigateTo({ url: "/pages/sousuo_article/main" });
-        }else{
-            wx.navigateTo({ url: "/pages/sousuo/main" });
-        }
-
+      if (this.trw == 1) {
+        wx.navigateTo({ url: "/pages/sousuo_article/main" });
+      } else {
+        wx.navigateTo({ url: "/pages/sousuo/main" });
+      }
     },
     clickHandle(ev) {
       console.log("clickHandle:", ev);
@@ -389,8 +422,8 @@ export default {
   width: 100%;
   height: 420rpx;
   overflow: hidden;
-  border-top-right-radius: 10rpx;
-  border-top-left-radius: 10rpx;
+  /* border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx; */
 }
 
 .dix {
@@ -416,9 +449,9 @@ export default {
 .gonli span {
   width: 100rpx;
   height: 37rpx;
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   background-color: #fff1d1;
-  color: #f6c251;
+  color: #b59570;
   margin-right: 12rpx;
   font-size: 20rpx;
   padding: 5rpx 10rpx;
@@ -433,7 +466,7 @@ export default {
   align-items: center;
 }
 .titss3 {
-  color: #333;
+  color: #adadad;
   position: relative;
   width: max-content;
   font-weight: bold;
@@ -446,7 +479,7 @@ export default {
   margin: 0 auto;
   height: 200rpx;
   background-color: #fff;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
   padding: 10rpx 30rpx;
   box-sizing: border-box;
 }
@@ -457,14 +490,14 @@ export default {
   overflow-x: scroll;
   white-space: nowrap;
   font-size: 24rpx;
-  color: #333;
+  color: #adadad;
   width: 690rpx;
 }
 .fles1 span {
   padding: 6rpx 18rpx;
-  border-radius: 30rpx;
+  border-radius: 4rpx;
   font-size: 24rpx;
-  color: #333;
+  color: #adadad;
   position: relative;
   /* display: inline-block; */
 }
@@ -473,6 +506,7 @@ export default {
 }
 .fles1 .sspan {
   background-color: #efefef;
+  color: #333;
 }
 .fles1 .sspan .cha {
   display: flex !important;
@@ -484,9 +518,9 @@ export default {
   width: 20rpx;
   height: 20rpx;
   border-radius: 50%;
-  background: #333;
+  background: #b59570;
   color: #fff;
-  font-size: 16rpx;
+  font-size: 14rpx;
 }
 
 .fles2 {
@@ -494,7 +528,7 @@ export default {
   padding-left: 5rpx;
   flex-basis: 70rpx;
   font-size: 24rpx;
-  color: #f4be4e;
+  color: #b59570;
 }
 .hei30 {
   height: 65rpx;
@@ -508,7 +542,7 @@ export default {
   height: 65rpx;
   background-color: #f6f5f5;
   border: 1px solid #f5f5f5;
-  border-radius: 8rpx;
+  border-radius: 4rpx;
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
@@ -545,8 +579,7 @@ input::-webkit-input-placeholder {
 .butt {
   width: 470rpx;
   height: 70rpx;
-  border-radius: 8rpx;
-  background-color: #f9d97a;
+  /* border-radius: 8rpx; */
   font-size: 32rpx;
   color: #000;
   font-weight: 600;
@@ -570,8 +603,7 @@ input::-webkit-input-placeholder {
   display: inline-block;
   width: 100rpx;
   height: 10rpx;
-  background-color: #ffdc76;
-  border-radius: 20rpx;
+  /* border-radius: 20rpx; */
   position: relative;
   animation: myfirst 2s;
 }
@@ -624,7 +656,7 @@ input::-webkit-input-placeholder {
   width: 690rpx;
   margin: 0 auto;
   height: 290rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   position: relative;
 }
 .wid100ss {
@@ -656,12 +688,12 @@ input::-webkit-input-placeholder {
   width: 210rpx;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .widssgg4 {
   margin-bottom: 50rpx;
-  border: 1rpx solid #eee;
-  border-radius: 15rpx;
+  /*  border: 1rpx solid #eee;
+  border-radius: 15rpx; */
   position: relative;
 }
 .widssgg4 image {
@@ -709,31 +741,16 @@ swiper {
 }
 
 .bttn {
-  border-radius: 4rpx;
+  border-radius: 2rpx;
   width: 140rpx;
   height: 50rpx;
-  background: -webkit-linear-gradient(
-    left,
-    #fadd81,
-    #f5c254
-  ); /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(
-    right,
-    #fadd81,
-    #f5c254
-  ); /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(
-    right,
-    #fadd81,
-    #f5c254
-  ); /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, #fadd81, #f5c254);
+  background-color: #b59570;
   position: absolute;
   top: 24rpx;
   left: 24rpx;
   color: #000;
   font-size: 24rpx;
-  font-weight: bold;
+  font-weight: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -742,7 +759,7 @@ swiper {
   width: 750rpx;
   height: 70rpx;
   background-color: #fff;
-  border-radius: 23rpx;
+  /* border-radius: 23rpx; */
   margin-top: -30rpx;
 }
 .swiper-box {
@@ -814,7 +831,7 @@ swiper {
   height: 100%;
 }
 .wid100 image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 400rpx;
   width: 690rpx;
 }
@@ -828,7 +845,7 @@ swiper {
   max-width: 100%;
 }
 .widss image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 370rpx;
   width: 630rpx;
 }

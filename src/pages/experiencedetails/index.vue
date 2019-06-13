@@ -4,10 +4,7 @@
 
     <div>
       <div class="dja hei290">
-        <img
-          :src="content.picture"
-          class="hei290"
-        >
+        <img :src="content.picture" class="hei290">
         <div class="ab bott65">
           <span></span>
           <div>{{ content.title }}</div>
@@ -15,7 +12,7 @@
       </div>
       <div class="re mar342"></div>
 
-      <wxParse :content="content.contents" />
+      <wxParse :content="content.contents"/>
       <div class="kuaiqu">
         <div class="buttn dja" @click="back()">快去预约参观</div>
       </div>
@@ -33,7 +30,6 @@ export default {
   },
   data() {
     return {
-
       imcon1: "/static/images/imcon1.jpg",
       imcon2: "/static/images/imcon2.jpg",
       imcon3: "/static/images/imcon3.jpg",
@@ -41,28 +37,28 @@ export default {
       shijian: "/static/images/shijian.jpg",
       listing: "/static/images/listing.jpg",
       shoucan: "/static/images/shoucan.jpg",
-      content:{}
+      content: {}
       //地图结束
     };
   },
 
   methods: {
-      back() {
-          mpvue.navigateBack({
-              delta: 1
-          })
-      },
+    back() {
+      mpvue.navigateBack({
+        delta: 1
+      });
+    }
   },
   created() {
     // let app = getApp()
   },
   onShow(options) {
-      let _this=this
-      let Query=_this.$http.getQuery()
-      let id=Query.id
-      _this.$http.get('index/getSingContentById/'+id,{},function (res) {
-          _this.content=res.data
-      });
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    _this.$http.get("index/getSingContentById/" + id, {}, function(res) {
+      _this.content = res.data;
+    });
   }
 };
 </script>
@@ -82,24 +78,12 @@ export default {
   margin: 0 auto;
   height: 82rpx;
   font-size: 32rpx;
-  border-radius: 8rpx;
   margin-bottom: 110rpx;
-  background: -webkit-linear-gradient(
-    left,
-    #fadd81,
-    #f5c254
-  ); /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(
-    right,
-    #fadd81,
-    #f5c254
-  ); /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(
-    right,
-    #fadd81,
-    #f5c254
-  ); /* Firefox 3.6 - 15 */
+  background: -webkit-linear-gradient(left, #fadd81, #f5c254);
+  background: -o-linear-gradient(right, #fadd81, #f5c254);
+  background: -moz-linear-gradient(right, #fadd81, #f5c254);
   background: linear-gradient(to right, #fadd81, #f5c254);
+  background: #b59570;
 }
 .pics {
   width: 67rpx;
@@ -143,14 +127,14 @@ export default {
   max-width: 100%;
   height: auto !important;
   overflow: hidden;
-  border-radius: 20px !important;
+  /* border-radius: 20px !important; */
 }
 .mar342 {
   width: 100%;
   height: 50rpx;
   border-radius: 80rpx;
   margin-top: -25rpx;
-  background-color: #fff;
+  background-color: #403c3c;
 }
 .s100rp {
   flex-basis: 100rpx;
@@ -171,9 +155,9 @@ export default {
 .gonli span {
   width: 100rpx;
   height: 37rpx;
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   background-color: #fff1d1;
-  color: #f6c251;
+  color: #b59570;
   margin-right: 12rpx;
   font-size: 20rpx;
   padding: 5rpx 10rpx;
@@ -195,17 +179,15 @@ export default {
   font-size: 36rpx;
   margin-top: 10rpx;
 }
-
 .dibu_view {
   width: 690rpx;
   margin: 0 auto;
   height: 200rpx;
   background-color: #fff;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
   padding: 10rpx 30rpx;
   box-sizing: border-box;
 }
-
 .fles1 {
   flex: 1;
 }
@@ -225,7 +207,7 @@ export default {
   height: 65rpx;
   background-color: #fff;
   border: 1px solid #f5f5f5;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
@@ -262,8 +244,8 @@ input::-webkit-input-placeholder {
 .butt {
   width: 470rpx;
   height: 70rpx;
-  border-radius: 8rpx;
-  background-color: #f9d97a;
+  /* border-radius: 8rpx; */
+  background-color: #b59570;
   font-size: 32rpx;
   color: #000;
   font-weight: 600;
@@ -282,15 +264,13 @@ input::-webkit-input-placeholder {
   font-size: 42rpx;
   font-weight: bold;
 }
-
 .bott65 span {
   display: inline-block;
   width: 65rpx;
   height: 10rpx;
-  background-color: #ffdc76;
-  border-radius: 20rpx;
+  background-color: #b59570;
+  /* border-radius: 20rpx; */
   position: relative;
-
 }
 .fix {
   position: fixed;
@@ -320,7 +300,6 @@ input::-webkit-input-placeholder {
 .col999 {
   color: #999;
 }
-
 .lunbo2 .titss2 {
   padding-right: 20rpx !important;
 }
@@ -360,12 +339,12 @@ input::-webkit-input-placeholder {
   width: 210rpx;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .widssgg4 {
   margin-bottom: 50rpx;
   border: 1rpx solid #eee;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
   position: relative;
 }
 .widssgg4 image {
@@ -379,7 +358,6 @@ input::-webkit-input-placeholder {
   font-size: 0.22rem;
   color: #999;
 }
-
 .fle1pic {
   width: 100rpx;
   height: 100rpx;
@@ -411,18 +389,17 @@ swiper {
   margin-bottom: 150rpx;
   /* border: 1rpx solid #eee; */
 }
-
 .bttn {
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   width: 140rpx;
   height: 50rpx;
-  background-color: #f4be4e;
+  background-color: #b59570;
   position: absolute;
   top: 24rpx;
   left: 24rpx;
   color: #000;
   font-size: 24rpx;
-  font-weight: bold;
+  font-weight: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -431,7 +408,7 @@ swiper {
   width: 750rpx;
   height: 70rpx;
   background-color: #fff;
-  border-radius: 23rpx;
+  /* border-radius: 23rpx; */
   margin-top: -30rpx;
 }
 .swiper-box {
@@ -449,7 +426,6 @@ swiper {
   width: 100%;
   margin: 50rpx auto;
 }
-
 .cents .title {
   font-size: 40rpx;
   font-weight: bold;
@@ -504,7 +480,7 @@ swiper {
   height: 100%;
 }
 .wid100 image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 400rpx;
   width: 690rpx;
 }
@@ -518,7 +494,7 @@ swiper {
   max-width: 100%;
 }
 .widss image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 370rpx;
   width: 630rpx;
 }

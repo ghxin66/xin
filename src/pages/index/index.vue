@@ -69,7 +69,7 @@
           >
             <img :src="item.picture" mode="scaleToFill">
 
-            <div class="titss2 mar20 coladadad" style="font-size:32rpx;">
+            <div class="titss2 mar20 coladadad" style="font-size:32rpx;text-align:left">
               {{ item.title }}
               <div class>
                 <i class="icos act fl">#{{ item.keyword }}</i>
@@ -149,7 +149,7 @@ export default {
       xinfengshan: "SANFI · 新风尚",
       articlelist: [],
       goodslist: [],
-      hasshare:false,
+      hasshare: false
     };
   },
   components: {
@@ -234,7 +234,6 @@ export default {
     _this.$http.get("product/getGoodsListByParam", {}, function(res) {
       _this.goodslist = res.data.data;
     });
-  
   }
 };
 </script>

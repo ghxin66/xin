@@ -2,7 +2,7 @@
   <div class="experience">
     <div class="clearfix"></div>
     <div class="re hei30 ma3">
-      <input type="text" name="sou" v-model="val" placeholder="大家都在搜。。。" class="sou">
+      <input type="text" name="sou" v-model="val" placeholder="大家都在搜..." class="sou">
       <span class="font28 widtal" @click="sou_pro(val)">搜索</span>
     </div>
     <div class="cenrt" v-show="isClicktrue==0">
@@ -16,29 +16,47 @@
       </ul>
     </div>
 
-    <div class="padd30 lunbo2">
-      <swper vertical class="fl swiper" v-if="goodslist.length > 0">
+    <div class="padd30 lunbo2" style="width:100%;">
+      <swper vertical class="fl swiper" v-if="goodslist.length > 0" style="width:100%;">
         <block v-for="(item, index) in goodslist" :key="index">
-          <swiperitem class="widssgg4 fl">
-            <img :src="item.goods_img" mode="scaleToFill" v-show="item.videosing==0" @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)">
-            <video
-                    :src="item.urls"
-                    v-show="item.videosing==1"
-                    :id="'myVideo_'+index"
-            ></video>
-            <div class="titss2 mar20 wid270">
+          <swiperitem class="widssgg4 fl" style="width:100%;font-size:0">
+            <img
+              :src="item.goods_img"
+              mode="widthFix"
+              v-show="item.videosing==0"
+              style="width:100%"
+              @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
+            >
+            <video :src="item.urls" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
+            <div
+              class="titss2 par20 wid270"
+              style="padding:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;width:100%;box-sizing:border-box;"
+            >
               <div class="eklp1 fontwei">
-                <div class="dess">
+                <div class="dess colfff">
                   {{ item.goods_name }}
                   <i></i>
                 </div>
                 <i class="fr dja">
                   <div>
-                    <img :src="bofan" v-show="item.urls" class="ims" @click="videoPlay(index)">
+                    <img
+                      :src="bofan"
+                      v-if="item.videosing==0"
+                      v-show="item.urls"
+                      class="ims"
+                      @click="videoPlay(index)"
+                    >
+                    <img
+                      :src="zantin"
+                      v-if="item.videosing==1"
+                      v-show="item.urls"
+                      class="ims"
+                      @click="videoPlay(index)"
+                    >
                   </div>
                 </i>
               </div>
-              <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
+              <div class="descss eklp1 coladadad" style="font-size:24rpx;">{{ item.goods_title }}</div>
             </div>
           </swiperitem>
         </block>
@@ -46,19 +64,25 @@
     </div>
 
     <div class="clearfix"></div>
-    <div class="dja mar45 martt45" v-if="goodslist.length > 0">
+    <!-- <div class="dja mar45 martt45" v-if="goodslist.length > 0">
       <div class="desc coleee talcen wid100r">
         <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
         <div class="desc dja linegs"></div>
       </div>
+    </div>-->
+
+    <div class="dja mar45" style="margin-bottom:45rpx;" v-if="goodslist.length > 0">
+      <div class="desc coleee talcen wid100r">
+        <div class="bac403c3c bacffgg font20 coladadad">END</div>
+        <div class="linegs desc dja"></div>
+      </div>
     </div>
     <div class="dja mar45 martt45" v-else>
       <div class="desc coleee talcen wid100r" v-if="isClicktrue">
-        <div class="bacfff bacffgg" style="font-size:28rpx;color: #000">暂无数据</div>
+        <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
         <div class="desc dja linegs"></div>
       </div>
     </div>
-
     <!--填写手机号弹框-->
     <div class="modalMask" v-if="isModel"></div>
     <div class="modalDialog" v-if="changeModel">
@@ -81,24 +105,43 @@ export default {
       changeModel: false,
       isModel: false,
       val: "",
+      bofan: "/static/images/bofan.png",
+      zantin: "/static/images/zantin.png",
       sou_content: [],
       //地图结束
-        isClicktrue:false,
-        goodslist:[],
-        goods_page:1,
-        goods_last_page:1,
+      isClicktrue: false,
+      goodslist: [],
+      goods_page: 1,
+      goods_last_page: 1
     };
   },
   methods: {
-      toUrl(url){
-          mpvue.navigateTo({ url });
-      },
+    toUrl(url) {
+      mpvue.navigateTo({ url });
+    },
     //  弹框取消
     tapCancel() {
       // this.phoneNumber = "";
       console.log("取消");
       this.changeModel = !this.changeModel;
       this.isModel = !this.isModel;
+    },
+    videoPlay(index, e) {
+      let videosing = this.goodslist[index].videosing;
+
+      if (videosing == 0) {
+        this.goodslist[index].videosing = 1;
+      } else {
+        this.goodslist[index].videosing = 0;
+      }
+
+      let videoContext = wx.createVideoContext("myVideo_" + index);
+      console.log(videosing);
+      if (videosing == 0) {
+        videoContext.play();
+      } else {
+        videoContext.pause();
+      }
     },
     //  确认删除
     confirmSend() {
@@ -109,58 +152,77 @@ export default {
       // this.phoneNumber = "";
     },
     sou_pro() {
-        let val=this.val
+      let val = this.val;
       if (val.trim() == "" || val.trim() == null) {
         this.changeModel = !this.changeModel;
         this.isModel = !this.isModel;
       } else {
-            this.goodslist=[]
-          this.getArticleList()
+        this.goodslist = [];
+        this.getArticleList();
       }
     },
     fenlei(keyrowd) {
-        this.val=keyrowd
-        this.getArticleList()
+      this.val = keyrowd;
+      this.getArticleList();
     },
-      getArticleList(){
-          let _this=this;
+    getArticleList() {
+      let _this = this;
 
-          mpvue.showLoading({
-              title: '加载中',
-              mask:true
-          })
-          _this.$http.get('product/getGoodsListByParam/',{
-              page:_this.goods_page,
-              keyword:_this.val,
-          },function (res) {
-              wx.hideLoading();
-              _this.goods_last_page=res.data.last_page
-              let list=res.data.data
-              for(let item in list){
-                  _this.goodslist.push(list[item])
-              }
-              _this.isClicktrue=true;
-          })
-      }
-  },
-    onShow() {
-        let _this=this
-
-        _this.$http.get('product/getSearchList',{},function (res) {
-            _this.sou_content=res.data
-        })
-    },
-    onReachBottom(){
-        if(this.goods_page<this.goods_last_page){
-            this.goods_page +=1
-            this.getArticleList()
+      mpvue.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      _this.$http.get(
+        "product/getGoodsListByParam/",
+        {
+          page: _this.goods_page,
+          keyword: _this.val
+        },
+        function(res) {
+          wx.hideLoading();
+          _this.goods_last_page = res.data.last_page;
+          let list = res.data.data;
+          for (let item in list) {
+            _this.goodslist.push(list[item]);
+          }
+          _this.isClicktrue = true;
         }
-
+      );
     }
+  },
+  onShow() {
+    let _this = this;
+
+    _this.$http.get("product/getSearchList", {}, function(res) {
+      _this.sou_content = res.data;
+    });
+  },
+  onReachBottom() {
+    if (this.goods_page < this.goods_last_page) {
+      this.goods_page += 1;
+      this.getArticleList();
+    }
+  }
 };
 </script>
 
 <style scoped>
+.widssgg4 {
+  margin-bottom: 40rpx;
+}
+.widssgg4 video {
+  width: 100%;
+  height: 420rpx;
+  overflow: hidden;
+  /* border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx; */
+}
+.ims {
+  width: 48rpx !important;
+  height: 48rpx !important;
+  /* margin-top: 8rpx; */
+}
+
 .hei30 {
   margin-top: 30rpx;
 }
@@ -171,10 +233,11 @@ export default {
   line-height: 45rpx;
   margin: 36rpx 60rpx 0 0;
   text-align: center;
-  background-color: #edecec;
-  border-radius: 8rpx;
+  background-color: #262525;
+  border-radius: 4rpx;
   float: left;
-  overflow:hidden ;
+  color: #adadad;
+  overflow: hidden;
 }
 .soucon:nth-child(4n) {
   margin: 36rpx 0rpx 0 0;
@@ -183,6 +246,7 @@ export default {
   text-align: center;
   display: inline-block;
   width: 92rpx;
+  color: #b59570;
 }
 .sou {
   width: 615rpx;
@@ -272,7 +336,7 @@ export default {
 .btnConfirm {
   font-size: 32rpx;
   width: 50%;
-  color: #f5c659;
+  color: #b59570;
   text-align: center;
 }
 /* tangkuang */

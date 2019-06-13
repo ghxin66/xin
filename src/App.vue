@@ -26,8 +26,7 @@ export default {
   },
   log() {
     console.log(`log at:${Date.now()}`);
-  },
-
+  }
 };
 </script>
 
@@ -84,8 +83,7 @@ swiper {
   display: inline-block;
   width: 100rpx;
   height: 10rpx;
-  background-color: #ffdc76;
-  border-radius: 20rpx;
+  background-color: #b59570;
   position: relative;
 }
 
@@ -102,6 +100,9 @@ swiper {
 }
 .cents .desc {
   font-size: 28rpx;
+}
+.colfff {
+  color: #fff;
 }
 * {
   font-size: 26rpx;
@@ -154,7 +155,18 @@ swiper {
   box-sizing: border-box;
   line-height: 45rpx;
 }
-
+.font500 {
+  font-weight: 500;
+}
+.cenrt {
+  color: #adadad;
+}
+.cenrt p {
+  color: #adadad;
+}
+.cenrt span {
+  color: #adadad;
+}
 .fixd {
   background: rgba(0, 0, 0, 0.8);
   display: flex;
@@ -182,7 +194,7 @@ swiper {
   z-index: 555;
 }
 .savs {
-  background: #f8c52a;
+  background: #b59570;
   border-radius: 60rpx;
   width: 420rpx;
   margin: 50rpx auto;
@@ -203,10 +215,10 @@ swiper {
 }
 .titss {
   font-size: 48rpx;
-  color: #333;
+  color: #fff;
   position: relative;
   width: max-content;
-  font-weight: bold;
+  font-weight: 500;
 }
 .titss span {
   display: inline-block;
@@ -216,7 +228,7 @@ swiper {
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
-  background: rgb(231, 170, 3);
+  background: #b59570;
 }
 .col999 .gjsd {
   display: none;
@@ -234,7 +246,7 @@ swiper {
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
-  background: rgb(231, 170, 3);
+  background: #b59570;
 }
 .clearfix {
   clear: both;
@@ -360,11 +372,17 @@ button::after {
 .font26 {
   font-size: 26rpx !important;
 }
+.font32 {
+  font-size: 32rpx !important;
+}
+.font38 {
+  font-size: 38rpx !important;
+}
 .sou {
   height: 65rpx;
-  background-color: #fff;
-  border: 1px solid #f5f5f5;
-  border-radius: 8rpx;
+  background-color: #403c3c;
+  border: 1px solid #7e7d7d;
+  border-radius: 4rpx;
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
@@ -399,13 +417,12 @@ input::-webkit-input-placeholder {
 .hei850 {
   height: 100%;
 }
-    .zz{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top:0;
-        left: 0;
-        background-color: rgba(0,0,0,0.4);
-
-    }
+.zz {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
 </style>

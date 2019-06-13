@@ -2,18 +2,18 @@
   <div class="experience">
     <div>
       <div
-        class="titss mar30 mar20 font42"
-        :class="trw==1?'coladadad':'colb59570'"
-        style="float:left"
+        class="titss mar30 mar20"
+        :class="trw==1?'coladadad mar4':'colb59570 font42'"
+        style="float:left;font-size:36rpx;"
         @click="trw=0"
       >
         {{shfs}}
         <!-- <span v-if="trw==0" class="gjsd"></span> -->
       </div>
       <div
-        class="titss mar30 mar20 font42"
-        :class="trw==0?'coladadad':'colb59570'"
-        style="float:left"
+        class="titss mar30 mar20"
+        :class="trw==0?'coladadad mar4':'colb59570 font42'"
+        style="float:left;font-size:36rpx;"
         @click="trw=1"
       >
         {{ddty}}
@@ -71,31 +71,29 @@
     <div v-show="trw==1?'true':''">
       <!-- 2 -->
 
-        <div class="re hei850">
-          <cover-view class="re hei30">
-            <cover-view class="ab bac" type="submit" @click="tijiao()">
-              <cover-image :src="soupic" class="soupic"></cover-image>
-            </cover-view>
-            <cover-view  class="sou" @click="tijiao()">大家都在搜。。。</cover-view>
-
+      <div class="re hei850">
+        <cover-view class="re hei30">
+          <cover-view class="ab bac" type="submit" @click="tijiao()">
+            <cover-image :src="soupic" class="soupic"></cover-image>
           </cover-view>
+          <cover-view class="sou" @click="tijiao()">大家都在搜。。。</cover-view>
+        </cover-view>
 
-
-          <map
-                  id="map"
-                  :longitude="longitude"
-                  :latitude="latitude"
-                  scale="15"
-                  bindcontroltap="controltap"
-                  :markers="markers"
-                  bindmarkertap="markertap"
-                  :polyline="polyline"
-                  bindregionchange="regionchange"
-                  show-location
-                  style="width:100%;height:855rpx"
-                  class="re maps"
-          ></map>
-        </div>
+        <map
+          id="map"
+          :longitude="longitude"
+          :latitude="latitude"
+          scale="15"
+          bindcontroltap="controltap"
+          :markers="markers"
+          bindmarkertap="markertap"
+          :polyline="polyline"
+          bindregionchange="regionchange"
+          show-location
+          style="width:100%;height:855rpx"
+          class="re maps"
+        ></map>
+      </div>
 
       <div class="clearfix"></div>
       <div class="bufens">
@@ -277,7 +275,6 @@ export default {
     mpvue.getLocation({
       //返回可以用于wx.openLocation的经纬度
       success: function(res) {
-
         _this.latitude = res.latitude;
         _this.longitude = res.longitude; //经度
         let mycity = _this.$http.getQuery().mycity;
@@ -285,35 +282,34 @@ export default {
           _this.trw = 1;
         }
 
-//          let city = res.result.address_component.city;
-          let city ="";
-          if (mycity) {
-              city = mycity;
-          }
-          _this.mycity = city;
-          _this.$http.get(
-              "index/getBusinessList/" + city,
-              { latlng: _this.latitude + "," + _this.longitude },
-              function(res) {
-                  mpvue.hideLoading();
-                  _this.business_list = res.data;
+        //          let city = res.result.address_component.city;
+        let city = "";
+        if (mycity) {
+          city = mycity;
+        }
+        _this.mycity = city;
+        _this.$http.get(
+          "index/getBusinessList/" + city,
+          { latlng: _this.latitude + "," + _this.longitude },
+          function(res) {
+            mpvue.hideLoading();
+            _this.business_list = res.data;
 
-                  for (let item in _this.business_list) {
-                      if (item == 0) {
-                          _this.latitude = _this.business_list[item].lat;
-                          _this.longitude = _this.business_list[item].lng;
-                      }
-                      _this.markers.push({
-                          id: item,
-                          latitude: _this.business_list[item].lat,
-                          longitude: _this.business_list[item].lng,
-                          width: 50,
-                          height: 50
-                      });
-                  }
+            for (let item in _this.business_list) {
+              if (item == 0) {
+                _this.latitude = _this.business_list[item].lat;
+                _this.longitude = _this.business_list[item].lng;
               }
-          );
-
+              _this.markers.push({
+                id: item,
+                latitude: _this.business_list[item].lat,
+                longitude: _this.business_list[item].lng,
+                width: 50,
+                height: 50
+              });
+            }
+          }
+        );
       }
     });
     _this.getcaselist();
@@ -331,10 +327,14 @@ export default {
 .s100rp {
   flex-basis: 100rpx;
 }
+.mar4 {
+  margin-top: 24rpx;
+}
 .hujiaozi {
   font-size: 22rpx;
   text-align: center;
   margin-top: 5rpx;
+  color: #adadad;
 }
 .hujiao {
   width: 55rpx;
@@ -347,9 +347,9 @@ export default {
 .gonli span {
   width: 100rpx;
   height: 37rpx;
-  /* border-radius: 4rpx; */
-  background-color: #fff1d1;
-  color: #b59570;
+  border-radius: 4rpx;
+  background-color: #b59570;
+  color: #262525;
   margin-right: 12rpx;
   font-size: 20rpx;
   padding: 5rpx 10rpx;
@@ -357,9 +357,9 @@ export default {
 .bufens {
   padding-top: 20rpx;
   padding-bottom: 20rpx;
+  background: #403c3c;
 }
 .dibu {
-  background-color: #f3f1ee;
   width: 750rpx;
   height: 230rpx;
   margin-top: -2rpx;
@@ -368,30 +368,30 @@ export default {
   align-items: center;
 }
 .titss3 {
-  color: #333;
+  color: #fff;
   position: relative;
   width: max-content;
   font-weight: bold;
   font-size: 36rpx;
-  margin-top: 10rpx;
-  margin-left: 10rpx;
+  margin-top: 20rpx;
+  /* margin-left: 10rpx; */
 }
 .titss4 {
-  color: #333;
+  color: #adadad;
   position: relative;
   width: max-content;
   font-weight: bold;
-  font-size: 22rpx;
-  margin-top: 10rpx;
-  margin-left: 10rpx;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  /* margin-left: 10rpx; */
 }
 .dibu_view {
   width: 690rpx;
   margin: 0 auto;
   height: 200rpx;
-  background-color: #fff;
+  background-color: #262525;
   /* border-radius: 15rpx; */
-  padding: 10rpx 10rpx;
+  padding: 20rpx;
   box-sizing: border-box;
 }
 
@@ -515,6 +515,7 @@ input::-webkit-input-placeholder {
 .lunbo2 .titss2 {
   padding: 20rpx !important;
   border: 1rpx solid #525050;
+  border-top: none;
 }
 .hei290 {
   width: 690rpx;
@@ -555,7 +556,7 @@ input::-webkit-input-placeholder {
   /* border-radius: 10rpx; */
 }
 .widssgg4 {
-  margin-bottom: 50rpx;
+  margin-bottom: 30rpx;
   /* border: 1rpx solid #333030; */
   /* border-radius: 15rpx; */
   position: relative;
@@ -600,7 +601,7 @@ swiper {
 }
 .lunbo2 .swiper {
   /* height: 560rpx; */
-  margin-bottom: 150rpx;
+  margin-bottom: 50rpx;
   /* border: 1rpx solid #eee; */
 }
 
@@ -614,7 +615,7 @@ swiper {
   left: 24rpx;
   color: #000;
   font-size: 24rpx;
-  font-weight: bold;
+  font-weight: 100;
   display: flex;
   justify-content: center;
   align-items: center;

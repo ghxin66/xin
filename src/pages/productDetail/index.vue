@@ -43,9 +43,9 @@
       <div class="borru"></div>
     </div>
 
-    <div class="titss mar30 mar20" v-show="content.massage.length>=1">
+    <div class="titss mar30 mar20 colb59570 fontwei" v-show="content.massage.length>=1">
       业主说
-      <span></span>
+      <!-- <span></span> -->
     </div>
     <div class="dja padd30" v-show="content.massage.length>=1" style="align-items: flex-start">
       <div class="fle1">
@@ -82,16 +82,18 @@
     </div>
     <div class="clearfix"></div>
     <!--分享-->
-    <Share :title="content.title"
-           :url="'pages/productDetail/main?id='+content.article_id"
-           :thumb="content.picture" cat="article" 
-           :keyid="content.article_id"
-           :hasshare="hasshare"
-           ></Share>
+    <Share
+      :title="content.title"
+      :url="'pages/productDetail/main?id='+content.article_id"
+      :thumb="content.picture"
+      cat="article"
+      :keyid="content.article_id"
+      :hasshare="hasshare"
+    ></Share>
     <!--分享-->
     <div class="dja" v-show="content.other.length > 0">
       <div class="wid100ss padd30" @click="toanli('/pages/productlist/main?trw=1')">
-        <span style="float:left;" class="eklp1 titss">你可能感兴趣的其他案例</span>
+        <span style="float:left;" class="eklp1 titss">您可能感兴趣的其他案例</span>
         <span style="font-family: cursive;float:right;padding-top:10rpx;">
           <img :src="righs" style="width:10rpx;height:22rpx;">
         </span>
@@ -108,17 +110,17 @@
         <block v-for="(item, index) in content.other" :key="index">
           <swiper-item
             class="widssgg4 fl"
-            @click="toanli('/pages/productDetail/main?id'+item.article_id)"
+            @click="toanli('/pages/productDetail/main?id='+item.article_id)"
           >
-            <div style="width:100%;height:400rpx;overflow:hidden;border-radius:15rpx">
+            <div style="width:100%;height:400rpx;overflow:hidden;">
               <img :src="item.picture" mode="widthFix">
             </div>
             <div class="titss2 mar20 wid270 wid10d">
-              <div class="eklp1">{{ item.title }}</div>
-              <div class="descss eklp1">
+              <div class="eklp1 coladadad">{{ item.title }}</div>
+              <div class="descss eklp1 coladadad">
                 {{ item.description }}·{{ item.author }}·{{ item.keyword }}
                 <i
-                  class="fr dja"
+                  class="fr dja coladadad"
                   style="margin-top:-10rpx"
                 >
                   <a>
@@ -144,9 +146,9 @@
         <block v-for="(item, index) in content.other" :key="index">
           <swiper-item
             class="widssgg4 fl"
-            @click="toanli('/pages/productDetail/main?id'+item.article_id)"
+            @click="toanli('/pages/productDetail/main?id='+item.article_id)"
           >
-            <div style="width:100%;height:300rpx;overflow:hidden;border-radius:15rpx">
+            <div style="width:100%;height:300rpx;overflow:hidden;">
               <img :src="item.picture" mode="widthFix">
             </div>
             <div class="titss2 mar20 wid270">
@@ -169,7 +171,6 @@
       </swiper>
     </div>
     <div class="fix wid100ss dja" v-if="content.is_state==1">
-
       <div class="butt dja" @click="toanli('/pages/appointment/main?id='+content.article_id)">
         <template v-if="content.hasyy>=1">再次预约</template>
         <template v-else>预约参观</template>
@@ -205,15 +206,15 @@ import Share from "@/components/Share";
 import wxParse from "mpvue-wxparse";
 export default {
   components: {
-      Share,
-      wxParse
+    Share,
+    wxParse
   },
   data() {
     return {
       shoucaning: false,
       indicatorDots: true,
       guanzhu: "/static/images/guanzhu.jpg",
-      listing: "/static/images/listing.jpg",
+      listing: "/static/images/listings.png",
       shoucan: "/static/images/shoucan.jpg",
       righs: "/static/images/right.png",
       yishoucan: "/static/images/yishoucan.png",
@@ -229,7 +230,7 @@ export default {
         other: []
       },
       multipleItems: 1,
-      hasshare:false
+      hasshare: false
     };
   },
 
@@ -242,47 +243,47 @@ export default {
   },
 
   methods: {
-
-
     showImgs(e, evn) {
       mpvue.navigateTo({
         url: "/pages/keting/main?type=article&id=" + this.id + "&url=" + e
       });
     },
 
-    toanli(url){
-        mpvue.navigateTo({
-            url: url
-        })
+    toanli(url) {
+      mpvue.navigateTo({
+        url: url
+      });
     },
-    collect(type){
-       let url
-        let _this=this
-        if(type==1){
-           url="user/collect"
-        }else{
-           url="user/cancelCollect"
+    collect(type) {
+      let url;
+      let _this = this;
+      if (type == 1) {
+        url = "user/collect";
+      } else {
+        url = "user/cancelCollect";
+      }
+      mpvue.showLoading({
+        title: "请求中",
+        mask: true
+      });
+      _this.$http.post(
+        url,
+        { key: _this.content.article_id, cat_id: 1 },
+        function(res) {
+          wx.hideLoading();
+          if (type == 1) {
+            _this.content.collect = true;
+          } else {
+            _this.content.collect = false;
+          }
+
+          wx.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 1500
+          });
         }
-        mpvue.showLoading({
-            title: '请求中',
-            mask:true
-        })
-        _this.$http.post(url,{key:_this.content.article_id,cat_id:1},function (res) {
-            wx.hideLoading();
-            if(type==1){
-                _this.content.collect=true
-            }else{
-                _this.content.collect=false
-            }
-
-            wx.showToast({
-                title: res.msg,
-                icon: 'success',
-                duration: 1500
-            })
-
-        })
-
+      );
     }
   },
 
@@ -299,6 +300,7 @@ export default {
     _this.$http.get("index/getArticleDetailsById/" + id, {}, function(res) {
       wx.hideLoading();
       _this.content = res.data;
+      // console.log(_this.content);
       if (_this.content.goods_id >= 3) {
         _this.multipleItems = 3;
       }
@@ -307,30 +309,29 @@ export default {
         title: _this.content.title
       });
     });
-     let share = _this.$http.getQuery().share;
+    let share = _this.$http.getQuery().share;
 
-      if(share){
-          _this.hasshare=true
-      }
+    if (share) {
+      _this.hasshare = true;
+    }
   },
   /* 转发*/
-    onShareAppMessage: function(ops) {
-
-        let title=ops.target.dataset.title
-        let url=ops.target.dataset.url
-        return {
-            title: title,
-            path: url,
-            success: function(res) {
-                // 转发成功
-                console.log("转发成功:" + JSON.stringify(res));
-            },
-            fail: function(res) {
-                // 转发失败
-                console.log("转发失败:" + JSON.stringify(res));
-            }
-        };
-    },
+  onShareAppMessage: function(ops) {
+    let title = ops.target.dataset.title;
+    let url = ops.target.dataset.url;
+    return {
+      title: title,
+      path: url,
+      success: function(res) {
+        // 转发成功
+        console.log("转发成功:" + JSON.stringify(res));
+      },
+      fail: function(res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    };
+  }
 };
 </script>
 
@@ -340,7 +341,7 @@ export default {
   width: 100% !important;
 }
 .lunbo2 .swipersf {
-  height: 500rpx;
+  height: 520rpx;
 }
 .dis1 {
   display: flex;
@@ -358,7 +359,7 @@ export default {
   width: 100%;
   height: 320rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .padd30gss .widssgg4 {
   padding-right: 30rpx;
@@ -378,7 +379,7 @@ button {
   text-align: center;
   text-decoration: none;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #403c3c;
 }
 
 .tupic {
@@ -395,11 +396,11 @@ button {
 .butt {
   width: 470rpx;
   height: 70rpx;
-  border-radius: 8rpx;
-  background-color: #f9d97a;
+  border-radius: 4rpx;
+  background-color: #b59570;
   font-size: 32rpx;
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0 20rpx;
 }
 .fix {
@@ -415,6 +416,7 @@ button {
   width: 30rpx !important;
   height: 25rpx !important;
   margin-top: 8rpx;
+  margin-right: 8rpx;
 }
 .widssgg4 .wid270 {
   width: 540rpx;
@@ -473,13 +475,13 @@ button {
   width: 100%;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .widssgg4 image {
   width: 100%;
   height: 320rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .descss {
   font-size: 25rpx;
@@ -499,9 +501,10 @@ button {
   height: 100%;
 }
 .fle2 {
-  padding-left: 10rpx;
+  padding-left: 13rpx;
   flex-grow: 1;
   font-size: 30rpx;
+  color: #adadad;
 }
 .wi100 {
   width: 100%;
@@ -567,7 +570,7 @@ swiper {
   width: 750rpx;
   height: 70rpx;
   background-color: #403c3c;
-  border-radius: 23rpx;
+  /* border-radius: 23rpx; */
   margin-top: -30rpx;
 }
 .swiper-box {
@@ -640,7 +643,7 @@ swiper {
   height: 100%;
 }
 .wid100 image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 400rpx;
   width: 690rpx;
 }
@@ -654,7 +657,7 @@ swiper {
   max-width: 100%;
 }
 .widss image {
-  border-radius: 16rpx;
+  /* border-radius: 16rpx; */
   height: 370rpx;
   width: 630rpx;
 }

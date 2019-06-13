@@ -6,10 +6,13 @@
           <div class="pic">{{content.goods_name}}</div>
           <div>
             <div
-              class="dja title fontwei"
-              style="text-align:center;font-size:44rpx;"
+              class="dja title fontwei colfff"
+              style="text-align:center;font-size:48rpx;"
             >{{content.goods_name}}</div>
-            <div class="desc" style="text-align:center">{{content.goods_title}}</div>
+            <div
+              class="desc coladadad"
+              style="text-align:center;font-size:28rpx"
+            >{{content.goods_title}}</div>
           </div>
         </div>
       </div>
@@ -19,38 +22,38 @@
 
     <div class="da mar20">
       <div class="wid75" @click="sels(0)">
-        <div :class="sel==0?'titss':'titmin'">
+        <div :class="sel==0?'titss colb59570 font38':'titmin font32'">
           产品介绍
-          <span></span>
+          <!-- <span></span> -->
         </div>
       </div>
       <div class="wid75" @click="sels(1)">
-        <div :class="sel==1?'titss':'titmin'">
+        <div :class="sel==1?'titss colb59570 font38':'titmin font32'">
           高清大图
-          <span></span>
+          <!-- <span></span> -->
         </div>
       </div>
       <div class="wid75" @click="sels(2)">
-        <div :class="sel==2?'titss':'titmin'">
+        <div :class="sel==2?'titss colb59570 font38':'titmin font32'">
           全景图
-          <span></span>
+          <!-- <span></span> -->
         </div>
       </div>
     </div>
     <div class="clearfix"></div>
     <div v-show="sel==0">
-      <div class="titss2 mar30 fontwei" style="margin-top:30rpx">
+      <div class="titss2 mar30 font500" style="margin-top:30rpx;padding-left:20rpx;">
         <span></span>
         设计灵感
       </div>
       <div class="cenrt">
         <wxParse :content="content.goods_desc.content"/>
       </div>
-      <div class="titss2 mar30 fontwei" style="margin-top:30rpx">
+      <div class="titss2 mar30 font500" style="margin-top:30rpx;padding-left:20rpx;">
         <span></span>
         基础信息
       </div>
-      <div class="wid485 pad30 fontwei font28 mart50">
+      <div class="wid485 pad30 font500 font28 mart50">
         <ul>
           <li>
             <span class="fl">位置</span>
@@ -64,7 +67,7 @@
               </template>
             </span>
           </li>
-          <div class="clearfix"></div>
+
           <li>
             <span class="fl">结构</span>
             <span class="fr dja">
@@ -77,7 +80,6 @@
               </template>
             </span>
           </li>
-          <div class="clearfix"></div>
           <li>
             <span class="fl">表面外观</span>
             <span class="fr dja">
@@ -90,10 +92,15 @@
               </template>
             </span>
           </li>
-          <div class="clearfix"></div>
         </ul>
       </div>
-      <div class="titss2 mar30 fontwei" v-show="content.images.length>0" style="margin-top:40rpx">
+      <div class="clearfix"></div>
+
+      <div
+        class="titss2 mar30 fontwei"
+        v-show="content.images.length>0"
+        style="margin-top:40rpx;padding-left:20rpx;"
+      >
         <span></span>
         规格参数
       </div>
@@ -111,32 +118,36 @@
           </li>
         </ul>
       </div>
-      <div class="cents">
+      <div class="cents" style="height:600rpx;" v-show="content.images.length>0">
+        <!-- v-show="selectchicun==idss" -->
         <ul
           v-for="(item,idss) in content.images"
           :key="idss+1"
-          v-show="selectchicun==idss"
-          :class="selectchicun==idss?'animated fadeInRight':''"
+          style="float:left;display:inline;width:690rpx;position:absolute"
+          :class="selectchicun==idss?'animated fadeInRight':'animated fadeOutLeft'"
         >
-          <li class="dja">
-            <img :src="item.pic" mode="scaleToFill" style="width: 100%">
+          <li class="dja" style="height:650rpx">
+            <img :src="item.pic" mode="widthFix" style="max-width: 100%;max-height:600rpx">
           </li>
+          <div class="clearfix"></div>
         </ul>
+        <div class="clearfix"></div>
       </div>
       <!-- 0结束 -->
-      <div class="clearfix"></div>
     </div>
     <div v-show="sel==1">
       <div class="cenrt">
-        <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
+        <div style="border-bottom:1rpx solid #2b2828">
+          <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
+        </div>
       </div>
 
       <!--分享-->
       <div class="gg">
         <div class="dja">
           <div class="wid100ss padd30">
-            <span style="float:left;" class="eklp1 titss">你可能感兴趣</span>
-            <span style="font-family: cursive;float:right;padding-top:4rpx;">></span>
+            <span class="eklp1 titss colfff" style="font-size:38rpx;float:left;">你可能感兴趣</span>
+            <!-- <span style="font-family: cursive;float:right;padding-top:4rpx;">></span> -->
           </div>
         </div>
         <div class="padd30 lunbo2">
@@ -156,19 +167,35 @@
                   @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
                 >
                 <video :id="'myVideo_'+index" :src="item.urls" v-show="item.videosing==1"></video>
-                <div class="titss2 par20 wid270">
+                <div
+                  class="titss2 par20 wid270 bac403c3c"
+                  style="border:1rpx solid #615e5e;border-top:none;"
+                >
                   <div class="eklp1 fontwei">
-                    <div class="dess">
+                    <div class="dess coladadad">
                       {{ item.goods_name }}
                       <i></i>
                     </div>
                     <i class="fr dja">
-                      <div>
-                        <img :src="bofan" class="ims" v-show="item.urls" @click="videoPlay(index)">
+                      <div style="font-size:0;width:48rpx;height:48rpx;">
+                        <img
+                          :src="bofan"
+                          class="ims"
+                          v-if="item.videosing==0"
+                          v-show="item.urls"
+                          @click="videoPlay(index)"
+                        >
+                        <img
+                          :src="zantin"
+                          class="ims"
+                          v-if="item.videosing==1"
+                          v-show="item.urls"
+                          @click="videoPlay(index)"
+                        >
                       </div>
                     </i>
                   </div>
-                  <div class="descss eklp1" style="font-size:24rpx;">{{ item.goods_title }}</div>
+                  <div class="descss eklp1 col999" style="font-size:24rpx;">{{ item.goods_title }}</div>
                 </div>
               </swiper-item>
             </block>
@@ -182,10 +209,10 @@
     </div>
 
     <div class="clearfix"></div>
-    <div class="dja mar45 martt45">
+    <div class="dja mar45" style="margin-bottom:45rpx;">
       <div class="desc coleee talcen wid100r">
-        <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
-        <div class="desc dja linegs"></div>
+        <div class="bac403c3c bacffgg font20 coladadad">END</div>
+        <div class="linegs desc dja"></div>
       </div>
     </div>
   </div>
@@ -208,8 +235,8 @@ export default {
       _index: -1,
       sel: 1,
       selectchicun: 0,
-      select: "/static/images/sele.jpg",
-      empty: "/static/images/empty.jpg",
+      select: "/static/images/select.png",
+      empty: "/static/images/empty.png",
 
       imgcent: [
         {
@@ -325,25 +352,33 @@ export default {
     // let app = getApp()
   },
 
-  onShow(){
-      let _this=this
-      let Query=_this.$http.getQuery()
-     let id=Query.id
-      // let id=3
-      this.id=id
-      _this.$http.get('product/getGoodsDetailsById/'+id,{},function (res) {
-          _this.content=res.data
-          wx.setNavigationBarTitle({
-              title: _this.content.goods_name
-          })
-
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    // let id=3
+    this.id = id;
+    _this.$http.get("product/getGoodsDetailsById/" + id, {}, function(res) {
+      _this.content = res.data;
+      wx.setNavigationBarTitle({
+        title: _this.content.goods_name
       });
-
+    });
   }
 };
 </script>
 
 <style scoped>
+.titss2 {
+  font-size: 38rpx;
+  color: #fff;
+}
+.titss2 span {
+  width: 7rpx;
+  height: 85%;
+  top: 10%;
+}
+
 .wid50s {
   width: 49%;
   padding: 25rpx;
@@ -354,9 +389,10 @@ export default {
   width: 200rpx;
   height: 200rpx;
 }
+
 .cenrts {
   font-size: 28rpx;
-  margin: 40rpx 0 100rpx 0;
+  margin: 40rpx 0 50rpx 0;
 }
 .cres {
   width: 32rpx;
@@ -368,25 +404,27 @@ export default {
   box-sizing: border-box;
   float: left;
   text-align: center;
+  color: #adadad;
 }
 .mart50 {
   margin-bottom: 30rpx;
 }
 .mart50 ul li {
   height: 60rpx;
-  border-bottom: 1rpx solid #eee;
+  border-bottom: 1rpx solid #262525;
+}
+.mart50 ul li:last-child {
+  border-bottom: none;
 }
 .wid485 {
   width: 485rpx;
+  color: #adadad;
 }
 .par20 {
   padding: 20rpx !important;
   box-sizing: border-box;
   border: 1rpx solid #eee;
-  margin-top: -12rpx;
-  background-color: #fff;
-  border-bottom-left-radius: 10rpx;
-  border-bottom-right-radius: 10rpx;
+  /* margin-top: -12rpx; */
   overflow: hidden;
 }
 video {
@@ -424,7 +462,9 @@ swiper {
   /* border-bottom: 1rpx solid #eee; */
 }
 .titss {
-  margin-top: -5rpx;
+  margin-top: 15rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid;
 }
 .wid75 {
   padding-top: 5rpx;
@@ -449,12 +489,12 @@ swiper {
   margin: 0 auto;
   padding-bottom: 20rpx;
   box-sizing: border-box;
-  border-bottom: 1rpx solid #eee;
+  border-bottom: 1rpx solid #262525;
   height: 65rpx;
 }
 .titmin {
   font-size: 30rpx;
-  color: #cccccc;
+  color: #adadad;
   display: flex;
   align-items: center;
 }
@@ -466,7 +506,7 @@ swiper {
 
 .mart90 {
   margin-top: 80rpx;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #262525;
   padding-bottom: 40rpx;
 }
 
@@ -489,7 +529,7 @@ swiper {
   margin: 0 auto;
   text-align: justify;
   box-shadow: 0 0 15rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   padding: 24rpx;
   position: relative;
   z-index: 1;
@@ -511,7 +551,7 @@ swiper {
 
 .wid120 image {
   height: 150rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   overflow: hidden;
 }
 
@@ -527,7 +567,7 @@ swiper {
 
 .ovh {
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   margin: 15rpx 0;
 }
 
@@ -542,18 +582,17 @@ swiper {
   position: absolute;
   width: 100%;
   text-align: center;
-  height: 160rpx;
-  font-size: 75rpx;
-
+  height: 200rpx;
+  font-size: 90rpx;
   font-weight: bold;
   z-index: -1;
   -webkit-background-clip: text;
   background-image: -webkit-gradient(
     linear,
-    0 60%,
+    0 50%,
     0 0%,
-    from(rgb(255, 255, 255)),
-    to(#ffeba2)
+    from(rgba(0, 0, 0, 0)),
+    to(#bc966c)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -615,7 +654,7 @@ swiper {
   margin: 0 auto;
   text-align: justify;
   box-shadow: 0 0 20rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   padding: 28rpx;
   margin-top: -30rpx;
   position: relative;
@@ -631,7 +670,7 @@ swiper {
 .wid100ss {
   width: 100%;
   font-size: 30rpx;
-  margin-top: 70rpx;
+  margin-top: 25rpx;
 }
 .mart90 {
   border-top: 2rpx solid #eee;
@@ -658,14 +697,14 @@ swiper {
   width: 210rpx;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 .widssgg4 image {
   width: 560rpx;
   height: 320rpx;
   overflow: hidden;
-  border-top-left-radius: 10rpx;
-  border-top-right-radius: 10rpx;
+  /* border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx; */
 }
 .descss {
   font-size: 0.2rem;

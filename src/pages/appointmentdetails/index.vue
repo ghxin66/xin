@@ -9,9 +9,9 @@
     <div class="pad30 padr30">
       <div class="add ma3" @click="daohans">
         地址：{{content.area}}{{content.address}}
-        <span class="rights">
+        <!-- <span class="rights">
           <img :src="rig" style="width:12rpx;height:20rpx">
-        </span>
+        </span>-->
       </div>
 
       <div class="re hei850">
@@ -77,7 +77,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -92,15 +91,15 @@ export default {
       rig: "/static/images/right.png",
       //地图开始
       markers: [],
-        polyline: [
-            {
-                points: [],
-                color: "#FF0000DD",
-                width: 2,
-                dottedLine: true
-            }
-        ],
-      content:{}
+      polyline: [
+        {
+          points: [],
+          color: "#FF0000DD",
+          width: 2,
+          dottedLine: true
+        }
+      ],
+      content: {}
       //地图结束
     };
   },
@@ -126,7 +125,6 @@ export default {
         this.crre = true;
         this.zhi = `当前号码为：` + this.tel_val + `，点击确定进行预约`;
       }
-
     },
     //  弹框取消
     tapCancel() {
@@ -142,77 +140,85 @@ export default {
       this.changeModel = !this.changeModel;
       this.isModel = !this.isModel;
       this.crre = false;
-     
     },
     confirmSends() {
       console.log("确认预约");
       this.changeModel = !this.changeModel;
       this.isModel = !this.isModel;
-
       //提交后置为false
       this.crre = false;
 
-      this.$http.post('user/reserve',{
-          id:this.content.article_id,
-          phone:this.tel_val
-      },function (res) {
+      this.$http.post(
+        "user/reserve",
+        {
+          id: this.content.article_id,
+          phone: this.tel_val
+        },
+        function(res) {
           wx.showModal({
-              title: '预约成功',
-              content: res.msg,
-              showCancel:false,
-              confirmText:'好的',
-              success:function (r) {
-                  if (res.confirm) {
-                      wx.redirectTo({
-                          url: '/pages/index/main'
-                      })
-                  }
+            title: "预约成功",
+            content: res.msg,
+            showCancel: false,
+            confirmText: "好的",
+            success: function(r) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: "/pages/index/main"
+                });
               }
-          })
-      });
+            }
+          });
+        }
+      );
     },
     daohans(e) {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
       wx.openLocation({
-          longitude: Number(this.content.lng),
-          latitude: Number(this.content.lat)
+        longitude: Number(this.content.lng),
+        latitude: Number(this.content.lat)
       });
     }
   },
   created() {
     // let app = getApp();
   },
-  mounted() {
+  mounted() {},
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
 
-  },
-    onShow(){
-        let _this = this;
-        let Query = _this.$http.getQuery();
-        let id = Query.id;
-        
-        _this.$http.get('index/getArticleDetailsById/'+id,{},function (res) {
-            _this.content=res.data
-            _this.markers.push({
-                id:0,
-                latitude:_this.content.lat,
-                longitude:_this.content.lng,
-                width: 50,
-                height: 50
-            })
-
-        });
-
-    }
+    _this.$http.get("index/getArticleDetailsById/" + id, {}, function(res) {
+      _this.content = res.data;
+      _this.markers.push({
+        id: 0,
+        latitude: _this.content.lat,
+        longitude: _this.content.lng,
+        width: 50,
+        height: 50
+      });
+    });
+  }
 };
 </script>
 
 <style scoped>
+.titss2 {
+  font-size: 36rpx;
+  color: #fff;
+  padding-left: 20rpx;
+}
+.titss2 span {
+  width: 7rpx;
+  height: 85%;
+  top: 10%;
+}
 .btnns {
   height: 85rpx;
   width: 100%;
   margin: 0 auto;
-  background-color: #fadd81;
+  background-color: #b59570;
   border: none;
   position: fixed;
   bottom: 0;
@@ -236,7 +242,7 @@ export default {
 .add {
   font-size: 26rpx;
   line-height: 45rpx;
-  color: #666;
+  color: #adadad;
   padding-right: 20rpx;
   position: relative;
 }
@@ -249,7 +255,7 @@ export default {
   color: #999;
 }
 .cold {
-  color: #ffdd76;
+  color: #b59570;
   margin-bottom: 10rpx;
 }
 .font27 {
@@ -285,7 +291,7 @@ export default {
   top: 10rpx;
   right: 10rpx;
   font-size: 30rpx;
-  color: #f4be4e;
+  color: #b59570;
 }
 .titmin {
   font-size: 30rpx;
@@ -392,7 +398,7 @@ export default {
 .btnConfirm {
   font-size: 32rpx;
   width: 50%;
-  color: #f5c659;
+  color: #b59570;
   text-align: center;
 }
 /* tangkuang */

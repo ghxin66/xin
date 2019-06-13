@@ -19,33 +19,34 @@
         <div class="wh170 dja">
           <div class="pic" v-if="index<10">0{{index+1}}</div>
           <div class="pic" v-if="index>=10">{{index+1}}</div>
-          <div class="dja title">{{item.title}}</div>
+          <div class="dja title" style="color:#fff;">{{item.title}}</div>
         </div>
         <div>
           <img :src="item.key_id.goods_img" class="wid100 ovh">
           <div class="desc" style="width:max-content;">
-            <span style="float:left">{{item.key_id.goods_name}}系列</span>
-            <span class="arrow-up" style="float:left"></span>
+            <span style="float:left;color:#fff">{{item.key_id.goods_name}}系列</span>
+            <span class="arrow-up" style="float:left;color:#adadad"></span>
           </div>
           <div class="clearfix"></div>
         </div>
-        <div class="desc mar20">{{item.mcontent}}</div>
+        <div class="desc mar20 coladadad">{{item.mcontent}}</div>
       </div>
       <div class="clearfix"></div>
       <div class="clearfix"></div>
       <!-- <wxParse :content="article"/> -->
       <!--分享-->
-      <Share :title="content.ad_name"
-             :url="'/pages/about/main?id='+content.adv_id"
-             :thumb="content.big_pic"
-             cat="adv"
-             :keyid="content.adv_id"
-              :hasshare="hasshare"  
+      <Share
+        :title="content.ad_name"
+        :url="'/pages/about/main?id='+content.adv_id"
+        :thumb="content.big_pic"
+        cat="adv"
+        :keyid="content.adv_id"
+        :hasshare="hasshare"
       ></Share>
       <!--分享-->
-      <div class="dja mar45">
+      <div class="dja mar45" style="margin-bottom:45rpx;">
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg">END</div>
+          <div class="bac403c3c bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>
         </div>
       </div>
@@ -65,7 +66,7 @@
 import Share from "@/components/Share";
 import wxParse from "mpvue-wxparse";
 export default {
-  components: {wxParse, Share},
+  components: { wxParse, Share },
   data() {
     return {
       // article: "<div>我是HTML代码</div>",
@@ -76,11 +77,10 @@ export default {
         lists: []
       },
       showt: false,
-       hasshare:false,
+      hasshare: false
     };
   },
   methods: {
- 
     bindViewTap(url) {
       mpvue.navigateTo({
         url: url
@@ -88,23 +88,22 @@ export default {
     }
   },
   /* 转发*/
-    onShareAppMessage: function(ops) {
-
-        let title=ops.target.dataset.title
-        let url=ops.target.dataset.url
-        return {
-            title: title,
-            path: url,
-            success: function(res) {
-                // 转发成功
-                console.log("转发成功:" + JSON.stringify(res));
-            },
-            fail: function(res) {
-                // 转发失败
-                console.log("转发失败:" + JSON.stringify(res));
-            }
-        };
-    },
+  onShareAppMessage: function(ops) {
+    let title = ops.target.dataset.title;
+    let url = ops.target.dataset.url;
+    return {
+      title: title,
+      path: url,
+      success: function(res) {
+        // 转发成功
+        console.log("转发成功:" + JSON.stringify(res));
+      },
+      fail: function(res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    };
+  },
   created() {},
   onShow() {
     let _this = this;
@@ -114,10 +113,10 @@ export default {
     _this.$http.get("index/getAdvDetailsById/" + id, {}, function(res) {
       _this.content = res.data;
     });
-     let share = _this.$http.getQuery().share;
+    let share = _this.$http.getQuery().share;
 
-    if(share){
-        _this.hasshare=true
+    if (share) {
+      _this.hasshare = true;
     }
   }
 };
@@ -170,12 +169,12 @@ button {
 .ban_text2 {
   margin: 0 auto;
   text-align: justify;
-  box-shadow: 0 0 15rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* box-shadow: 0 0 15rpx 2rpx #eee; */
+  /* border-radius: 10rpx; */
   padding: 24rpx;
   position: relative;
   z-index: 1;
-  background-color: #fff;
+  background-color: #333030;
   font-size: 28rpx;
   box-sizing: border-box;
 }
@@ -193,7 +192,7 @@ button {
 
 .wid120 image {
   height: 150rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
   overflow: hidden;
 }
 
@@ -218,12 +217,12 @@ button {
   width: 100%;
   height: 200rpx;
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 }
 
 .ovh {
   overflow: hidden;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   margin: 15rpx 0;
 }
 
@@ -245,10 +244,10 @@ button {
   -webkit-background-clip: text;
   background-image: -webkit-gradient(
     linear,
-    0 80%,
+    0 50%,
     0 0%,
-    from(rgb(255, 255, 255)),
-    to(#ffeba2)
+    from(rgba(0, 0, 0, 0)),
+    to(#bc966c)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -291,7 +290,7 @@ button {
   height: 0;
   border-left: 7rpx solid transparent;
   border-right: 7rpx solid transparent;
-  border-bottom: 15rpx solid rgb(236, 181, 0);
+  border-bottom: 15rpx solid #b59570;
 }
 .ban_cen image {
   width: 100%;
@@ -313,8 +312,8 @@ button {
   width: 90%;
   margin: 0 auto;
   text-align: justify;
-  box-shadow: 0 0 20rpx 2rpx #eee;
-  border-radius: 10rpx;
+  /* box-shadow: 0 0 20rpx 2rpx #eee; */
+  /* border-radius: 10rpx; */
   padding: 28rpx;
   margin-top: -30rpx;
   position: relative;

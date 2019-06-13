@@ -1,9 +1,9 @@
 <template>
   <div class="appointment">
     <div class="padd30">
-      <div class="titss">
+      <div class="titss colb59570">
         选择体验方式
-        <span></span>
+        <!-- <span></span> -->
       </div>
     </div>
 
@@ -19,8 +19,8 @@
           <img :src="item.tupian">
 
           <div class="ab butle">
-            <div class="titss cold">{{item.title}}</div>
-            <div class="font27">{{item.desc}}</div>
+            <div class="titss cold colfff" style="font-size:36rpx;">{{item.title}}</div>
+            <div class="font27 colfff">{{item.desc}}</div>
           </div>
         </div>
         <div v-if="anli.length<=0" class="dja">
@@ -39,8 +39,8 @@
           <div class="contentTip">
             <img :src="wu">
             <div>
-              <div class="titss">{{zxty}}</div>
-              <div class="desc">{{ptty}}</div>
+              <div class="titss fgd fontwei">{{zxty}}</div>
+              <div class="desc coladadad font24">{{ptty}}</div>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ export default {
           desc: "您自己与业主取得联系，确定体验时间，全程自行体验。"
         }
       ],
-        id:''
+      id: ""
     };
   },
   methods: {
@@ -106,7 +106,7 @@ export default {
         this.isModel = !this.isModel;
       } else {
         this.pttys = !this.pttys;
-        wx.navigateTo({ url: "../appointmentdetails/main?id="+this.id });
+        wx.navigateTo({ url: "../appointmentdetails/main?id=" + this.id });
       }
     },
     // 打开输入手机号的模态框
@@ -143,17 +143,21 @@ export default {
       }
     });
   },
-  onShow(){
-      let _this = this;
-      let Query = _this.$http.getQuery();
-//      let id = Query.id;
-      let id = 10;
-      _this.id=id;
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    //      let id = Query.id;
+    let id = 10;
+    _this.id = id;
   }
 };
 </script>
 
 <style scoped>
+.fgd {
+  color: #000;
+  font-size: 28rpx;
+}
 .rights {
   position: absolute;
   right: 0;
@@ -167,9 +171,7 @@ export default {
   padding-right: 20rpx;
   position: relative;
 }
-.titss {
-  font-size: 30rpx;
-}
+
 .desc {
   font-size: 22rpx;
   margin: 10rpx 0;
@@ -256,14 +258,14 @@ export default {
 .btnConfirm {
   font-size: 32rpx;
   width: 50%;
-  color: #f5c659;
+  color: #b59570;
   text-align: center;
   position: relative;
   z-index: 9999;
 }
 /* tangkuang */
 .cold {
-  color: #ffdd76;
+  color: #fff;
   margin-bottom: 10rpx;
 }
 .font27 {
@@ -277,7 +279,7 @@ export default {
   font-size: 28rpx;
   border-radius: 50%;
   text-align: right;
-  color: #ffdd76;
+  color: #b59570;
   /* background-color: #fff; */
 }
 .yuan img {
@@ -309,13 +311,13 @@ export default {
 .tupian2 img {
   width: 690rpx;
   height: 285rpx;
-  border-radius: 8rpx;
+  /* border-radius: 8rpx; */
 }
 .hei285 {
   height: 485rpx;
   width: 420rpx;
   overflow: hidden;
-  border-radius: 15rpx;
+  /* border-radius: 15rpx; */
 }
 .pa3 {
   padding: 0 30rpx;
@@ -339,7 +341,7 @@ export default {
   top: 10rpx;
   right: 10rpx;
   font-size: 30rpx;
-  color: #f4be4e;
+  color: #b59570;
 }
 .titmin {
   font-size: 30rpx;

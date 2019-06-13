@@ -21,7 +21,7 @@
               >
             </div>
             <div class="fixbt">
-              <span class="fl">{{curr+1}}/{{urls.length}}</span>
+              <span class="fl font24 coladadad" style="margin-top:4rpx;">{{curt}}/{{urls.length}}</span>
               <span class="fr font28 dja closes">
                 <i v-show="item.collect" @click="collect(2,item.img,ind)">
                   <img
@@ -67,14 +67,19 @@ export default {
       ]
     };
   },
+  computed: {
+    curt() {
+      return parseInt(this.curr) + parseInt(1);
+    }
+  },
   methods: {
     onSlideChangeEnd(e) {
       this.curr = e.target.current;
-      let title=this.urls[e.target.current].title
+      let title = this.urls[e.target.current].title;
 
       wx.setNavigationBarTitle({
-          title: title
-      })
+        title: title
+      });
     },
     previewImg(ind) {
       let that = this;
@@ -86,33 +91,32 @@ export default {
         urls: jsonText
       });
     },
-    collect(type,img_url,index){
-        let url
-        let _this=this
-        if(type==1){
-            url="user/collect"
-        }else{
-            url="user/cancelCollect"
+    collect(type, img_url, index) {
+      let url;
+      let _this = this;
+      if (type == 1) {
+        url = "user/collect";
+      } else {
+        url = "user/cancelCollect";
+      }
+      mpvue.showLoading({
+        title: "请求中",
+        mask: true
+      });
+      _this.$http.post(url, { key: img_url, cat_id: 2 }, function(res) {
+        wx.hideLoading();
+        if (type == 1) {
+          _this.urls[index].collect = true;
+        } else {
+          _this.urls[index].collect = false;
         }
-        mpvue.showLoading({
-            title: '请求中',
-            mask:true
-        })
-        _this.$http.post(url,{key:img_url,cat_id:2},function (res) {
-            wx.hideLoading();
-            if(type==1){
-                _this.urls[index].collect=true
-            }else{
-                _this.urls[index].collect=false
-            }
 
-            wx.showToast({
-                title: res.msg,
-                icon: 'success',
-                duration: 1500
-            })
-
-        })
+        wx.showToast({
+          title: res.msg,
+          icon: "success",
+          duration: 1500
+        });
+      });
     }
   },
   created() {
@@ -120,34 +124,34 @@ export default {
     // console.log(this.urls);
     // this.previewImg(0);
   },
-    onShow(){
-        let _this=this;
-        let Query=_this.$http.getQuery()
-        let id=Query.id
-        let url=Query.url
-        let type=Query.type
+  onShow() {
+    let _this = this;
+    let Query = _this.$http.getQuery();
+    let id = Query.id;
+    let url = Query.url;
+    let type = Query.type;
 
-        let geturl
-        if(type=="goods"){
-            geturl='product/getGoodsContentById/'+id
-        }else{
-            geturl='index/getArticleContentById/'+id
-        }
-
-        _this.$http.get(geturl,{},function (res) {
-           _this.urls=res.data
-          for(let item in _this.urls){
-             if(url==_this.urls[item].img){
-                 _this.curr=item
-             }
-          }
-          let title=_this.urls[_this.curr].title
-
-          wx.setNavigationBarTitle({
-              title: title
-          })
-        });
+    let geturl;
+    if (type == "goods") {
+      geturl = "product/getGoodsContentById/" + id;
+    } else {
+      geturl = "index/getArticleContentById/" + id;
     }
+
+    _this.$http.get(geturl, {}, function(res) {
+      _this.urls = res.data;
+      for (let item in _this.urls) {
+        if (url == _this.urls[item].img) {
+          _this.curr = item;
+        }
+      }
+      let title = _this.urls[_this.curr].title;
+
+      wx.setNavigationBarTitle({
+        title: title
+      });
+    });
+  }
 };
 </script>
 
@@ -161,7 +165,7 @@ swiper {
   height: 100%;
 }
 .closes {
-  color: #f4be4e;
+  color: #b59570;
 }
 .fixbt {
   position: fixed;

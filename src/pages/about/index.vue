@@ -1,54 +1,55 @@
 <template>
   <div>
-    <div class="dja ban_cen" style="position: relative">
-      <img :src="content.big_pic" style>
-      <div class="zz"></div>
-      <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>
-    </div>
-    <div class="ban_text">
-      <div>{{content.description}}</div>
-    </div>
+    <div>
+      <div class="dja ban_cen" style="position: relative">
+        <img :src="content.big_pic" style>
+        <div class="zz"></div>
+        <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>
+      </div>
+      <div class="ban_text">
+        <div>{{content.description}}</div>
+      </div>
 
-    <div class="cents">
-      <div
-        class="mar20"
-        v-for="(item,index) in content.lists"
-        :key="index"
-        @click="bindViewTap('/pages/productDetail/main?id='+item.key_id.article_id)"
-      >
-        <div class="wh170 dja">
-          <div class="pic" v-if="index<10">0{{index+1}}</div>
-          <div class="pic" v-if="index>=10">{{index+1}}</div>
-          <div class="dja title">{{item.title}}</div>
-        </div>
-        <div class="desc">{{item.mcontent}}</div>
-        <div>
-          <img :src="item.key_id.picture" class="wid100 ovh">
-        </div>
-
-        <div class="ban_text2 sdfjk">
-          <div class="wid120">
-            <img :src="item.key_id.picture" alt>
+      <div class="cents">
+        <div
+          class="mar20"
+          v-for="(item,index) in content.lists"
+          :key="index"
+          @click="bindViewTap('/pages/productDetail/main?id='+item.key_id.article_id)"
+        >
+          <div class="wh170 dja">
+            <div class="pic" v-if="index<10">0{{index+1}}</div>
+            <div class="pic" v-if="index>=10">{{index+1}}</div>
+            <div class="dja title">{{item.title}}</div>
           </div>
-          <div class="wid1202 mar24">
-            <div
-              class="title coladadad"
-              style="font-size:34rpx;line-height:48rpx;"
-            >{{item.key_id.title}}</div>
-            <div
-              class="desc coladadad"
-              style="font-size:24rpx;margin-top:15rpx;"
-            >{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
+          <div class="desc">{{item.mcontent}}</div>
+          <div>
+            <img :src="item.key_id.picture" class="wid100 ovh">
           </div>
 
-          <div class="dja wid1203">
-            <span style="font-family: cursive;float:right;padding-top:10rpx;">
-              <img :src="righs" style="width:10rpx;height:22rpx;">
-            </span>
+          <div class="ban_text2 sdfjk">
+            <div class="wid120">
+              <img :src="item.key_id.picture" alt>
+            </div>
+            <div class="wid1202 mar24">
+              <div
+                class="title coladadad"
+                style="font-size:34rpx;line-height:48rpx;font-weight:500;"
+              >{{item.key_id.title}}</div>
+              <div
+                class="desc coladadad"
+                style="font-size:24rpx;margin-top:15rpx;"
+              >{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
+            </div>
+
+            <div class="dja wid1203">
+              <span style="font-family: cursive;float:right;padding-top:10rpx;">
+                <img :src="righs" style="width:10rpx;height:22rpx;">
+              </span>
+            </div>
           </div>
         </div>
       </div>
-
       <!-- <wxParse :content="article"/> -->
       <!--分享-->
       <Share
@@ -60,7 +61,7 @@
         :hasshare="hasshare"
       ></Share>
       <!--分享-->
-      <div class="dja mar45">
+      <div class="dja mar45" style="margin-bottom:45rpx;">
         <div class="desc coleee talcen wid100r">
           <div class="bac403c3c bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>

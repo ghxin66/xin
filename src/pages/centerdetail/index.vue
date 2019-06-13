@@ -20,7 +20,7 @@
         <div class>
           <div
             class="fl tupian imgstu"
-            @click="checkedOne(item)"
+            @click="checkedOne(item,bianjis)"
             @longpress="bianji"
             v-for="(item,inde) in imglist"
             :key="inde+1"
@@ -176,6 +176,11 @@ export default {
           _this.img_last_page = 1;
           _this.img_page = 1;
           _this.imglist = [];
+          _this.bianjis = true;
+          _this.lengths = 0;
+          _this.anli_lengths = 0;
+          _this.fruitIds = [];
+          _this.anli_fruitIds = [];
           _this.getimglist();
         }
       );
@@ -197,6 +202,12 @@ export default {
           _this.article_last_page = 1;
           _this.article_page = 1;
           _this.articlelist = [];
+
+          _this.bianjis = true;
+          _this.lengths = 0;
+          _this.anli_lengths = 0;
+          _this.fruitIds = [];
+          _this.anli_fruitIds = [];
           _this.getarticleList();
         }
       );
@@ -217,20 +228,24 @@ export default {
         console.log(this.anli_fruitIds);
       }
     },
-    checkedOne(fruitId) {
+    checkedOne(fruitId, eee) {
       var that = this;
-      fruitId.select = !fruitId.select;
-      let idIndex = this.fruitIds.indexOf(fruitId.id);
-      if (idIndex >= 0) {
-        //如果已经包含就去除
-        this.fruitIds.splice(idIndex, 1);
-        that.lengths = this.fruitIds.length;
-        console.log(this.fruitIds.length);
+      if (eee == true) {
+        return false;
       } else {
-        //如果没有包含就添加
-        this.fruitIds.push(fruitId.id);
-        that.lengths = this.fruitIds.length;
-        console.log(this.fruitIds.length);
+        fruitId.select = !fruitId.select;
+        let idIndex = that.fruitIds.indexOf(fruitId.id);
+        if (idIndex >= 0) {
+          //如果已经包含就去除
+          that.fruitIds.splice(idIndex, 1);
+          that.lengths = that.fruitIds.length;
+          console.log(that.fruitIds.length);
+        } else {
+          //如果没有包含就添加
+          that.fruitIds.push(fruitId.id);
+          that.lengths = that.fruitIds.length;
+          console.log(that.fruitIds.length);
+        }
       }
     },
     sels(e) {
@@ -238,6 +253,10 @@ export default {
       this.changeModel = false;
       this.isModel = false;
       this.bianjis = true;
+      this.fruitIds = [];
+      this.anli_fruitIds = [];
+      this.lengths = 0;
+      this.anli_lengths = 0;
       // this.add = true;
       this.img_page = 1;
       this.img_last_page = 1;
@@ -252,9 +271,10 @@ export default {
       }
     },
     bianji() {
+      // this.bianjis = false;
+      // this.anli.select = false;
+      // this.tupians.select = false;
       this.bianjis = false;
-      this.anli.select = false;
-      this.tupians.select = false;
     },
     cancel() {
       this.bianjis = true;
@@ -302,6 +322,17 @@ export default {
   mounted() {},
   onShow() {
     this.getimglist();
+    this.lengths = 0;
+    this.anli_lengths = 0;
+    this.bianjis = true;
+    this.fruitIds = [];
+    this.anli_fruitIds = [];
+    var selelist = [];
+    this.articlelist.forEach(item => {
+      item.select = false;
+      selelist.push(item);
+    });
+    this.articlelist = selelist;
   },
   onReachBottom() {
     if (this.sel == 0) {

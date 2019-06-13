@@ -10,16 +10,23 @@
       <div class="padd30 lunbo2">
         <swper vertical class="fl swiper" v-if="articlelist.length > 0">
           <block v-for="(item, index) in articlelist" :key="index">
-            <swiperitem class="widssgg4 fl" @click="toUrl('/pages/productDetail/main?id='+item.article_id)">
+            <swiperitem
+              class="widssgg4 fl"
+              @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
+            >
               <img :src="item.picture" mode="scaleToFill">
-              <div class="titss2 mar20 wid270">
-                <div class="eklp1" style="font-size:30rpx;">{{ item.title }}</div>
-                <div class="descss eklp1">
+              <div
+                class="titss2 par20 wid270"
+                style="padding:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;width:100%;box-sizing:border-box;"
+              >
+                <div class="eklp1 coladadad" style="font-size:30rpx;">{{ item.title }}</div>
+                <div class="descss eklp1 coladadad" style="margin-top:17rpx;">
                   {{ item.description }} . {{ item.author }} . {{ item.keyword }}
                   <i class="fr dja">
                     <a style="margin-top:6rpx">
                       <img :src="shijian" class="imshijian">
-                    </a>&nbsp;{{ item.views }}
+                    </a>
+                    &nbsp;{{ item.views }}
                   </i>
                 </div>
               </div>
@@ -28,7 +35,7 @@
         </swper>
       </div>
       <div class="clearfix"></div>
-      <div class="dja mar45 martt45" v-if="articlelist.length > 0">
+      <!-- <div class="dja mar45 martt45" v-if="articlelist.length > 0">
         <div class="desc coleee talcen wid100r">
           <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
           <div class="desc dja linegs"></div>
@@ -39,9 +46,20 @@
           <div class="bacfff bacffgg" style="font-size:28rpx;color: #000">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
+      </div>-->
+      <div class="dja mar45" style="margin-bottom:45rpx;" v-if="articlelist.length > 0">
+        <div class="desc coleee talcen wid100r">
+          <div class="bac403c3c bacffgg font20 coladadad">END</div>
+          <div class="linegs desc dja"></div>
+        </div>
+      </div>
+      <div class="dja mar45 martt45" v-else>
+        <div class="desc coleee talcen wid100r" v-if="isClicktrue">
+          <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
+          <div class="desc dja linegs"></div>
+        </div>
       </div>
     </div>
-
 
     <!--填写手机号弹框-->
     <div class="modalMask" v-if="isModel"></div>
@@ -66,16 +84,16 @@ export default {
       changeModel: false,
       isModel: false,
       val: "",
-      articlelist:[],
-        article_page:1,
-        article_last_page:1,
-        isClicktrue:false
+      articlelist: [],
+      article_page: 1,
+      article_last_page: 1,
+      isClicktrue: false
     };
   },
   methods: {
-      toUrl(url){
-          mpvue.navigateTo({ url });
-      },
+    toUrl(url) {
+      mpvue.navigateTo({ url });
+    },
     //  弹框取消
     tapCancel() {
       // this.phoneNumber = "";
@@ -92,17 +110,17 @@ export default {
       // this.phoneNumber = "";
     },
     sou_pro() {
-      let val=this.val
+      let val = this.val;
       if (val.trim() == "" || val.trim() == null) {
         this.changeModel = !this.changeModel;
         this.isModel = !this.isModel;
-      }else {
-          this.articlelist=[]
-          this.getArticleList()
+      } else {
+        this.articlelist = [];
+        this.getArticleList();
       }
     },
     fenlei() {
-      let val=this.val
+      let val = this.val;
       if (val.trim() == "" || val.trim() == null) {
         this.changeModel = !this.changeModel;
         this.isModel = !this.isModel;
@@ -110,37 +128,38 @@ export default {
         console.log(val.trim(val));
       }
     },
-    getArticleList(){
-        let _this=this;
+    getArticleList() {
+      let _this = this;
 
-        mpvue.showLoading({
-            title: '加载中',
-            mask:true
-        })
-        _this.$http.get('index/getArticleByCatId/5',{
-            page:_this.article_page,
-            keyword:_this.val,
-        },function (res) {
-            wx.hideLoading();
-            _this.article_last_page=res.data.last_page
-            let list=res.data.data
-            for(let item in list){
-                _this.articlelist.push(list[item])
-            }
-            _this.isClicktrue=true;
-        })
+      mpvue.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      _this.$http.get(
+        "index/getArticleByCatId/5",
+        {
+          page: _this.article_page,
+          keyword: _this.val
+        },
+        function(res) {
+          wx.hideLoading();
+          _this.article_last_page = res.data.last_page;
+          let list = res.data.data;
+          for (let item in list) {
+            _this.articlelist.push(list[item]);
+          }
+          _this.isClicktrue = true;
+        }
+      );
     }
   },
 
-  onReachBottom(){
-      if(this.article_page<this.article_last_page){
-          this.article_page +=1
-          this.getArticleList()
-      }
-
-
+  onReachBottom() {
+    if (this.article_page < this.article_last_page) {
+      this.article_page += 1;
+      this.getArticleList();
+    }
   }
-
 };
 </script>
 
@@ -156,7 +175,7 @@ export default {
   margin: 36rpx 60rpx 0 0;
   text-align: center;
   background-color: #edecec;
-  border-radius: 8rpx;
+  border-radius: 4rpx;
   float: left;
 }
 .soucon:nth-child(4n) {
@@ -166,13 +185,14 @@ export default {
   text-align: center;
   display: inline-block;
   width: 92rpx;
+  color: #b59570;
 }
 .sou {
   width: 615rpx;
   height: 65rpx;
   background-color: #f6f5f5;
   border: 2rpx solid #f5f5f5;
-  border-radius: 8rpx;
+  border-radius: 4rpx;
   box-sizing: border-box;
   padding-left: 20rpx;
   font-size: 24rpx;
@@ -255,7 +275,7 @@ export default {
 .btnConfirm {
   font-size: 32rpx;
   width: 50%;
-  color: #f5c659;
+  color: #b59570;
   text-align: center;
 }
 /* tangkuang */
@@ -266,7 +286,7 @@ export default {
   position: absolute;
 }
 .lunbo2 {
-  margin-top: -20rpx;
+  margin-top: 20rpx;
 }
 swiper {
   height: 300rpx;
@@ -280,8 +300,6 @@ swiper {
 }
 .widssgg4 {
   margin-bottom: 50rpx;
-  border: 1rpx solid #eee;
-  border-radius: 15rpx;
   position: relative;
 }
 .widssgg4 image {
