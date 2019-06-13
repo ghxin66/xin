@@ -102,7 +102,7 @@
       <!-- <span></span> -->
     </div>
     <div class="mar30 font24 coladadad" style="text-transform:uppercase">Design life</div>
-    <div class="titss2 mar30 coladadad" style="margin-top:30rpx">
+    <div class="titss2 mar30 coladadad" style="margin-top:30rpx;margin-left:34rpx;">
       <span style="left:-30rpx;"></span>
       {{xinfengshan}}
     </div>
@@ -246,10 +246,11 @@ swiper {
 }
 .widssgg img {
   margin: 0 auto;
-  width: 314rpx;
+  width: 325rpx;
 }
 .widssgg {
   text-align: center;
+  padding-right: 0;
 }
 .swiper-box {
   width: 690rpx;
