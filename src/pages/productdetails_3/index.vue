@@ -41,6 +41,12 @@
       </div>
     </div>
     <div class="clearfix"></div>
+    <div v-if="sel==2">
+      <!-- content.promote_title -->
+      <web-view :src="content.promote_title"></web-view>
+      <div class="clearfix"></div>
+    </div>
+
     <div v-show="sel==0">
       <div class="titss2 mar30 font500" style="margin-top:30rpx;padding-left:20rpx;">
         <span></span>
@@ -203,11 +209,6 @@
         </div>
       </div>
     </div>
-    <div v-if="sel==2">
-      <!-- content.promote_title -->
-      <web-view :src="content.promote_title"></web-view>
-      <div class="clearfix"></div>
-    </div>
 
     <div class="clearfix"></div>
     <div class="dja mar45" style="margin-bottom:45rpx;">
@@ -359,6 +360,10 @@ export default {
     let id = Query.id;
     // let id=3
     this.id = id;
+    this.sel = 1;
+    this.videosing = false;
+    this._index = -1;
+    this.selectchicun = 0;
     _this.$http.get("product/getGoodsDetailsById/" + id, {}, function(res) {
       _this.content = res.data;
       console.log(_this.content);
