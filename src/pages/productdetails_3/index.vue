@@ -3,7 +3,7 @@
     <div class="cents">
       <div class="mar20">
         <div class="wh170 dja">
-          <div class="pic">{{content.goods_name}}</div>
+          <!-- <div class="pic">{{content.goods_name}}</div> -->
           <div>
             <div
               class="dja title fontwei colfff"
