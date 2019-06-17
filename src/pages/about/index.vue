@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      <div class="dja ban_cen" style="position: relative">
-        <img :src="content.big_pic" style>
+      <div class="dja" style="position: relative;width:100%;">
+        <img :src="content.big_pic" mode="widthFix" style="width:100%">
         <div class="zz"></div>
         <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>
       </div>
-      <div class="ban_text">
+      <!-- <div class="ban_text">
         <div>{{content.description}}</div>
-      </div>
+      </div>-->
 
       <div class="cents">
         <div
@@ -304,6 +304,7 @@ button {
   text-align: center;
   color: #fff;
   font-size: 40rpx;
+  position: absolute;
 }
 
 .ban_text {

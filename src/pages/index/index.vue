@@ -12,11 +12,16 @@
       >
         <block v-for="(item, index) in imgUrls" :key="index">
           <swiper-item
-            class="wid100"
+            class="wid100 dja"
             :class="curIndex===index ? 'active_item' : 'item'"
             :animation="index == curIndex ? animationData : animationData2"
           >
-            <img :src="item.big_pic" mode="scaleToFill" @click="topic(item.linkurl,item.adv_id)">
+            <img
+              :src="item.big_pic"
+              mode="widthFix"
+              style="width:100%"
+              @click="topic(item.linkurl,item.adv_id)"
+            >
           </swiper-item>
         </block>
       </swiper>

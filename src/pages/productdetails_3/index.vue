@@ -472,7 +472,9 @@ swiper {
   float: left;
 }
 .wid75:nth-child(1) div {
+  margin-top: -5rpx;
   float: left;
+  padding-bottom: 15rpx;
 }
 .wid75:nth-child(2) {
   display: flex;
@@ -480,7 +482,9 @@ swiper {
   align-items: center;
 }
 .wid75:nth-child(3) div {
+  margin-top: -5rpx;
   float: right;
+  padding-bottom: 15rpx;
 }
 .da {
   display: flex;
