@@ -204,6 +204,7 @@
       </div>
     </div>
     <div v-if="sel==2">
+      <!-- content.promote_title -->
       <web-view :src="content.promote_title"></web-view>
       <div class="clearfix"></div>
     </div>
@@ -360,6 +361,8 @@ export default {
     this.id = id;
     _this.$http.get("product/getGoodsDetailsById/" + id, {}, function(res) {
       _this.content = res.data;
+      console.log(_this.content);
+
       wx.setNavigationBarTitle({
         title: _this.content.goods_name
       });
