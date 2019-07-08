@@ -1,16 +1,19 @@
 <template>
   <div class="centerdetail">
     <div class="padd30">
-      <div class="titss colfff" style="color:#fff;font-weight:bold">我收藏的</div>
-      <div class="da mar20">
-        <div class="wid75" :class="sel==0?'titss coladadadd':'titmin'" @click="sels(0)">
-          图片
-          <!-- <span></span> -->
+      <div class="titss" style="color:#000;font-size:35rpx;">
+        <!-- 我的收藏 -->
+        <img src="/static/images/wdsc138.png" style="width:138rpx;height:33rpx;" />
+      </div>
+      <div class="da mar20" style="margin-top:6rpx">
+        <div class="wid75" style="font-size:30rpx;" :class="sel==0?'titss col000':'titmin'">
+          <!-- 图片 -->
+          <img src="/static/images/tp138.png" style="width:56rpx;height:29rpx;" />
+          <!-- @click="sels(0)" -->
         </div>
-        <div class="wid75" :class="sel==1?'titss coladadadd':'titmin'" @click="sels(1)">
+        <!-- <div class="wid75" :class="sel==1?'titss coladadadd':'titmin'" @click="sels(1)">
           案例
-          <!-- <span></span> -->
-        </div>
+        </div>-->
         <div class="ab bainji" @click="bianji" v-show="bianjis">编辑</div>
         <div class="ab bainji" @click="cancel" v-show="!bianjis">取消</div>
       </div>
@@ -25,26 +28,31 @@
             v-for="(item,inde) in imglist"
             :key="inde+1"
           >
-            <img :src="item.img_url">
+            <img :src="item.img_url" />
             <div v-if="!bianjis">
               <!-- <div class="ab yuan" v-show="!item.select"></div> -->
+              <div
+                style="position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.3);left:0;top:0;opacity:0.5"
+                :class="{dis:!item.select}"
+              ></div>
               <div class="ab yuan ggs" :class="{active:item.select}">
-                <img :src="select">
+                <img :src="select" />
               </div>
             </div>
           </div>
           <div v-if="imglist.length<=0" class="dja">
             <div class="hei285 dja">
-              <img :src="noshou" style="width:190rpx;height:185rpx;">
+              <img :src="noshou" style="width:190rpx;height:185rpx;" />
             </div>
           </div>
         </div>
       </div>
       <!-- 结束 -->
       <div class="hei90 das pa3" v-show="!bianjis">
-        <div class="fl claxu">
+        <div class="fl claxu" style="font-size:30rpx;color:#adadad">
           已选择
-          <span>{{lengths}}</span>套
+          <span>{{lengths}}</span>
+          张
         </div>
         <div class="fr">
           <button class="cencl" @click="tapSendTele">删除</button>
@@ -54,11 +62,11 @@
       <div class="modalMask" v-if="isModel"></div>
       <div class="modalDialog" v-if="changeModel">
         <div class="modalContent">
-          <p class="contentTip">确认删除图片？</p>
+          <p class="contentTip">确认删除{{lengths}}张图片？</p>
         </div>
         <div class="modalFooter">
-          <div class="btnCancel" @tap="tapCancel">取消</div>
-          <div class="btnConfirm" @tap="confirmSend">删除</div>
+          <div class="btnCancel" @tap="confirmSend">删除</div>
+          <div class="btnConfirm" @tap="tapCancel">取消</div>
         </div>
       </div>
     </div>
@@ -77,19 +85,19 @@
             <img
               :src="item.article_id.picture"
               @click="toUrl('/pages/productDetail/main?id='+item.article_id.article_id)"
-            >
+            />
             <!-- <div class="ab yuan" v-show="!item.select">
             </div>-->
             <div v-if="!bianjis">
               <div class="ab yuan ggs" :class="{active:item.select}">
-                <img :src="select">
+                <img :src="select" />
               </div>
             </div>
             <div class="ab butle">{{item.article_id.title}}</div>
           </div>
           <div v-if="articlelist.length<=0" class="dja">
             <div class="hei285 dja">
-              <img :src="noshou" style="width:190rpx;height:185rpx;">
+              <img :src="noshou" style="width:190rpx;height:185rpx;" />
             </div>
           </div>
           <!-- jieshu -->
@@ -352,14 +360,14 @@ export default {
 
 <style scoped>
 .titss {
-  font-size: 42rpx;
-  font-weight: 500;
-  color: #b59570;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #000;
 }
-.coladadadd {
+/* .coladadadd {
   padding-bottom: 15rpx;
-  border-bottom: 1px solid #b59570;
-}
+  border-bottom: 1rpx solid #b59570;
+} */
 .ggs img {
   display: none;
 }
@@ -368,6 +376,9 @@ export default {
 }
 .tupian2 {
   margin-bottom: 10rpx;
+}
+.dis {
+  display: none;
 }
 .butle {
   bottom: 30rpx;
@@ -408,7 +419,7 @@ export default {
   z-index: 9999;
   background: #fff;
   margin: -180rpx 95rpx;
-  border-radius: 8rpx;
+  border-radius: 15rpx;
 }
 .modalContent {
   box-sizing: border-box;
@@ -421,8 +432,8 @@ export default {
 }
 .contentTip {
   text-align: center;
-  font-size: 36rpx;
-  color: #333333;
+  font-size: 30rpx;
+  color: #000;
 }
 .teleStyle {
   background: #ffffff;
@@ -442,21 +453,21 @@ export default {
   display: flex;
   flex-direction: row;
   height: 100rpx;
-  border-top: 1px solid #e5e5e5;
-  font-size: 32rpx;
+  border-top: 1px solid #f4f4f6;
+  font-size: 30rpx;
   line-height: 100rpx;
 }
 .btnCancel {
   width: 50%;
-  font-size: 32rpx;
-  color: #087bff;
+  font-size: 30rpx;
+  color: #db0913;
   text-align: center;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid #f4f4f6;
 }
 .btnConfirm {
-  font-size: 32rpx;
+  font-size: 30rpx;
   width: 50%;
-  color: #ff4041;
+  color: #b59570;
   text-align: center;
 }
 /* tangkuang */
@@ -481,13 +492,15 @@ export default {
   position: relative;
 }
 .cencl {
-  font-size: 30rpx;
+  font-size: 25rpx;
   margin-top: 16rpx;
-  padding: 15rpx 40rpx;
+  width: 160rpx;
+  height: 60rpx;
   color: #fff;
-  line-height: 29rpx;
-  border-radius: 0;
-  background-color: #f4604c;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 10rpx;
+  background-color: #b59570;
 }
 .claxu {
   color: #c6c6c6;
@@ -503,8 +516,8 @@ export default {
   position: fixed;
   bottom: 0;
   z-index: 22;
-  border-top: 1rpx solid #262525;
-  background-color: #403c3c;
+  border-top: 1rpx solid #adadad;
+  background-color: #fff;
 }
 .pa3 {
   padding: 0 30rpx;
@@ -527,8 +540,8 @@ export default {
 .bainji {
   top: 10rpx;
   right: 10rpx;
-  font-size: 30rpx;
-  color: #adadad;
+  font-size: 25rpx;
+  color: #b59570;
 }
 .titmin {
   font-size: 30rpx;
@@ -553,10 +566,11 @@ export default {
   overflow-x: scroll;
   justify-content: flex-start;
   /* padding-bottom: 12rpx; */
-  border-bottom: 1px solid #262525;
+  border-bottom: 1rpx solid #f4f4f6;
   position: relative;
   padding-right: 80rpx;
   overflow: hidden;
+  height: 52rpx;
 }
 .re {
   position: relative;

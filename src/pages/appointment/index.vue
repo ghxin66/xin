@@ -16,7 +16,7 @@
           v-for="(item,inde) in anli"
           :key="inde+1"
         >
-          <img :src="item.tupian">
+          <img :src="item.tupian" />
 
           <div class="ab butle">
             <div class="titss cold colfff" style="font-size:36rpx;">{{item.title}}</div>
@@ -25,7 +25,7 @@
         </div>
         <div v-if="anli.length<=0" class="dja">
           <div class="hei285 dja">
-            <img :src="noshou" style="width:190rpx;height:185rpx;">
+            <img :src="noshou" style="width:190rpx;height:185rpx;" />
           </div>
         </div>
         <!-- jieshu -->
@@ -37,7 +37,7 @@
       <div class="modalDialog" v-if="changeModel">
         <div class="modalContent">
           <div class="contentTip">
-            <img :src="wu">
+            <img :src="wu" />
             <div>
               <div class="titss fgd fontwei">{{zxty}}</div>
               <div class="desc coladadad font24">{{ptty}}</div>

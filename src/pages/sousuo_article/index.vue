@@ -2,7 +2,7 @@
   <div class="experience">
     <div class="clearfix"></div>
     <div class="re hei30 ma3">
-      <input type="text" name="sou" v-model="val" placeholder="大家都在搜:现代" class="sou">
+      <input type="text" name="sou" v-model="val" placeholder="大家都在搜:现代" class="sou" />
       <span class="font28 widtal" @click="sou_pro()">搜索</span>
     </div>
     <div class="clearfix"></div>
@@ -14,7 +14,7 @@
               class="widssgg4 fl"
               @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
             >
-              <img :src="item.picture" mode="scaleToFill">
+              <img :src="item.picture" mode="scaleToFill" />
               <div
                 class="titss2 par20 wid270"
                 style="padding:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;width:100%;box-sizing:border-box;"
@@ -24,7 +24,7 @@
                   {{ item.description }} . {{ item.author }} . {{ item.keyword }}
                   <i class="fr dja">
                     <a style="margin-top:6rpx">
-                      <img :src="shijian" class="imshijian">
+                      <img :src="shijian" class="imshijian" />
                     </a>
                     &nbsp;{{ item.views }}
                   </i>
@@ -48,13 +48,13 @@
         </div>
       </div>-->
       <div class="dja mar45" style="margin-bottom:45rpx;" v-if="articlelist.length > 0">
-        <div class="desc coleee talcen wid100r">
+        <div class="desc col484544 talcen wid100r">
           <div class="bac403c3c bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>
         </div>
       </div>
       <div class="dja mar45 martt45" v-else>
-        <div class="desc coleee talcen wid100r" v-if="isClicktrue">
+        <div class="desc col484544 talcen wid100r" v-if="isClicktrue">
           <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>

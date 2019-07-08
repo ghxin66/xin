@@ -44,9 +44,9 @@
       </div>
       <div class="re hei30 ma3">
         <div type="submit" class="ab bac">
-          <img :src="lxdh" class="soupic">
+          <img :src="lxdh" class="soupic" />
         </div>
-        <input type="text" name="sou" v-model="tel_val" placeholder="请输入电话号码" class="sou">
+        <input type="text" name="sou" v-model="tel_val" placeholder="请输入电话号码" class="sou" />
       </div>
       <div class="mar80 pa3">
         <div class="add fontwei" style="font-size:28rpx">备注:</div>
@@ -87,7 +87,7 @@ export default {
       tel_val: "",
       tydz: "体验地址",
       lxdh_tit: "填写联系电话",
-      lxdh: "/static/images/phone.jpg",
+      lxdh: "/static/images/phone.png",
       rig: "/static/images/right.png",
       //地图开始
       markers: [],
@@ -204,9 +204,12 @@ export default {
 </script>
 
 <style scoped>
+.sou {
+  background: #fff;
+}
 .titss2 {
   font-size: 36rpx;
-  color: #fff;
+  color: #333;
   padding-left: 20rpx;
 }
 .titss2 span {

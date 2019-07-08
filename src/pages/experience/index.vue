@@ -1,30 +1,29 @@
 <template>
   <div class="experience">
     <div>
-      <div
+      <!-- <div
         class="titss mar30 mar20"
         :class="trw==1?'coladadad mar4':'colb59570 font42'"
         style="float:left;font-size:36rpx;"
         @click="trw=0"
       >
         {{shfs}}
-        <!-- <span v-if="trw==0" class="gjsd"></span> -->
-      </div>
+      </div>-->
       <div
-        class="titss mar30 mar20"
-        :class="trw==0?'coladadad mar4':'colb59570 font42'"
-        style="float:left;font-size:36rpx;"
+        class="titss mar20"
+        :class="trw==0?'coladadad mar4':'col000 font35'"
+        style="font-size:35rpx;width:100%;text-align:center;margin-top:30rpx;"
         @click="trw=1"
       >
-        {{ddty}}
-        <!-- <span v-if="trw==1" class="gjsd"></span> -->
+        <!-- {{ddty}} -->
+        <img src="/static/images/ddty138.png" style="width:137rpx;height:33rpx;margin:0 auto;" />
       </div>
     </div>
     <div style="clear:both;width:100%;height:1px;"></div>
 
     <div v-show="trw==0?'true':''">
       <div class="dja hei290" @click="bindViewTap('/pages/experiencedetails/main?id='+news7.id)">
-        <img :src="news7.picture" class="hei290">
+        <img :src="news7.picture" class="hei290" />
         <div class="ab bott65">
           <span></span>
           <div>{{ news7.title }}</div>
@@ -46,7 +45,7 @@
               @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)"
             >
               <div class="bttn">预约体验</div>
-              <img :src="item.picture" mode="scaleToFill">
+              <img :src="item.picture" mode="scaleToFill" />
               <div class="titss2 par20 wid270">
                 <div class="eklp1 coladadad" style="font-size:34rpx;">{{ item.title }}</div>
                 <div class="descss eklp1 coladadad font24" style="margin-top:10rpx;">
@@ -56,7 +55,7 @@
                     style="margin-top:-10rpx"
                   >
                     <a>
-                      <img :src="shijian" class="ims">
+                      <img :src="shijian" class="ims" />
                     </a>
                     &nbsp;{{ item.reser_number }}人体验
                   </i>
@@ -76,7 +75,7 @@
           <cover-view class="ab bac" type="submit" @click="tijiao()">
             <cover-image :src="soupic" class="soupic"></cover-image>
           </cover-view>
-          <cover-view class="sou" @click="tijiao()">大家都在搜。。。</cover-view>
+          <cover-view class="sou" @click="tijiao()">大家都在搜广州</cover-view>
         </cover-view>
 
         <map
@@ -115,13 +114,13 @@
             <div class="fles2 dja">
               <div @click="calling(item.mobile)" class="s100rp">
                 <div class="dja">
-                  <img :src="hujiao" class="hujiao">
+                  <img :src="hujiao" class="hujiao" />
                 </div>
                 <div class="hujiaozi">一键呼叫</div>
               </div>
               <div @click="daohans(item.lat,item.lng)" class="s100rp">
                 <div class="dja">
-                  <img :src="daohan" class="hujiao">
+                  <img :src="daohan" class="hujiao" />
                 </div>
                 <div class="hujiaozi">一键导航</div>
               </div>
@@ -144,7 +143,7 @@ export default {
       daohan: "/static/images/daohan.jpg",
       soupic: "/static/images/soupic.png",
       sou_val: "",
-      trw: 0,
+      trw: 1,
       ddty: "到店体验",
       indicatorDots: true,
       shijian: "/static/images/shijian.jpg",
@@ -334,7 +333,7 @@ export default {
   font-size: 22rpx;
   text-align: center;
   margin-top: 5rpx;
-  color: #adadad;
+  color: #000000;
 }
 .hujiao {
   width: 55rpx;
@@ -348,8 +347,8 @@ export default {
   width: 100rpx;
   height: 37rpx;
   border-radius: 4rpx;
-  background-color: #b59570;
-  color: #262525;
+  background-color: #000;
+  color: #fff;
   margin-right: 12rpx;
   font-size: 20rpx;
   padding: 5rpx 10rpx;
@@ -357,7 +356,7 @@ export default {
 .bufens {
   padding-top: 20rpx;
   padding-bottom: 20rpx;
-  background: #403c3c;
+  background: #f4f4f6;
 }
 .dibu {
   width: 750rpx;
@@ -367,17 +366,20 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.titss {
+  color: #000;
+}
 .titss3 {
-  color: #fff;
+  color: #000;
   position: relative;
   width: max-content;
   font-weight: bold;
-  font-size: 36rpx;
+  font-size: 35rpx;
   margin-top: 20rpx;
   /* margin-left: 10rpx; */
 }
 .titss4 {
-  color: #adadad;
+  color: #484544;
   position: relative;
   width: max-content;
   font-weight: bold;
@@ -389,7 +391,7 @@ export default {
   width: 690rpx;
   margin: 0 auto;
   height: 200rpx;
-  background-color: #262525;
+  background-color: #fff;
   /* border-radius: 15rpx; */
   padding: 20rpx;
   box-sizing: border-box;
@@ -415,12 +417,13 @@ export default {
   height: 65rpx;
   line-height: 65rpx;
   background-color: #fff;
-  border: 1px solid #f5f5f5;
+  /* border: 1px solid #f5f5f5; */
   /* border-radius: 8rpx; */
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
-  color: #999;
+  color: #adadad;
+  border: 1rpx solid #000;
 }
 input::-webkit-input-placeholder {
   color: #c6c6c6;
@@ -502,7 +505,7 @@ input::-webkit-input-placeholder {
   box-sizing: border-box;
 }
 .titss {
-  font-size: 36rpx;
+  font-size: 35rpx;
 }
 .bormar {
   /* border-top: 2rpx solid #eee; */

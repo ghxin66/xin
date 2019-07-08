@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div style="background:#403c3c;">
     <div class="dja" style="position: relative;width:100%;">
-      <img :src="content.big_pic" mode="widthFix" style="width:100%">
-      <div class="zz"></div>
-      <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>
+      <img :src="content.big_pic" mode="widthFix" style="width:100%" />
+      <!-- <div class="zz"></div>
+      <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>-->
     </div>
     <!-- <div class="ban_text">
       <div>{{content.description}}</div>
@@ -22,7 +22,7 @@
           <div class="dja title" style="color:#fff;">{{item.title}}</div>
         </div>
         <div>
-          <img :src="item.key_id.goods_img" class="wid100 ovh">
+          <img :src="item.key_id.goods_img" class="wid100 ovh" />
           <div class="desc" style="width:max-content;">
             <span style="float:left;color:#fff">{{item.key_id.goods_name}}系列</span>
             <span class="arrow-up" style="float:left;color:#adadad"></span>
@@ -44,8 +44,8 @@
         :hasshare="hasshare"
       ></Share>
       <!--分享-->
-      <div class="dja mar45" style="margin-bottom:45rpx;">
-        <div class="desc coleee talcen wid100r">
+      <div class="dja mar45" style="padding-bottom:45rpx;">
+        <div class="desc col484544 talcen wid100r">
           <div class="bac403c3c bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>
         </div>
@@ -262,7 +262,7 @@ button {
 
 .cents {
   width: 90%;
-  margin: 50rpx auto;
+  margin: 50rpx auto 0 auto;
 }
 
 .cents .title {
@@ -322,5 +322,11 @@ button {
   background-color: #fff;
   font-size: 28rpx;
   box-sizing: border-box;
+}
+page {
+  background: #403c3c;
+}
+.bac403c3c {
+  background: #403c3c;
 }
 </style>

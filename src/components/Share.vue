@@ -3,10 +3,10 @@
     <div class="fixd" v-if="showt" @click.stop="showthiss2">
       <div>
         <div class="fidx">
-          <img class="bg" :src="share">
-          <img class="img" :src="thumb">
+          <img class="bg" :src="share" />
+          <img class="img" :src="thumb" />
           <span class="sharetitle">{{ title }}</span>
-          <img class="qrcode" :src="qrcode" mode="aspectFit">
+          <img class="qrcode" :src="qrcode" mode="aspectFit" />
           <canvas class="myCanvas" canvas-id="myCanvas" style="width: 224px;height: 298px"></canvas>
         </div>
         <div class="savs dja" @click.stop="saveImage">保存图片</div>
@@ -16,7 +16,7 @@
       <div class="cens mar20 mart90">
         <span class="title">分享到：</span>
         <button @click="showthiss" class="tis desc col999 lin50 tu dja">
-          <img :src="pyq" alt>朋友圈
+          <img :src="pyq" alt />朋友圈
         </button>
         <button
           open-type="share"
@@ -24,12 +24,12 @@
           :data-url="url+'&share=1'"
           class="tis desc col999 lin50 tu dja"
         >
-          <img :src="wxhy" alt>微信好友
+          <img :src="wxhy" alt />微信好友
         </button>
       </div>
     </div>
     <div class="gohome" v-if="hasshare" @click="gohomeUrl">
-      <img :src="gohome" class="gohome_img" alt>
+      <img :src="gohome" class="gohome_img" alt />
     </div>
     <div class="modalDialog" v-if="changeModel">
       <div class="modalContent">
@@ -78,8 +78,8 @@ export default {
   },
   data() {
     return {
-      wxhy: "/static/images/wechat.jpg",
-      pyq: "/static/images/frient.jpg",
+      wxhy: "/static/images/wechat.png",
+      pyq: "/static/images/frient.png",
       share: "/static/images/share.png",
       gohome: "/static/images/gohome.png",
       showt: false,
@@ -196,11 +196,11 @@ export default {
 <style scoped>
 .title {
   font-size: 36rpx;
-  color: #adadad;
+  color: #000;
 }
 .mart90 {
   margin-top: 80rpx;
-  border-bottom: 1rpx solid #333030;
+  border-bottom: 1rpx solid #f4f4f6;
   padding-bottom: 40rpx;
 }
 button {
@@ -214,7 +214,8 @@ button {
   text-align: center;
   text-decoration: none;
   overflow: hidden;
-  background-color: #403c3c;
+  background-color: #fff;
+  color: #000;
 }
 .dja {
   display: flex !important;

@@ -14,7 +14,11 @@
           <div class="des fontwei mar20">{{item.add_time.ym}}{{item.add_time.d}}</div>
           <swiperitem class="widssgg4 fl">
             <!-- <div class="bttn">预约体验</div> -->
-            <img :src="item.article_id.picture" mode="widthFix" @click="toUrl('/pages/productDetail/main?id='+item.article_id.article_id)">
+            <img
+              :src="item.article_id.picture"
+              mode="widthFix"
+              @click="toUrl('/pages/productDetail/main?id='+item.article_id.article_id)"
+            />
             <div class="titss2 mar20 wid270">
               <div class="eklp1 fontwei">
                 <div class="dess">
@@ -28,7 +32,7 @@
                   class="fr dja font22"
                   @click="todaohan(item.article_id.lng,item.article_id.lat)"
                 >
-                  <img :src="daohan" class="imssg">
+                  <img :src="daohan" class="imssg" />
                   一键导航
                 </i>
               </div>
@@ -38,15 +42,14 @@
       </swper>
       <div v-else class="dja">
         <div class="hei285 dja">
-          <img :src="noyu" style="width:190rpx;height:185rpx;">
+          <img :src="noyu" style="width:190rpx;height:185rpx;" />
         </div>
       </div>
-
     </div>
     <div class="clearfix"></div>
     <div class="dja mar45 martt45">
       <div class="desc coleee talcen wid100r">
-        <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
+        <div class="bacfff bacffgg" style="font-size:26rpx;">END</div>
         <div class="desc dja linegs"></div>
       </div>
     </div>
@@ -59,21 +62,20 @@
 export default {
   data() {
     return {
-        noyu: "/static/images/yuyue.jpg",
+      noyu: "/static/images/yuyue.jpg",
       daohan: "/static/images/daohan.png",
       imgUrls: [],
       wyyd: "我预约的",
-        lists:[],
-        page:1,
-        last_page:1,
-
+      lists: [],
+      page: 1,
+      last_page: 1
     };
   },
 
   methods: {
-      toUrl(url) {
-          mpvue.navigateTo({ url });
-      },
+    toUrl(url) {
+      mpvue.navigateTo({ url });
+    },
     todaohan(e, a) {
       //根据经纬度在地图上显示
       // var value = e.detail.value;
@@ -82,35 +84,38 @@ export default {
         latitude: Number(a)
       });
     },
-      getlists(){
-          let _this=this
-          mpvue.showLoading({
-              title: "加载中",
-              mask: true
-          });
-          _this.$http.get('user/userReserveList',{
-              page:_this.page
-          },function (res) {
-              wx.hideLoading();
-              _this.last_page=res.data.last_page
-              let list=res.data.data
-              for(let item in list){
-                  _this.lists.push(list[item])
-              }
-          })
-      }
-  },
-    onShow(){
-        this.lists=[]
-        this.getlists()
-    },
-    onReachBottom(){
-        if (this.page < this.last_page) {
-            this.page += 1;
-            this.getlists();
+    getlists() {
+      let _this = this;
+      mpvue.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      _this.$http.get(
+        "user/userReserveList",
+        {
+          page: _this.page
+        },
+        function(res) {
+          wx.hideLoading();
+          _this.last_page = res.data.last_page;
+          let list = res.data.data;
+          for (let item in list) {
+            _this.lists.push(list[item]);
+          }
         }
+      );
     }
-
+  },
+  onShow() {
+    this.lists = [];
+    this.getlists();
+  },
+  onReachBottom() {
+    if (this.page < this.last_page) {
+      this.page += 1;
+      this.getlists();
+    }
+  }
 };
 </script>
 
@@ -504,7 +509,6 @@ swiper {
   width: 100%;
   margin: 50rpx auto;
 }
-
 .cents .title {
   font-size: 40rpx;
   font-weight: bold;

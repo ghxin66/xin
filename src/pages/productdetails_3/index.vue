@@ -1,17 +1,19 @@
 <template>
   <div class="productdetail_3">
-    <div class="cents">
-      <div class="mar20">
+    <div class="cents" style="margin-bottom:0">
+      <div class="mar20" style="margin-bottom:0">
         <div class="wh170 dja">
           <!-- <div class="pic">{{content.goods_name}}</div> -->
-          <div>
+          <div style="width:100%;border-bottom:1rpx solid #dfdfdf;padding-bottom:22rpx;">
             <div
-              class="dja title fontwei colfff"
-              style="text-align:center;font-size:48rpx;"
+              class="dja title fontwei col000"
+              style="text-align:center;font-size:36rpx;font-weight:bold"
+              v-if="content.goods_name"
             >{{content.goods_name}}</div>
             <div
-              class="desc coladadad"
-              style="text-align:center;font-size:28rpx"
+              class="desc col484544"
+              style="text-align:center;font-size:22rpx"
+              v-if="content.goods_title"
             >{{content.goods_title}}</div>
           </div>
         </div>
@@ -22,95 +24,107 @@
 
     <div class="da mar20">
       <div class="wid75" @click="sels(0)">
-        <div :class="sel==0?'titss colb59570 font38':'titmin font32'">
+        <div
+          :class="sel==0?'titss col000 font30 gfd':' font25'"
+          style="margin-top:0;width:173rpx;text-align:center;line-height:60rpx;"
+        >
           产品介绍
-          <!-- <span></span> -->
+          <span></span>
         </div>
       </div>
       <div class="wid75" @click="sels(1)">
-        <div :class="sel==1?'titss colb59570 font38':'titmin font32'">
+        <div
+          :class="sel==1?'titss col000 font30 gfd':' font25'"
+          style="margin-top:0;width:173rpx;text-align:center;line-height:60rpx;"
+        >
           高清大图
-          <!-- <span></span> -->
-        </div>
-      </div>
-      <div class="wid75" @click="sels(2)">
-        <div :class="sel==2?'titss colb59570 font38':'titmin font32'">
-          全景图
-          <!-- <span></span> -->
+          <span></span>
         </div>
       </div>
     </div>
     <div class="clearfix"></div>
-    <div v-if="sel==2">
-      <!-- content.promote_title -->
-      <web-view :src="content.promote_title"></web-view>
-      <div class="clearfix"></div>
-    </div>
 
     <div v-show="sel==0">
-      <div class="titss2 mar30 font500" style="margin-top:30rpx;padding-left:20rpx;">
+      <div class="titss2 mar30 font500" style="margin-top:30rpx;" v-if="content.goods_desc.content">
         <span></span>
-        设计灵感
+        <!-- 设计灵感 -->
+        <img src="/static/images/sjlg138.png" style="width:118rpx;height:29rpx;margin:0 auto;" />
       </div>
       <div class="cenrt">
-        <wxParse :content="content.goods_desc.content"/>
+        <wxParse v-if="content.goods_desc.content" :content="content.goods_desc.content" />
       </div>
-      <div class="titss2 mar30 font500" style="margin-top:30rpx;padding-left:20rpx;">
+      <div class="titss2 mar30 font500" style="margin-top:30rpx;">
         <span></span>
-        基础信息
+        <!-- 基础信息 -->
+        <img src="/static/images/jcxx138.png" style="width:119rpx;height:29rpx;margin:0 auto;" />
       </div>
-      <div class="wid485 pad30 font500 font28 mart50">
+      <div
+        class="wid485 pad30 font500 mart50"
+        style="margin-bottom:0;font-size:25rpx;margin-top:0;"
+      >
         <ul>
-          <li>
-            <span class="fl">位置</span>
-            <span class="fr dja">
+          <li v-show="content.p_1">
+            <span class="fl">产品编号：{{content.p_1}}</span>
+            <!-- <span class="fl dja">
               <template v-for="(item,index) in content.service_1">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;" />
               </template>
               <template v-for="(item,index) in content.service_1">
                 <template v-if="index>0">/</template>
                 {{ item.name }}
               </template>
-            </span>
+            </span>-->
           </li>
 
-          <li>
-            <span class="fl">结构</span>
-            <span class="fr dja">
+          <li v-show="content.p_2">
+            <span class="fl">产品规格：{{content.p_2}}</span>
+            <!-- <span class="fl dja">
               <template v-for="(item,index) in content.service_2">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;" />
               </template>
               <template v-for="(item,index) in content.service_2">
                 <template v-if="index>0">/</template>
                 {{ item.name }}
               </template>
-            </span>
+            </span>-->
           </li>
-          <li>
-            <span class="fl">表面外观</span>
-            <span class="fr dja">
+          <li v-show="content.p_3">
+            <span class="fl">使用纹理：{{content.p_3}}</span>
+            <!-- <span class="fl dja">
               <template v-for="(item,index) in content.service_3">
-                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;" />
               </template>
               <template v-for="(item,index) in content.service_3">
                 <template v-if="index>0">/</template>
                 {{ item.name }}
               </template>
-            </span>
+            </span>-->
+          </li>
+          <li v-show="content.p_4">
+            <span class="fl">使用场景：{{content.p_4}}</span>
+            <!-- <span class="fl dja">
+              <template v-for="(item,index) in content.service_3">
+                <img :src="item.small_img" alt style="width: 30rpx;height:30rpx;margin-right:5rpx;" />
+              </template>
+              <template v-for="(item,index) in content.service_3">
+                <template v-if="index>0">/</template>
+                {{ item.name }}
+              </template>
+            </span>-->
           </li>
         </ul>
       </div>
       <div class="clearfix"></div>
 
-      <div
+      <!-- <div
         class="titss2 mar30 fontwei"
         v-show="content.images.length>0"
         style="margin-top:40rpx;padding-left:20rpx;"
       >
         <span></span>
-        规格参数
-      </div>
-      <div class="cenrts">
+        使用场景：
+      </div>-->
+      <!-- <div class="cenrts">
         <ul class="dja">
           <li
             v-for="(item,index) in content.images"
@@ -118,22 +132,23 @@
             @click="chicuns(index)"
             class="dja iradio50"
           >
-            <img :src="select" class="cres" v-if="selectchicun==index">
-            <img :src="empty" v-else class="cres">
+            <img :src="select" class="cres" v-if="selectchicun==index" />
+            <img :src="empty" v-else class="cres" />
             {{item.title}}
           </li>
         </ul>
-      </div>
+      </div>-->
       <div class="cents" style="height:600rpx;" v-show="content.images.length>0">
         <!-- v-show="selectchicun==idss" -->
-        <ul
-          v-for="(item,idss) in content.images"
-          :key="idss+1"
-          style="float:left;display:inline;width:690rpx;position:absolute"
-          :class="selectchicun==idss?'animated fadeInRight':'animated fadeOutLeft'"
-        >
-          <li class="dja" style="height:650rpx">
-            <img :src="item.pic" mode="widthFix" style="max-width: 100%;max-height:600rpx">
+        <ul style="width:690rpx;">
+          <!-- :class="selectchicun==idss?'animated fadeInRight':'animated fadeOutLeft'" -->
+          <li
+            class="dja fdg"
+            style="height:334rpx;width:334rpx;margin-right:16rpx;float:left;"
+            v-for="(item,idss) in content.images"
+            :key="idss+1"
+          >
+            <img :src="item.pic" mode="widthFix" style="max-width: 100%;max-height:600rpx" />
           </li>
           <div class="clearfix"></div>
         </ul>
@@ -142,9 +157,9 @@
       <!-- 0结束 -->
     </div>
     <div v-show="sel==1">
-      <div class="cenrt">
-        <div style="border-bottom:1rpx solid #2b2828">
-          <wxParse :content="content.wap_desc.content" @preview="showImgs"/>
+      <div class="cenrt" style="font-size:25rpx;color:#000;">
+        <div>
+          <wxParse :content="content.wap_desc.content" @preview="showImgs" />
         </div>
       </div>
 
@@ -152,7 +167,7 @@
       <div class="gg">
         <div class="dja">
           <div class="wid100ss padd30">
-            <span class="eklp1 titss colfff" style="font-size:38rpx;float:left;">你可能感兴趣</span>
+            <span class="eklp1 titss col000" style="font-size:30rpx;float:left;">您可能感兴趣</span>
             <!-- <span style="font-family: cursive;float:right;padding-top:4rpx;">></span> -->
           </div>
         </div>
@@ -161,47 +176,48 @@
             next-margin="80rpx"
             display-multiple-items="1"
             class="fl swiper"
-            v-if="content.other.length > 0"
+            v-if="typelist.length > 0"
           >
-            <block v-for="(item, index) in content.other" :key="index">
-              <swiper-item class="widssgg4 fl re">
+            <block v-for="(item, index) in typelist" :key="index">
+              <swiper-item class="widssgg4 fl re" style>
                 <!-- <div class="bttn">预约体验</div> -->
-                <img
-                  :src="item.goods_img"
-                  mode="scaleToFill"
-                  v-show="item.videosing==0"
-                  @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
-                >
-                <video :id="'myVideo_'+index" :src="item.urls" v-show="item.videosing==1"></video>
-                <div
-                  class="titss2 par20 wid270 bac403c3c"
-                  style="border:1rpx solid #615e5e;border-top:none;"
-                >
-                  <div class="eklp1 fontwei">
-                    <div class="dess coladadad">
-                      {{ item.goods_name }}
-                      <i></i>
-                    </div>
-                    <i class="fr dja">
-                      <div style="font-size:0;width:48rpx;height:48rpx;">
-                        <img
-                          :src="bofan"
-                          class="ims"
-                          v-if="item.videosing==0"
-                          v-show="item.urls"
-                          @click="videoPlay(index)"
-                        >
-                        <img
-                          :src="zantin"
-                          class="ims"
-                          v-if="item.videosing==1"
-                          v-show="item.urls"
-                          @click="videoPlay(index)"
-                        >
+                <div style="width:560rpx;box-shadow:0 0 15rpx 0px #ccc;">
+                  <img
+                    :src="item.small_img"
+                    mode="aspectFill"
+                    v-show="item.videosing==0"
+                    @click="toUrl('/pages/xindetails/main?id='+item.id)"
+                  />
+                  <!-- @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)" -->
+
+                  <video :id="'myVideo_'+index" :src="item.video" v-show="item.videosing==1"></video>
+                  <div class="titss2 par20 wid270 bac403c3c">
+                    <div class="eklp1">
+                      <div class="dess col000 fontwei" style="font-size:26rpx">
+                        {{ item.name }}
+                        <!-- <i></i> -->
                       </div>
-                    </i>
+                      <i class="fr dja">
+                        <div style="font-size:0;width:48rpx;height:48rpx;">
+                          <img
+                            :src="bofan"
+                            class="ims"
+                            v-if="item.videosing==0"
+                            v-show="item.video"
+                            @click="videoPlay(index)"
+                          />
+                          <img
+                            :src="zantin"
+                            class="ims"
+                            v-if="item.videosing==1"
+                            v-show="item.video"
+                            @click="videoPlay(index)"
+                          />
+                        </div>
+                      </i>
+                    </div>
+                    <div class="descss eklp1 col484544" style="font-size:18rpx;">{{ item.url_link }}</div>
                   </div>
-                  <div class="descss eklp1 col999" style="font-size:24rpx;">{{ item.goods_title }}</div>
                 </div>
               </swiper-item>
             </block>
@@ -212,7 +228,7 @@
 
     <div class="clearfix"></div>
     <div class="dja mar45" style="margin-bottom:45rpx;">
-      <div class="desc coleee talcen wid100r">
+      <div class="desc col484544 talcen wid100r">
         <div class="bac403c3c bacffgg font20 coladadad">END</div>
         <div class="linegs desc dja"></div>
       </div>
@@ -298,7 +314,8 @@ export default {
         }
       ],
       content: {},
-      id: ""
+      id: "",
+      typelist: {}
     };
   },
 
@@ -325,12 +342,12 @@ export default {
       }
     },
     videoPlay(index, e) {
-      let videosing = this.content.other[index].videosing;
+      let videosing = this.typelist[index].videosing;
 
       if (videosing == 1) {
-        this.content.other[index].videosing = 0;
+        this.typelist[index].videosing = 0;
       } else {
-        this.content.other[index].videosing = 1;
+        this.typelist[index].videosing = 1;
       }
 
       let videoContext = wx.createVideoContext("myVideo_" + index);
@@ -366,23 +383,60 @@ export default {
     this.selectchicun = 0;
     _this.$http.get("product/getGoodsDetailsById/" + id, {}, function(res) {
       _this.content = res.data;
-      console.log(_this.content);
-
       wx.setNavigationBarTitle({
         title: _this.content.goods_name
       });
     });
+
+    _this.$http.get(
+      "product/getGoodsListByParam",
+      {
+        page: 1,
+        filter: [],
+        articleSel: null,
+        filterBool: 1
+      },
+      function(res) {
+        _this.typelist = res.data.type;
+        console.log(_this.typelist);
+      }
+    );
   }
 };
 </script>
 
 <style scoped>
+.fdg {
+  border: 1rpx solid #f4f4f6;
+  margin-bottom: 16rpx;
+}
+.fdg:nth-child(2n) {
+  margin-right: 0 !important;
+}
+.gfd {
+  border-bottom: 1rpx solid #000;
+  padding: auto 10rpx 15rpx 10rpx;
+}
+.gfd span {
+  right: auto;
+  top: auto;
+  bottom: -2rpx;
+  left: 48.7%;
+  background: #000;
+}
+.font25 {
+  font-size: 25rpx;
+  color: #adadad;
+}
+.font30 {
+  font-size: 30rpx;
+}
 .titss2 {
-  font-size: 38rpx;
-  color: #fff;
+  font-size: 30rpx;
+  font-weight: bold;
 }
 .titss2 span {
-  width: 7rpx;
+  width: 0rpx;
   height: 85%;
   top: 10%;
 }
@@ -419,19 +473,19 @@ export default {
 }
 .mart50 ul li {
   height: 60rpx;
-  border-bottom: 1rpx solid #262525;
+  border-bottom: 1rpx solid #f4f4f6;
 }
 .mart50 ul li:last-child {
   border-bottom: none;
 }
 .wid485 {
   width: 485rpx;
-  color: #adadad;
+  color: #484544;
 }
 .par20 {
   padding: 20rpx !important;
   box-sizing: border-box;
-  border: 1rpx solid #eee;
+  /* border: 1rpx solid #eee; */
   /* margin-top: -12rpx; */
   overflow: hidden;
 }
@@ -460,8 +514,8 @@ swiper {
   /* margin-top: 8rpx; */
 }
 .descss {
-  font-size: 22rpx;
-  color: #999;
+  font-size: 18rpx;
+  color: #484544;
 }
 .gg {
   width: 690rpx;
@@ -471,18 +525,20 @@ swiper {
 }
 .titss {
   margin-top: 15rpx;
-  padding-bottom: 15rpx;
-  border-bottom: 1rpx solid;
+  /* padding-bottom: 15rpx; */
+  /* border-bottom: 1rpx solid; */
 }
 .wid75 {
   padding-top: 5rpx;
-  width: 32%;
+  width: 50%;
   float: left;
 }
-.wid75:nth-child(1) div {
-  margin-top: -5rpx;
-  float: left;
-  padding-bottom: 15rpx;
+.wid75:nth-child(1) {
+  /* margin-top: -5rpx; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-bottom: 15rpx; */
 }
 .wid75:nth-child(2) {
   display: flex;
@@ -490,9 +546,9 @@ swiper {
   align-items: center;
 }
 .wid75:nth-child(3) div {
-  margin-top: -5rpx;
+  /* margin-top: -5rpx; */
   float: right;
-  padding-bottom: 15rpx;
+  /* padding-bottom: 15rpx; */
 }
 .da {
   display: flex;
@@ -501,14 +557,15 @@ swiper {
   margin: 0 auto;
   padding-bottom: 20rpx;
   box-sizing: border-box;
-  border-bottom: 1rpx solid #262525;
+  /* border-bottom: 1rpx solid #262525; */
   height: 65rpx;
+  justify-content: center;
 }
 .titmin {
   font-size: 30rpx;
   color: #adadad;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
 }
 .tu img {
   width: 30rpx;
@@ -586,7 +643,7 @@ swiper {
 .wh170 {
   width: 100%;
   height: 130rpx;
-  margin: 0.5rem 0;
+  margin: 8rpx 0;
   margin-bottom: 0rem;
 }
 
@@ -618,8 +675,8 @@ swiper {
 }
 
 .cents {
-  width: 90%;
-  margin: 50rpx auto;
+  width: 690rpx;
+  margin: 0rpx auto;
 }
 
 .cents .title {
@@ -630,9 +687,9 @@ swiper {
 .cents .desc {
   font-size: 28rpx;
 }
-.linegs {
+/* .linegs {
   margin-top: -20rpx !important;
-}
+} */
 .col999 {
   color: #999;
 }
@@ -659,7 +716,12 @@ swiper {
   font-size: 40rpx;
 }
 .desc {
-  margin-top: 10rpx;
+  /* margin-top: 10rpx; */
+}
+.cenrt {
+  padding: 10rpx 30rpx;
+  font-size: 20rpx;
+  color: #484544;
 }
 .ban_text {
   width: 90%;
@@ -719,10 +781,15 @@ swiper {
   border-top-right-radius: 10rpx; */
 }
 .descss {
-  font-size: 0.2rem;
-  color: #999;
+  font-size: 18rpx;
+  color: #484544;
 }
 .titss2 {
   width: 250rpx;
 }
+/* 
+    // "navigationBarBackgroundColor": "#fff",
+  // "navigationBarTextStyle": "black",
+  // "backgroundColor": "#fff",
+  // "backgroundTextStyle": "dark" */
 </style>

@@ -2,7 +2,7 @@
   <div class="experience">
     <div class="clearfix"></div>
     <div class="re hei30 ma3">
-      <input type="text" name="sou" v-model="val" placeholder="大家都在搜..." class="sou">
+      <input type="text" name="sou" v-model="val" placeholder="大家都在搜..." class="sou" />
       <span class="font28 widtal" @click="sou_pro(val)">搜索</span>
     </div>
     <div class="cenrt" v-show="isClicktrue==0">
@@ -19,23 +19,25 @@
     <div class="padd30 lunbo2" style="width:100%;">
       <swper vertical class="fl swiper" v-if="goodslist.length > 0" style="width:100%;">
         <block v-for="(item, index) in goodslist" :key="index">
-          <swiperitem class="widssgg4 fl" style="width:100%;font-size:0">
+          <!-- <swiperitem
+            class="widssgg4 fl"
+            style="width:100%;font-size:0;box-shadow: 0 0 15rpx 0rpx #ccc;"
+          >
             <img
               :src="item.goods_img"
               mode="widthFix"
               v-show="item.videosing==0"
               style="width:100%"
               @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
-            >
+            />
             <video :src="item.urls" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
             <div
               class="titss2 par20 wid270"
-              style="padding:20rpx;border:1rpx solid #646262;border-top:1rpx solid #403c3c;width:100%;box-sizing:border-box;"
+              style="padding:20rpx;width:100%;box-sizing:border-box;"
             >
-              <div class="eklp1 fontwei">
-                <div class="dess colfff">
+              <div class="eklp1 fontwei" style="height:48rpx;">
+                <div class="dess col000">
                   {{ item.goods_name }}
-                  <i></i>
                 </div>
                 <i class="fr dja">
                   <div>
@@ -45,18 +47,47 @@
                       v-show="item.urls"
                       class="ims"
                       @click="videoPlay(index)"
-                    >
+                    />
                     <img
                       :src="zantin"
                       v-if="item.videosing==1"
                       v-show="item.urls"
                       class="ims"
                       @click="videoPlay(index)"
-                    >
+                    />
                   </div>
                 </i>
               </div>
-              <div class="descss eklp1 coladadad" style="font-size:24rpx;">{{ item.goods_title }}</div>
+          <div class="descss eklp1 col484544" style="font-size:24rpx;">{{ item.goods_title }}</div>-->
+          <swiperitem class="fl wihe3">
+            <div class="wihe330">
+              <img
+                :src="item.goods_img"
+                mode="aspectFill"
+                style="width:100%;height:100%"
+                @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
+              />
+            </div>
+            <div class="titss2ss">
+              <div class="eklp1">
+                <div class="dess col000">{{ item.goods_name }}</div>
+                <!-- <i class="fr dja">
+                    <div>
+                      <img
+                        :src="bofan"
+                        v-if="item.videosing==0"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      />
+                      <img
+                        :src="zantin"
+                        v-if="item.videosing==1"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      />
+                    </div>
+                </i>-->
+              </div>
             </div>
           </swiperitem>
         </block>
@@ -66,20 +97,20 @@
     <div class="clearfix"></div>
     <!-- <div class="dja mar45 martt45" v-if="goodslist.length > 0">
       <div class="desc coleee talcen wid100r">
-        <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
+        <div class="bacfff bacffgg" style="font-size:26rpx;">END</div>
         <div class="desc dja linegs"></div>
       </div>
     </div>-->
 
     <div class="dja mar45" style="margin-bottom:45rpx;" v-if="goodslist.length > 0">
-      <div class="desc coleee talcen wid100r">
+      <div class="desc col484544 talcen wid100r">
         <div class="bac403c3c bacffgg font20 coladadad">END</div>
         <div class="linegs desc dja"></div>
       </div>
     </div>
     <div class="dja mar45 martt45" v-else>
-      <div class="desc coleee talcen wid100r" v-if="isClicktrue">
-        <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
+      <div class="desc col484544 talcen wid100r" v-if="isClicktrue">
+        <div class="bac403c3c bacffgg" style="font-size:26rpx;">暂无数据</div>
         <div class="desc dja linegs"></div>
       </div>
     </div>
@@ -207,6 +238,27 @@ export default {
 </script>
 
 <style scoped>
+.titss2ss {
+  width: 100%;
+  line-height: 45rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #000;
+  text-align: center;
+}
+.wihe3 {
+  width: 330rpx;
+  margin-right: 30rpx;
+  height: 400rpx;
+  box-sizing: border-box;
+}
+.wihe3:nth-child(2n) {
+  margin-right: 0;
+}
+.wihe330 {
+  width: 330rpx;
+  height: 330rpx;
+}
 .widssgg4 {
   margin-bottom: 40rpx;
 }
@@ -233,7 +285,7 @@ export default {
   line-height: 45rpx;
   margin: 36rpx 60rpx 0 0;
   text-align: center;
-  background-color: #262525;
+  background-color: #f4f4f6;
   border-radius: 4rpx;
   float: left;
   color: #adadad;
@@ -258,6 +310,15 @@ export default {
   padding-left: 20rpx;
   font-size: 24rpx;
   color: #999;
+  background-color: #f4f4f6;
+  border: 2rpx solid #f4f4f6;
+  box-sizing: border-box;
+  /* padding-left: 62rpx; */
+  font-size: 24rpx;
+  color: #adadad;
+}
+input::-webkit-input-placeholder {
+  color: #adadad;
 }
 .ma3 {
   display: flex;

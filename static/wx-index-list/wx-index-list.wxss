@@ -10,7 +10,8 @@
   height: 100%;
   box-sizing: border-box;
 }
-.list-scroll.top{
+
+.list-scroll.top {
   padding-top: 90rpx;
 }
 
@@ -19,7 +20,7 @@
 .list-title {
   background: #f5f5f5;
   color: #666;
-  font-size: 36rpx;
+  font-size: 32rpx;
   /* padding: 10rpx; */
   padding-left: 30rpx;
   height: 80rpx;
@@ -52,7 +53,7 @@
   padding: 20rpx 0;
   border-radius: 40rpx;
   /* z-index: 2; */
-  background: #ddd;
+  /* background: #ddd; */
   box-sizing: border-box;
   z-index: 999;
 }
@@ -62,12 +63,15 @@
   justify-content: center;
   align-items: center;
   padding: 2rpx 10rpx;
-  font-size: 26rpx;
-  color: #666;
+  font-size: 22rpx;
+  color: #b59570;
+  /* color: #666; */
 }
+
 .right-item.active {
-  color: red
+  color: #666
 }
+
 .list-search {
   position: absolute;
   top: 0;
@@ -80,7 +84,24 @@
   box-sizing: border-box;
   z-index: 20;
   background: #FFF;
-  border-bottom:1px #f5f5f5 solid; 
+  border-bottom: 1px #f5f5f5 solid;
+}
+
+#index0 view {
+  background: #f4f4f6
+}
+
+#index0 .list-name {
+  width: 205rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 30rpx;
+  margin-left: 30rpx;
+  background: #b59570;
+  border-radius: 6rpx;
+  color: #fff;
+  padding: 0;
 }
 
 .search-title {
@@ -131,13 +152,14 @@
   margin: 10rpx;
   /* margin-right: 20rpx; */
 }
+
 .fiexed-box {
-    position: absolute;
-    top: 90rpx;
-    z-index: 19;
-    width: 100%;
-    /* background: #ddd; */
-   
+  position: absolute;
+  top: 90rpx;
+  z-index: 19;
+  width: 100%;
+  /* background: #ddd; */
+
 
 }
 

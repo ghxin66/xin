@@ -11,6 +11,7 @@
       >
         <block v-for="(item,ind) in urls" :key="ind+1">
           <swiper-item class="fl">
+            <div class="sd">{{tit}}</div>
             <div class="dja" style="height:100%">
               <img
                 @click="previewImg(ind)"
@@ -18,24 +19,24 @@
                 :style="{'width':width || '750rpx'}"
                 class="img"
                 mode="widthFix"
-              >
+              />
             </div>
             <div class="fixbt">
-              <span class="fl font24 coladadad" style="margin-top:4rpx;">{{curt}}/{{urls.length}}</span>
+              <span class="fl font24 col000" style="margin-top:4rpx;">{{curt}}/{{urls.length}}</span>
               <span class="fr font28 dja closes">
                 <i v-show="item.collect" @click="collect(2,item.img,ind)">
                   <img
                     src="/static/images/yishoucan.png"
                     style="width:38rpx;height:38rpx;margin-right:5rpx;"
-                  >收藏图片
+                  />收藏图片
                 </i>
               </span>
-              <span class="fr font28 dja">
+              <span class="fr font28 dja" style="color:#000">
                 <i v-show="!item.collect" @click="collect(1,item.img,ind)">
                   <img
                     src="/static/images/weishoucan.png"
                     style="width:38rpx;height:38rpx;margin-right:5rpx;"
-                  >收藏图片
+                  />收藏图片
                 </i>
               </span>
             </div>
@@ -54,6 +55,7 @@ export default {
   },
   data() {
     return {
+      tit: "兴辉国际",
       curr: 0,
       urls: [
         {
@@ -76,7 +78,7 @@ export default {
     onSlideChangeEnd(e) {
       this.curr = e.target.current;
       let title = this.urls[e.target.current].title;
-
+      this.tit = title;
       wx.setNavigationBarTitle({
         title: title
       });
@@ -146,7 +148,7 @@ export default {
         }
       }
       let title = _this.urls[_this.curr].title;
-
+      _this.tit = title;
       wx.setNavigationBarTitle({
         title: title
       });
@@ -186,11 +188,21 @@ swiper {
   z-index: 9;
   width: max-content;
   height: 100%;
-  background: rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 0);
   overflow-x: scroll;
   display: flex;
 }
 .centsimg img {
   float: left;
+}
+.sd {
+  font-size: 35rpx;
+  color: #000;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50rpx;
+  text-align: center;
+  z-index: 11;
 }
 </style>

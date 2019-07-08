@@ -33,8 +33,9 @@ export default {
 <style>
 page {
   font-size: 0;
-  background: #403c3c;
+  /* background: #403c3c; */
 }
+
 .coladadad {
   color: #adadad !important;
 }
@@ -86,7 +87,15 @@ swiper {
   background-color: #b59570;
   position: relative;
 }
-
+/* @font-face {
+  font-family: "iconfont";
+  src: url("https://xhxcx.hengdikeji.com/fontt/SourceHanSansCN-Normal.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+page > view {
+  font-family: "iconfont" !important;
+} */
 .fr {
   float: right;
 }
@@ -159,13 +168,13 @@ swiper {
   font-weight: 500;
 }
 .cenrt {
-  color: #adadad;
+  color: #484544;
 }
 .cenrt p {
-  color: #adadad;
+  color: #484544;
 }
 .cenrt span {
-  color: #adadad;
+  color: #484544;
 }
 .fixd {
   background: rgba(0, 0, 0, 0.8);
@@ -194,13 +203,13 @@ swiper {
   z-index: 555;
 }
 .savs {
-  background: #b59570;
+  background: #fff;
   border-radius: 60rpx;
   width: 420rpx;
   margin: 50rpx auto;
   height: 60rpx;
   line-height: 60rpx;
-  font-size: 32rpx;
+  font-size: 30rpx;
 }
 
 .cenrt image {
@@ -214,19 +223,22 @@ swiper {
   margin-top: 40rpx;
 }
 .titss {
-  font-size: 48rpx;
-  color: #fff;
+  font-size: 35rpx;
+  color: #000;
   position: relative;
   width: max-content;
-  font-weight: 500;
+  font-weight: bold;
+}
+.col000 {
+  color: #000;
 }
 .titss span {
   display: inline-block;
   position: absolute;
   right: -15rpx;
   top: 5rpx;
-  width: 10rpx;
-  height: 10rpx;
+  width: 6rpx;
+  height: 6rpx;
   border-radius: 50%;
   background: #b59570;
 }
@@ -251,7 +263,7 @@ swiper {
 .clearfix {
   clear: both;
   width: 100%;
-  height: 1px;
+  height: 0rpx;
   zoom: 1;
 }
 .par20 {
@@ -279,11 +291,11 @@ swiper {
   line-height: 60rpx;
 }
 .titss2 {
-  font-size: 36rpx;
+  font-size: 35rpx;
   position: relative;
   width: max-content;
   /* padding-left: 15rpx; */
-  font-weight: 500;
+  font-weight: 600;
 }
 .icos {
   background-color: #fff;
@@ -355,7 +367,7 @@ button::after {
   font-size: 20rpx;
 }
 .linegs {
-  margin-top: -15rpx;
+  margin-top: -14rpx;
   width: 100%;
   height: 1px;
   background-color: #adadad;
@@ -378,14 +390,17 @@ button::after {
 .font38 {
   font-size: 38rpx !important;
 }
+.col484544 {
+  color: #484544;
+}
 .sou {
   height: 65rpx;
   background-color: #403c3c;
   border: 1px solid #7e7d7d;
-  border-radius: 4rpx;
+  /* border-radius: 4rpx; */
   box-sizing: border-box;
   padding-left: 62rpx;
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #999;
 }
 input::-webkit-input-placeholder {
@@ -395,7 +410,7 @@ input::-webkit-input-placeholder {
   font-size: 20rpx !important;
 }
 .bac403c3c {
-  background: #403c3c;
+  background: #fff;
 }
 .bac {
   position: absolute;

@@ -16,12 +16,8 @@
             :class="curIndex===index ? 'active_item' : 'item'"
             :animation="index == curIndex ? animationData : animationData2"
           >
-            <img
-              :src="item.big_pic"
-              mode="widthFix"
-              style="width:100%"
-              @click="topic(item.linkurl,item.adv_id)"
-            >
+            <img :src="item.big_pic" style="width:100%;height:420rpx;" />
+            <!-- @click="topic(item.linkurl,item.adv_id)" -->
           </swiper-item>
         </block>
       </swiper>
@@ -31,40 +27,63 @@
             v-for="(item, index) in imgUrls"
             :key="index"
             class="tabs swiper-slide dja"
-            :class="{'active':curIndex === index}"
+            :class="{'actives':curIndex === index}"
           >
-            <dd></dd>
+            <!-- <dd></dd> -->
+            <img
+              src="/static/images/zhishidian.png"
+              alt
+              style="width:18rpx;height:18rpx;"
+              v-show="curIndex === index"
+            />
           </li>
         </ul>
       </div>
     </div>
 
-    <swipers class="swiper-box2" style="padding:0 30rpx;">
+    <swipers class="swiper-box2" style="padding:0 32rpx;">
       <block>
-        <swiperitem class="wid100 paddi" @click="bindViewTap('/pages/productlist/main')">
-          <img :src="lookpro.big_pic" mode="scaleToFill">
+        <swiperitem
+          class="wid100 paddi"
+          style="height:155rpx;"
+          @click="bindViewTap('/pages/productlist2/main')"
+        >
+          <img :src="lookpro.big_pic" mode="aspectFill" style="height:100%;" />
         </swiperitem>
       </block>
 
       <block>
-        <swiperitem class="wid100 paddi" @click="bindViewTap('/pages/experience/main')">
-          <img :src="topro.big_pic" mode="scaleToFill">
+        <swiperitem
+          class="wid100 paddi"
+          style="height:155rpx;"
+          @click="bindViewTap('/pages/experience/main')"
+        >
+          <img :src="topro.big_pic" mode="aspectFill" style="height:100%;" />
         </swiperitem>
       </block>
     </swipers>
 
-    <div class="titss mar30 mar50">
-      <a style="display:inline;color:#b59570">质感</a>
-      <a style="display:inline;color:#fff">空间</a>
-      <!-- <span></span> -->
+    <div style="margin-top:60rpx;">
+      <div class="titss mar30 mar50" style="margin-left:32rpx;display:inline">
+        <!-- <a style="display:inline;color:#000">质感</a>
+        <a style="display:inline;color:#000">空间</a>-->
+        <img src="/static/images/zgkj138.png" style="width:142rpx;height:33rpx;margin:0 auto;" />
+        <!-- <span></span> -->
+      </div>
+      <div
+        style="float:right;font-size:24rpx;color:#444;display:inline;margin-right:30rpx;line-height:50rpx;"
+        @click="bindViewTap('/pages/zhigan/main')"
+      >更多</div>
     </div>
-    <div class="mar30 font24 coladadad" style="text-transform:uppercase">Texture space</div>
+
+    <!-- <div class="mar30 font24 coladadad" style="text-transform:uppercase">Texture space</div> -->
 
     <div class="wids">
       <swiper
-        next-margin="30rpx"
+        next-margin="50rpx"
         previous-margin="30rpx"
         class="fl pross"
+        display-multiple-items="1"
         v-if="articlelist.length > 0"
       >
         <block v-for="(item, index) in articlelist" :key="index">
@@ -72,16 +91,16 @@
             class="widss fl"
             @click="bindViewTap('/pages/productDetail/main?id='+item.article_id)"
           >
-            <img :src="item.picture" mode="scaleToFill">
+            <img :src="item.picture" mode="scaleToFill" />
 
-            <div class="titss2 mar20 coladadad" style="font-size:32rpx;text-align:left">
+            <!-- <div class="titss2 mar20 coladadad" style="font-size:32rpx;text-align:left">
               {{ item.title }}
               <div class>
                 <i class="icos act fl">#{{ item.keyword }}</i>
                 <i class="icos fl">#{{ item.author }}</i>
                 <i class="icos fl">#{{ item.description }}</i>
               </div>
-            </div>
+            </div>-->
           </swiper-item>
         </block>
       </swiper>
@@ -101,10 +120,10 @@
       </div>
     </div>-->
 
-    <div class="titss mar30 mar50">
+    <!-- <div class="titss mar30 mar50">
       <a style="display:inline;color:#b59570">设计</a>
       <a style="display:inline;color:#fff">方式</a>
-      <!-- <span></span> -->
+       <span></span>
     </div>
     <div class="mar30 font24 coladadad" style="text-transform:uppercase">Design life</div>
     <div class="titss2 mar30 coladadad" style="margin-top:30rpx;margin-left:34rpx;">
@@ -124,11 +143,11 @@
             class="widssgg fl"
             @click="bindViewTap('/pages/productdetails_3/main?id='+item.goods_id)"
           >
-            <img :src="item.goods_img" mode="center">
+            <img :src="item.goods_img" mode="center" />
           </swiper-item>
         </block>
       </swiper>
-    </div>
+    </div>-->
     <div class="clearfix"></div>
   </div>
 </template>
@@ -244,8 +263,12 @@ export default {
 </script>
 
 <style scoped>
+.actives {
+  padding: 0 !important;
+  background: rgba(0, 0, 0, 0) !important;
+}
 swiper {
-  height: 400rpx;
+  height: 425rpx;
   text-align: center;
   display: flex;
 }
@@ -258,10 +281,10 @@ swiper {
   padding-right: 0;
 }
 .swiper-box {
-  width: 690rpx;
+  width: 100%;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 30rpx;
+  /* margin-top: 30rpx; */
 }
 .wid100 {
   width: 690rpx;
@@ -272,7 +295,7 @@ swiper {
 }
 .swiper-box2 {
   overflow: hidden;
-  margin: 25rpx auto;
+  margin: 35rpx auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -287,50 +310,57 @@ swiper {
   color: rgb(255, 255, 255);
 }
 .pross {
-  height: 550rpx;
+  height: 450rpx;
+  margin-bottom: 30rpx;
 }
+/* .pross .widss:first-child {
+  padding-left: 30rpx;
+} */
 .pross .widss {
-  padding-right: 15rpx;
+  padding-right: 30rpx;
   box-sizing: border-box;
 }
 .pross .widss:last-child {
   padding-right: 0rpx;
 }
 .paddi {
-  height: 150rpx !important;
+  width: 334rpx !important;
+  /* height: 156rpx !important; */
   padding: 15rpx;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .paddi:first-child {
-  padding-left: 0;
+  padding-left: 2rpx;
 }
 .paddi:last-child {
-  padding-right: 0;
+  padding-right: 2rpx;
 }
 .paddi img {
   max-width: 100%;
   width: 100%;
-  height: 100%;
+  border-radius: 16rpx;
+  overflow: hidden;
+  /* height: 100%; */
 }
 .wid100 image {
   height: 400rpx;
   width: 690rpx;
 }
 .wids {
-  margin: 40rpx auto;
+  margin: 10rpx auto;
   display: block;
   max-width: 100%;
 }
 .widss {
-  text-align: center;
+  /* text-align: center; */
 }
 .widss image {
-  height: 370rpx;
-  width: 660rpx;
+  height: 450rpx;
+  width: 100%;
   margin: 0 auto;
 }
 .prossgg {
@@ -346,7 +376,7 @@ swiper {
 .swiper_dot_wrap {
   position: absolute;
   bottom: 20rpx;
-  right: 10rpx;
+  right: 45rpx;
 }
 
 .swiper-container-top .swiper-slide {
@@ -355,14 +385,14 @@ swiper {
   transition: all 0s;
   padding: 8rpx;
   /* border: 1rpx solid #ccc; */
-  background: #262525;
+  background: #706d6c;
   border-radius: 50%;
   float: left;
 }
 
 .swiper-container-top .swiper-slide ._dd {
-  width: 4rpx;
-  height: 4rpx;
+  width: 0rpx;
+  height: 0rpx;
   border-radius: 50%;
   color: #fff;
   text-align: center;
@@ -371,14 +401,14 @@ swiper {
 }
 
 .swiper-container-top .active ._dd {
-  width: 6rpx;
-  height: 6rpx;
-  background: #b99770;
+  width: 4rpx;
+  height: 4rpx;
+  background: #fff;
   transition: all 0s;
 }
 .swiper-container-top .active {
-  border: 1rpx solid #b99770;
+  border: 1rpx solid #fff;
   padding: 8rpx;
-  margin-top: -2rpx;
+  margin-top: -4rpx;
 }
 </style>

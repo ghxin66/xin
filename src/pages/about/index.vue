@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="about1">
     <div>
+      <!-- style="background:#403c3c;" -->
       <div class="dja" style="position: relative;width:100%;">
-        <img :src="content.big_pic" mode="widthFix" style="width:100%">
-        <div class="zz"></div>
-        <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>
+        <img :src="content.big_pic" mode="widthFix" style="width:100%" />
+        <!-- <div class="zz"></div>
+        <div class="ban_tit" style="z-index: 99">{{content.ad_name}}</div>-->
       </div>
       <!-- <div class="ban_text">
         <div>{{content.description}}</div>
@@ -24,27 +25,27 @@
           </div>
           <div class="desc">{{item.mcontent}}</div>
           <div>
-            <img :src="item.key_id.picture" class="wid100 ovh">
+            <img :src="item.key_id.picture" class="wid100 ovh" />
           </div>
 
           <div class="ban_text2 sdfjk">
             <div class="wid120">
-              <img :src="item.key_id.picture" alt>
+              <img :src="item.key_id.picture" alt />
             </div>
             <div class="wid1202 mar24">
               <div
-                class="title coladadad"
-                style="font-size:34rpx;line-height:48rpx;font-weight:500;"
+                class="title"
+                style="font-size:34rpx;line-height:48rpx;font-weight:500;color:#000"
               >{{item.key_id.title}}</div>
               <div
-                class="desc coladadad"
-                style="font-size:24rpx;margin-top:15rpx;"
+                class="desc"
+                style="font-size:24rpx;margin-top:15rpx;color:#484544"
               >{{ item.key_id.keyword }}·{{item.key_id.link_url}}㎡</div>
             </div>
 
             <div class="dja wid1203">
               <span style="font-family: cursive;float:right;padding-top:10rpx;">
-                <img :src="righs" style="width:10rpx;height:22rpx;">
+                <img :src="righs" style="width:10rpx;height:22rpx;" />
               </span>
             </div>
           </div>
@@ -61,9 +62,9 @@
         :hasshare="hasshare"
       ></Share>
       <!--分享-->
-      <div class="dja mar45" style="margin-bottom:45rpx;">
-        <div class="desc coleee talcen wid100r">
-          <div class="bac403c3c bacffgg font20 coladadad">END</div>
+      <div class="dja mar45" style="padding-bottom:45rpx;">
+        <div class="desc col484544 talcen wid100r">
+          <div class="bacfff bacffgg font20 coladadad">END</div>
           <div class="linegs desc dja"></div>
         </div>
       </div>
@@ -154,7 +155,7 @@ button {
   text-align: center;
   text-decoration: none;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 
 .tu img {
@@ -165,10 +166,13 @@ button {
 
 .mart90 {
   margin-top: 80rpx;
-  border-bottom: 1rpx solid #333030;
+  border-bottom: 1rpx solid #f4f4f6;
   padding-bottom: 40rpx;
 }
-
+._button {
+  background-color: #ffffff;
+  color: #000;
+}
 .lin50 {
   line-height: 50rpx;
 }
@@ -192,7 +196,7 @@ button {
   padding: 24rpx;
   position: relative;
   z-index: 1;
-  background-color: #333030;
+  background-color: #f4f4f6;
   font-size: 28rpx;
   box-sizing: border-box;
 }
@@ -272,12 +276,12 @@ button {
 .cents .title {
   font-size: 38rpx;
   font-weight: bold;
-  color: #fff;
+  color: #333;
 }
 
 .cents .desc {
   font-size: 28rpx;
-  color: #adadad;
+  color: #484544;
 }
 
 .col999 {
@@ -320,5 +324,11 @@ button {
   background-color: #fff;
   font-size: 28rpx;
   box-sizing: border-box;
+}
+page {
+  background: #403c3c;
+}
+.bac403c3c {
+  background: #403c3c;
 }
 </style>

@@ -2,164 +2,27 @@
   <div class="experience">
     <div>
       <div
-        class="titss mar20"
-        :class="trw==1?'disno':'col000'"
-        style="width:100%;text-align:center;color:#000;margin-top:30rpx;"
-      >
-        <!-- @click="gg(0)" -->
-        <!-- {{pro}} -->
-        <img src="/static/images/cpzx13837.jpg" style="width:138rpx;height:37rpx;margin:0 auto;" />
-        <!-- <span class="gjsd"></span> -->
-      </div>
-      <div
         class="titss mar30 mar20"
         :class="trw==0?'disno':'col000'"
         style="float:left"
         @click="gg(1)"
-      >
-        {{ani}}
-        <!-- <span class="gjsd"></span> -->
-      </div>
+      >{{ani}}</div>
     </div>
     <div class="clearfix"></div>
-
-    <div class="re hei30 ma3" @click="sousuo">
-      <div type="submit" class="ab bac">
-        <img :src="soupic" class="soupic" />
-      </div>
-      <input type="text" name="sou" value="大家都在搜卢卡·浅雕纹SD1262015" class="sou" />
-    </div>
 
     <!-- 0-->
     <div v-if="trw==0?'true':''">
       <div class="cenrt">
-        <div class="dix" v-for="(item,index) in product" :key="index">
-          <div class="fles2" style="font-size:25rpx;">{{item.name}}</div>
+        <div class="dix" :class="'ijd'+index" v-for="(item,index) in product_case" :key="index">
+          <!-- <div class="fles2 fontwei colb59570">{{item.name}}</div> -->
           <div class="fles1">
+            <span :key="key" @click="selec_case(-1)" :class="ggdd==1?'sspan':'col000'">全部</span>
             <span
-              v-for="(items,key) in item.childs"
-              :key="key"
-              @click="selec(index,items.id)"
-              :class="(item.sel===items.id)?'sspan':'coladadad'"
-            >
-              {{items.name}}
-              <i class="cha">X</i>
-            </span>
-          </div>
-        </div>
-
-        <!--结束-->
-      </div>
-
-      <div class="clearfix"></div>
-      <div class="padd30 lunbo2" v-show="!ssdd">
-        <swper vertical class="fl swiper" v-if="caselist.length > 0">
-          <block v-for="(item, index) in caselist" :key="index">
-            <swiperitem class="widssgg4 fl">
-              <img
-                :src="item.small_img"
-                mode="scaleToFill"
-                v-show="item.videosing==0"
-                @click="toUrl('/pages/xindetails/main?id='+item.id)"
-              />
-              <video :src="item.video" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
-              <div class="titss2 par20 wid270" style="padding-left:20rpx;">
-                <div class="eklp1 fontwei" style="height:48rpx;">
-                  <div class="dess col000">{{ item.name }}</div>
-                  <i class="fr dja">
-                    <div>
-                      <img
-                        :src="bofan"
-                        v-if="item.videosing==0"
-                        class="ims"
-                        @click="videoPlays(index)"
-                      />
-                      <img
-                        :src="zantin"
-                        v-if="item.videosing==1"
-                        class="ims"
-                        @click="videoPlays(index)"
-                      />
-                    </div>
-                  </i>
-                </div>
-                <div class="descss eklp1 col484544" style="font-size:24rpx;">{{ item.url_link }}</div>
-              </div>
-            </swiperitem>
-          </block>
-        </swper>
-      </div>
-      <div class="padd30 lunbo2" v-show="ssdd">
-        <swper vertical class="fl swiper" v-if="goodslist.length > 0">
-          <block v-for="(item, index) in goodslist" :key="index">
-            <swiperitem class="fl wihe3">
-              <div class="wihe330">
-                <!-- :src="item.goods_img" -->
-                <img
-                  :src="item.pic_1"
-                  mode="aspectFill"
-                  style="width:100%;height:100%"
-                  @click="toUrl('/pages/productdetails_3/main?id='+item.goods_id)"
-                />
-              </div>
-              <div class="titss2ss">
-                <div class="eklp1">
-                  <div class="dess col000">{{ item.goods_name }}</div>
-                  <!-- <i class="fr dja">
-                    <div>
-                      <img
-                        :src="bofan"
-                        v-if="item.videosing==0"
-                        class="ims"
-                        @click="videoPlay(index)"
-                      />
-                      <img
-                        :src="zantin"
-                        v-if="item.videosing==1"
-                        class="ims"
-                        @click="videoPlay(index)"
-                      />
-                    </div>
-                  </i>-->
-                </div>
-                <!-- <div class="descss eklp1 col484544" style="font-size:24rpx;">{{ item.goods_title }}</div> -->
-              </div>
-            </swiperitem>
-          </block>
-        </swper>
-      </div>
-      <div class="clearfix"></div>
-      <div class="dja mar45" style="margin-bottom:45rpx;" v-if="goodslist.length > 0">
-        <div class="desc col484544 talcen wid100r">
-          <div class="bac403c3c bacffgg font20 coladadad">END</div>
-          <div class="linegs desc dja"></div>
-        </div>
-      </div>
-      <div class="dja mar45 martt45" v-else>
-        <div class="desc col484544 talcen wid100r">
-          <div class="bac403c3c bacffgg" style="font-size:26rpx;">暂无数据</div>
-          <div class="desc dja linegs"></div>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="trw==1?'true':''">
-      <!-- 1 -->
-
-      <div class="cenrt">
-        <!--0-->
-        <div class="dix" v-for="(item,index) in product_case" :key="index">
-          <div class="col000 fles2 fontwei">{{ item.title }}</div>
-          <div class="fles1">
-            <span
-              v-for="(val,key) in item.childs"
+              v-for="(val,key) in product_case[0].childs"
               :key="key"
               @click="selec_case(index,val.id)"
-              :class="(item.sel===val.id)?'sspan':''"
-            >
-              {{val.name}}
-              <i class="cha">X</i>
-            </span>
+              :class="(item.sel===val.id)?'sspan':'col000'"
+            >{{val.name}}</span>
           </div>
         </div>
 
@@ -171,39 +34,43 @@
       <div class="padd30 lunbo2">
         <swper vertical class="fl swiper" v-if="articlelist.length > 0">
           <block v-for="(item, index) in articlelist" :key="index">
-            <swiperitem
-              class="widssgg4 fl"
-              @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
-            >
-              <div class="bttn">预约体验</div>
-
-              <img :src="item.picture" mode="scaleToFill" class="tupi" />
-              <div
-                class="titss2 par20 wid270"
-                style="padding:20rpx;width:100%;box-sizing:border-box;"
-              >
-                <div class="eklp1 colfff" style="font-size:30rpx;">{{ item.title }}</div>
-                <div class="descss eklp1 coladadad" style="margin-top:17rpx;">
-                  {{ item.description }} . {{ item.author }} . {{ item.keyword }}
+            <swiperitem class="widssgg4 fl">
+              <div class="absbot">{{ item.title }}</div>
+              <img
+                :src="item.picture"
+                mode="aspectFill"
+                @click="toUrl('/pages/productDetail/main?id='+item.article_id)"
+              />
+              <!-- <video :src="item.urls" v-show="item.videosing==1" :id="'myVideo_'+index"></video> -->
+              <!-- <div class="titss2 par20 wid270" style="padding-left:20rpx;">
+                <div class="eklp1 fontwei">
+                  <div class="dess coladadad">
+                    {{ item.goods_name }}
+                  </div>
                   <i class="fr dja">
-                    <a style="margin-top:6rpx">
-                      <img :src="shijian" class="imshijian" />
-                    </a>
-                    &nbsp;{{ item.views }}
+                    <div>
+                      <img
+                        :src="bofan"
+                        v-if="item.videosing==0"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      />
+                      <img
+                        :src="zantin"
+                        v-if="item.videosing==1"
+                        class="ims"
+                        @click="videoPlay(index)"
+                      />
+                    </div>
                   </i>
                 </div>
-              </div>
+                <div class="descss eklp1 coladadad" style="font-size:24rpx;">{{ item.goods_title }}</div>
+              </div>-->
             </swiperitem>
           </block>
         </swper>
       </div>
       <div class="clearfix"></div>
-      <!-- <div class="dja mar45 martt45">
-        <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
-          <div class="desc dja linegs"></div>
-        </div>
-      </div>-->
       <div class="dja mar45" style="margin-bottom:45rpx;" v-if="articlelist.length > 0">
         <div class="desc col484544 talcen wid100r">
           <div class="bac403c3c bacffgg font20 coladadad">END</div>
@@ -212,11 +79,26 @@
       </div>
       <div class="dja mar45 martt45" v-else>
         <div class="desc col484544 talcen wid100r">
-          <div class="bac403c3c bacffgg" style="font-size:26rpx;">暂无数据</div>
+          <div class="bac403c3c bacffgg" style="font-size:28rpx;color:#666">暂无数据</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>
     </div>
+
+    <div class="clearfix"></div>
+
+    <!-- <div class="dja mar45" style="margin-bottom:45rpx;" v-if="articlelist.length > 0">
+      <div class="desc coleee talcen wid100r">
+        <div class="bac403c3c bacffgg font20 coladadad">END</div>
+        <div class="linegs desc dja"></div>
+      </div>
+    </div>
+    <div class="dja mar45 martt45" v-else>
+      <div class="desc coleee talcen wid100r">
+        <div class="bac403c3c bacffgg" style="font-size:28rpx;">暂无数据</div>
+        <div class="desc dja linegs"></div>
+      </div>
+    </div>-->
   </div>
 </template>
 
@@ -231,7 +113,7 @@ export default {
       videosing: false,
       sels: false,
       soupic: "/static/images/soupic.png",
-      trw: 0,
+      trw: 1,
       ani: "案例",
       // indicatorDots: true,
       bofan: "/static/images/bofan.png",
@@ -239,7 +121,7 @@ export default {
       listing: "/static/images/listing.jpg",
       shijian: "/static/images/guanzhu.jpg",
       imgUrls: [],
-      pro: "产品中心",
+      pro: "产品",
       _index: -1,
       product: [],
       goodslist: [],
@@ -253,9 +135,8 @@ export default {
       goods_page: 1,
       goods_last_page: 1,
       article_page: 1,
-      ssdd: true,
       article_last_page: 1,
-      caselist: []
+      ggdd: 1
 
       //地图结束
     };
@@ -279,6 +160,7 @@ export default {
     selec(index, id) {
       let data = this.product[index];
       this.goodsSel = data.id;
+
       if (id != data.sel) {
         data.sel = id;
       } else {
@@ -290,15 +172,27 @@ export default {
     },
 
     selec_case(index, id) {
-      let data = this.product_case[index];
-      this.articleSel = index;
-      if (id != data.sel) {
-        data.sel = id;
+      var that = this;
+
+      if (index == -1) {
+        for (var item in this.product_case[0].childs) {
+          this.product_case[0].sel = null;
+        }
+        this.articleSel = 0;
+        that.ggdd = 1;
       } else {
-        data.sel = null;
+        let data = this.product_case[index];
+        this.articleSel = index;
+        if (id != data.sel) {
+          data.sel = id;
+        } else {
+          data.sel = null;
+        }
+        that.ggdd = 0;
       }
       this.article_page = 1;
       this.articlelist = [];
+
       this.getArticleList();
     },
 
@@ -336,11 +230,6 @@ export default {
           });
         }
       }
-      if (filter.length == 0) {
-        _this.ssdd = false;
-      } else {
-        _this.ssdd = true;
-      }
 
       _this.$http.get(
         "product/getGoodsListByParam",
@@ -354,12 +243,10 @@ export default {
           //            wx.hideLoading();
           _this.goods_last_page = res.data.last_page;
           let list = res.data.data;
-          // let gg = [];
           for (let item in list) {
             _this.goodslist.push(list[item]);
           }
-
-          _this.caselist = res.data.type;
+          console.log(_this.goodslist);
           if (_this.goods_page == 1 && res.data.filter.length >= 1) {
             _this.product = res.data.filter;
           }
@@ -411,22 +298,6 @@ export default {
         }
       );
     },
-    videoPlays(index, e) {
-      let videosing = this.caselist[index].videosing;
-
-      if (videosing == 0) {
-        this.caselist[index].videosing = 1;
-      } else {
-        this.caselist[index].videosing = 0;
-      }
-      let videoContext = wx.createVideoContext("myVideo_" + index);
-
-      if (videosing == 0) {
-        videoContext.play();
-      } else {
-        videoContext.pause();
-      }
-    },
     videoPlay(index, e) {
       let videosing = this.goodslist[index].videosing;
 
@@ -454,6 +325,12 @@ export default {
     } else {
       _this.gg(0);
     }
+    mpvue.showLoading({
+      title: "加载中",
+      mask: true
+    });
+    let filter = [];
+    this.getArticleList();
   },
   onReachBottom() {
     if (this.trw == 1) {
@@ -472,37 +349,37 @@ export default {
 </script>
 
 <style scoped>
-.titss2ss {
-  width: 100%;
-  line-height: 45rpx;
-  font-size: 24rpx;
-  font-weight: 500;
-  color: #000;
-  text-align: center;
-}
-.wihe3 {
-  width: 330rpx;
-  margin-right: 30rpx;
-  height: 400rpx;
-  box-sizing: border-box;
-}
-.wihe3:nth-child(2n) {
-  margin-right: 0;
-}
-.wihe330 {
-  width: 330rpx;
-  height: 330rpx;
-}
 .martt45 {
   margin-bottom: 70rpx;
 }
-
+.dix {
+  display: none !important;
+}
+.ijd0 {
+  display: block !important;
+}
+.absbot {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  height: 50rpx;
+  padding-left: 25rpx;
+  box-sizing: border-box;
+}
 .widssgg4 video {
   width: 100%;
   height: 420rpx;
   overflow: hidden;
   /* border-top-right-radius: 10rpx;
   border-top-left-radius: 10rpx; */
+}
+.col000 {
+  color: #000;
 }
 .disno {
   display: none;
@@ -571,14 +448,14 @@ export default {
   overflow-x: scroll;
   white-space: nowrap;
   font-size: 24rpx;
-  color: #adadad;
+  color: #000;
   width: 690rpx;
 }
 .fles1 span {
-  padding: 6rpx 20rpx;
+  padding: 6rpx 25rpx;
   border-radius: 4rpx;
   font-size: 24rpx;
-  color: #adadad;
+  color: #000;
   position: relative;
   /* display: inline-block; */
 }
@@ -586,10 +463,10 @@ export default {
   display: none;
 }
 .fles1 .sspan {
-  background-color: #efefef;
-  color: #333;
+  /* background-color: #efefef; */
+  color: #b59570;
 }
-.fles1 .sspan .cha {
+/* .fles1 .sspan .cha {
   display: flex !important;
   justify-content: center;
   align-items: center;
@@ -602,14 +479,14 @@ export default {
   background: #b59570;
   color: #fff;
   font-size: 14rpx;
-}
+} */
 
 .fles2 {
   width: 65rpx;
   padding-left: 5rpx;
   flex-basis: 70rpx;
-  font-size: 25rpx;
-  color: #484544;
+  font-size: 24rpx;
+  color: #b59570;
 }
 .hei30 {
   height: 65rpx;
@@ -621,16 +498,16 @@ export default {
 }
 .sou {
   height: 65rpx;
-  background-color: #f4f4f6;
-  border: 1px solid #f4f4f6;
-  /* border-radius: 4rpx; */
+  background-color: #f6f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 4rpx;
   box-sizing: border-box;
   padding-left: 62rpx;
   font-size: 24rpx;
-  color: #adadad;
+  color: #999;
 }
 input::-webkit-input-placeholder {
-  color: #adadad;
+  color: #c6c6c6;
 }
 .bac {
   position: absolute;
@@ -720,8 +597,7 @@ input::-webkit-input-placeholder {
   box-sizing: border-box;
 }
 .titss {
-  font-size: 35rpx;
-  font-weight: normal;
+  font-size: 36rpx;
 }
 .bormar {
   /* border-top: 2rpx solid #eee; */
@@ -773,19 +649,22 @@ input::-webkit-input-placeholder {
   /* border-radius: 10rpx; */
 }
 .widssgg4 {
-  margin-bottom: 48rpx;
+  margin-bottom: 50rpx;
   /*  border: 1rpx solid #eee;
   border-radius: 15rpx; */
   position: relative;
-  box-shadow: 0 0 15rpx 0rpx #ccc;
+  width: 690rpx;
+  height: 433rpx;
+  /* box-shadow: 0 0 15rpx 0rpx #ccc; */
 }
 .widssgg4 image {
-  width: 690rpx;
-  height: 420rpx;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 .descss {
-  font-size: 24rpx;
+  font-size: 22rpx;
+  color: #999;
 }
 
 .fle1pic {
