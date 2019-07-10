@@ -64,9 +64,9 @@
               />
               <video :src="item.video" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
               <div class="titss2 par20 wid270" style="padding-left:20rpx;">
-                <div class="eklp1 fontwei" style="height:48rpx;">
-                  <div class="dess col000">{{ item.name }}</div>
-                  <i class="fr dja">
+                <div class="fontwei" style="height:48rpx;">
+                  <div class="dess col000 eklp1" style="width:80%">{{ item.name }}</div>
+                  <i class="fr dja" style="margin-top:6rpx;">
                     <div>
                       <img
                         :src="bofan"
@@ -200,7 +200,7 @@
       <div class="clearfix"></div>
       <!-- <div class="dja mar45 martt45">
         <div class="desc coleee talcen wid100r">
-          <div class="bacfff bacffgg" style="font-size:26rpx;">END</div>
+          <div class="bacfff bacffgg" style="font-size:28rpx;">END</div>
           <div class="desc dja linegs"></div>
         </div>
       </div>-->
@@ -329,13 +329,11 @@ export default {
       // 获取筛选条件
       for (let item in _this.product) {
         let sel = _this.product[item].sel;
-
         if (sel != null) {
           filter.push({
             filter_id: _this.product[item].id,
             filter_value: sel
           });
-          // console.log(_this.product[item]);
         }
       }
       if (filter.length == 0) {
@@ -356,12 +354,12 @@ export default {
           //            wx.hideLoading();
           _this.goods_last_page = res.data.last_page;
           let list = res.data.data;
-
+          // let gg = [];
           for (let item in list) {
             _this.goodslist.push(list[item]);
           }
+
           _this.caselist = res.data.type;
-          // console.log(res);
           if (_this.goods_page == 1 && res.data.filter.length >= 1) {
             _this.product = res.data.filter;
           }
@@ -421,9 +419,8 @@ export default {
       } else {
         this.caselist[index].videosing = 0;
       }
-
       let videoContext = wx.createVideoContext("myVideo_" + index);
-      console.log(videosing);
+
       if (videosing == 0) {
         videoContext.play();
       } else {

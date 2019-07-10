@@ -16,7 +16,7 @@
             :class="curIndex===index ? 'active_item' : 'item'"
             :animation="index == curIndex ? animationData : animationData2"
           >
-            <img :src="item.big_pic" style="width:100%;height:420rpx;" />
+            <img :src="item.big_pic" style="width:100%;height:460rpx;" />
             <!-- @click="topic(item.linkurl,item.adv_id)" -->
           </swiper-item>
         </block>
@@ -63,7 +63,7 @@
       </block>
     </swipers>
 
-    <div style="margin-top:60rpx;">
+    <div style="margin-top:80rpx;">
       <div class="titss mar30 mar50" style="margin-left:32rpx;display:inline">
         <!-- <a style="display:inline;color:#000">质感</a>
         <a style="display:inline;color:#000">空间</a>-->
@@ -80,7 +80,7 @@
 
     <div class="wids">
       <swiper
-        next-margin="50rpx"
+        next-margin="30rpx"
         previous-margin="30rpx"
         class="fl pross"
         display-multiple-items="1"
@@ -268,7 +268,7 @@ export default {
   background: rgba(0, 0, 0, 0) !important;
 }
 swiper {
-  height: 425rpx;
+  height: 460rpx;
   text-align: center;
   display: flex;
 }
@@ -310,14 +310,14 @@ swiper {
   color: rgb(255, 255, 255);
 }
 .pross {
-  height: 450rpx;
+  height: 465rpx;
   margin-bottom: 30rpx;
 }
 /* .pross .widss:first-child {
   padding-left: 30rpx;
 } */
 .pross .widss {
-  padding-right: 30rpx;
+  padding-right: 25rpx;
   box-sizing: border-box;
 }
 .pross .widss:last-child {
@@ -347,7 +347,7 @@ swiper {
   /* height: 100%; */
 }
 .wid100 image {
-  height: 400rpx;
+  height: 460rpx;
   width: 690rpx;
 }
 .wids {
@@ -359,7 +359,7 @@ swiper {
   /* text-align: center; */
 }
 .widss image {
-  height: 450rpx;
+  height: 465rpx;
   width: 100%;
   margin: 0 auto;
 }

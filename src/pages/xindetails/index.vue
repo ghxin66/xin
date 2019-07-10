@@ -165,7 +165,7 @@ export default {
   box-sizing: border-box;
 }
 .prode_top {
-  height: 405rpx;
+  height: 457rpx;
 }
 .gs {
   margin-top: 10rpx;

@@ -363,7 +363,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.15);
   color: #fff;
   font-size: 30rpx;
   line-height: 50rpx;
@@ -373,7 +373,7 @@ export default {
 }
 .widssgg4 video {
   width: 100%;
-  height: 420rpx;
+  height: 482rpx;
   overflow: hidden;
   /* border-top-right-radius: 10rpx;
   border-top-left-radius: 10rpx; */
@@ -654,7 +654,7 @@ input::-webkit-input-placeholder {
   border-radius: 15rpx; */
   position: relative;
   width: 690rpx;
-  height: 433rpx;
+  height: 482rpx;
   /* box-shadow: 0 0 15rpx 0rpx #ccc; */
 }
 .widssgg4 image {

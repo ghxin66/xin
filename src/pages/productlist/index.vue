@@ -64,9 +64,9 @@
               />
               <video :src="item.video" v-show="item.videosing==1" :id="'myVideo_'+index"></video>
               <div class="titss2 par20 wid270" style="padding-left:20rpx;">
-                <div class="eklp1 fontwei" style="height:48rpx;">
-                  <div class="dess col000">{{ item.name }}</div>
-                  <i class="fr dja">
+                <div class="fontwei" style="height:48rpx;">
+                  <div class="dess col000 eklp1" style="width:80%">{{ item.name }}</div>
+                  <i class="fr dja" style="margin-top:6rpx;">
                     <div>
                       <img
                         :src="bofan"
