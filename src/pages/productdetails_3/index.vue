@@ -491,7 +491,7 @@ export default {
 }
 video {
   width: 560rpx;
-  height: 320rpx;
+  height: 340rpx;
 }
 .wid270 {
   width: 560rpx !important;
@@ -775,7 +775,7 @@ swiper {
 }
 .widssgg4 image {
   width: 560rpx;
-  height: 320rpx;
+  height: 340rpx;
   overflow: hidden;
   /* border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx; */
